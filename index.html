@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrackStudio — Social Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #131313;
+  --surface2: #1a1a1a;
+  --surface3: #222;
+  --border: #252525;
+  --border2: #2e2e2e;
+  --text: #ede8df;
+  --text2: #9a9490;
+  --muted: #555;
+  --accent: #c6f135;
+  --accent-dim: rgba(198,241,53,0.08);
+  --warn: #f0a830;
+  --warn-dim: rgba(240,168,48,0.08);
+  --danger: #e85050;
+  --danger-dim: rgba(232,80,80,0.08);
+  --instagram: #e1306c;
+  --tiktok: #5ecdd4;
+  --radius: 2px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── AUTH SCREEN ── */
+#authScreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+#authScreen::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198,241,53,0.04) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.auth-box {
+  width: 420px;
+  padding: 48px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  position: relative;
+  animation: fadeUp 0.5s ease both;
+}
+
+.auth-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 300;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.auth-logo em { font-style: italic; color: var(--accent); }
+
+.auth-tagline {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+.auth-step {
+  margin-bottom: 20px;
+}
+
+.auth-step-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+
+.auth-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.auth-input:focus { border-color: var(--accent); }
+.auth-input::placeholder { color: var(--muted); }
+
+.auth-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.15s;
+}
+
+.auth-btn:hover { opacity: 0.88; }
+
+.auth-gdrive-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border2);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: border-color 0.15s, background 0.15s;
+  margin-top: 8px;
+}
+
+.auth-gdrive-btn:hover { border-color: var(--text2); background: var(--surface2); }
+
+.gdrive-icon {
+  width: 16px; height: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.auth-divider::before, .auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.auth-note {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 20px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ── APP SHELL ── */
+#appShell { display: none; height: 100vh; flex-direction: column; }
+#appShell.visible { display: flex; }
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  height: 56px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg);
+}
+
+.topbar-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: -0.3px;
+}
+.topbar-logo em { font-style: italic; color: var(--accent); }
+
+.topbar-center {
+  display: flex;
+  gap: 3px;
+}
+
+.client-pill {
+  padding: 5px 14px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  transition: all 0.12s;
+}
+
+.client-pill.active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  font-weight: 500;
+}
+
+.client-pill:hover:not(.active) { color: var(--text); border-color: var(--text2); }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sync-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.sync-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.nav-btn {
+  padding: 5px 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  transition: all 0.12s;
+}
+
+.nav-btn.active { color: var(--text); border-color: var(--text2); }
+.nav-btn:hover:not(.active) { color: var(--text2); }
+
+/* ── BODY LAYOUT ── */
+.body-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.sidebar-top {
+  padding: 20px 18px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.baseline-block {
+  margin-bottom: 4px;
+}
+
+.baseline-header {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.baseline-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.baseline-row:last-child { border-bottom: none; }
+
+.baseline-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.plat-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.plat-dot.ig { background: var(--instagram); }
+.plat-dot.tt { background: var(--tiktok); }
+
+.baseline-name { font-size: 10px; color: var(--text2); letter-spacing: 0.04em; }
+
+.baseline-val {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* POST LIST */
+.post-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 10px;
+}
+
+.post-scroll::-webkit-scrollbar { width: 3px; }
+.post-scroll::-webkit-scrollbar-thumb { background: var(--border2); }
+
+.sidebar-section-label {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 8px;
+  margin-bottom: 8px;
+  margin-top: 4px;
+}
+
+.post-row {
+  padding: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.1s;
+  margin-bottom: 3px;
+  border-radius: var(--radius);
+}
+
+.post-row:hover { background: var(--surface2); border-color: var(--border); }
+.post-row.active { background: var(--surface2); border-color: var(--border2); }
+.post-row.active .post-row-title { color: var(--text); }
+
+.post-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+  gap: 8px;
+}
+
+.post-row-title {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.35;
+  flex: 1;
+}
+
+.mini-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.post-row-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-row-date { font-size: 10px; color: var(--muted); }
+
+.check-dots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.check-dot-label {
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.cdot {
+  width: 16px; height: 16px;
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+
+.cdot.done { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.cdot.due { border-color: var(--warn); color: var(--warn); background: var(--warn-dim); animation: glow 2s infinite; }
+
+@keyframes glow {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: 0 0 6px rgba(240,168,48,0.3); }
+}
+
+/* ── MAIN CONTENT ── */
+.main-content {
+  overflow-y: auto;
+  padding: 28px 32px;
+  background: var(--bg);
+}
+
+.main-content::-webkit-scrollbar { width: 3px; }
+.main-content::-webkit-scrollbar-thumb { background: var(--border2); }
+
+/* POST HEADER */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-headline {
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.post-headline em { font-style: italic; color: var(--accent); }
+
+.post-meta-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 0.04em;
+}
+
+.outcome-tag {
+  padding: 7px 18px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.outcome-tag.winner { background: var(--accent); color: var(--bg); }
+.outcome-tag.learning { background: var(--warn); color: var(--bg); }
+.outcome-tag.underperformed { background: var(--danger); color: #fff; }
+.outcome-tag.testing { background: var(--surface2); color: var(--muted); border: 1px solid var(--border2); }
+
+/* CHECK TABS */
+.check-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+  gap: 0;
+}
+
+.ctab {
+  padding: 9px 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.12s;
+}
+
+.ctab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.ctab:hover:not(.active):not(.locked) { color: var(--text2); }
+.ctab.locked { color: var(--border2); cursor: default; }
+.ctab.due { color: var(--warn); }
+
+/* METRICS ROW */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.mcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px 14px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.3s ease both;
+}
+
+.mcard::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--border);
+}
+
+.mcard.positive::after { background: var(--accent); }
+.mcard.neutral::after { background: var(--warn); }
+.mcard.negative::after { background: var(--danger); }
+
+.mcard-label {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.mcard-val {
+  font-family: 'Fraunces', serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.mcard-val.green { color: var(--accent); }
+.mcard-val.orange { color: var(--warn); }
+.mcard-val.neutral { color: var(--text); }
+
+.mcard-sub { font-size: 10px; color: var(--muted); }
+
+/* TAGS GRID */
+.tags-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 14px;
+  animation: fadeUp 0.3s ease both;
+}
+
+.tcard-cat {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.tcard-val {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.tcard-val.green { color: var(--accent); }
+.tcard-val.orange { color: var(--warn); }
+.tcard-val.red { color: var(--danger); }
+.tcard-val.dim { color: var(--text2); }
+
+.tcard-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
+
+/* RATES */
+.rates-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.rcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 14px;
+  animation: fadeUp 0.35s ease both;
+}
+
+.rcard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.rcard-name { font-size: 10px; color: var(--text2); }
+.rcard-val { font-size: 16px; font-family: 'Fraunces', serif; font-weight: 600; }
+.rcard-val.green { color: var(--accent); }
+.rcard-val.orange { color: var(--warn); }
+.rcard-val.red { color: var(--danger); }
+
+.bar-track { height: 2px; background: var(--border2); }
+.bar-fill { height: 100%; transition: width 0.7s cubic-bezier(0.16,1,0.3,1); }
+.bar-fill.green { background: var(--accent); }
+.bar-fill.orange { background: var(--warn); }
+.bar-fill.red { background: var(--danger); }
+
+/* ACTION ROW */
+.action-section { margin-bottom: 20px; }
+
+.section-hd {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.acard {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  padding: 18px;
+  transition: border-color 0.15s;
+}
+
+.acard.selected-repeat { border-color: var(--accent); background: var(--accent-dim); }
+.acard.selected-iterate { border-color: var(--warn); background: var(--warn-dim); }
+.acard.selected-drop { border-color: var(--danger); background: var(--danger-dim); }
+
+.acard-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.acard-title.green { color: var(--accent); }
+.acard-title.orange { color: var(--warn); }
+.acard-title.red { color: var(--danger); }
+
+.criteria-list { font-size: 10px; line-height: 2; }
+.crit-met { color: var(--accent); }
+.crit-unmet { color: var(--border2); }
+
+/* NOTES */
+.notes-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.notes-block textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text2);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  resize: none;
+  outline: none;
+  line-height: 1.7;
+  min-height: 70px;
+}
+
+.notes-block textarea::placeholder { color: var(--muted); }
+
+/* UPCOMING VIEW */
+.upcoming-view { animation: fadeUp 0.3s ease both; }
+
+.upcoming-hd {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 300;
+  margin-bottom: 6px;
+}
+
+.upcoming-hd em { font-style: italic; color: var(--accent); }
+
+.upcoming-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.due-section { margin-bottom: 28px; }
+
+.due-label {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.due-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+
+.due-row:hover { border-color: var(--border2); }
+
+.due-title { font-size: 12px; margin-bottom: 3px; }
+.due-meta { font-size: 10px; color: var(--muted); }
+
+.due-right { text-align: right; }
+
+.due-when {
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.due-when.today { color: var(--warn); }
+.due-when.soon { color: var(--text2); }
+.due-when.later { color: var(--muted); }
+
+.due-check {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* LOADING */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: var(--muted);
+  gap: 16px;
+}
+
+.loading-spinner {
+  width: 24px; height: 24px;
+  border: 2px solid var(--border2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* EMPTY STATE */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: var(--muted);
+  gap: 10px;
+  text-align: center;
+}
+
+.empty-icon { font-size: 32px; margin-bottom: 4px; opacity: 0.4; }
+.empty-title { font-size: 13px; color: var(--text2); }
+.empty-sub { font-size: 11px; max-width: 260px; line-height: 1.6; }
+
+/* GDRIVE CONNECTED BADGE */
+.gdrive-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--muted);
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mcard:nth-child(1) { animation-delay: 0.04s; }
+.mcard:nth-child(2) { animation-delay: 0.08s; }
+.mcard:nth-child(3) { animation-delay: 0.12s; }
+.mcard:nth-child(4) { animation-delay: 0.16s; }
+.tcard:nth-child(1) { animation-delay: 0.1s; }
+.tcard:nth-child(2) { animation-delay: 0.14s; }
+.tcard:nth-child(3) { animation-delay: 0.18s; }
+.tcard:nth-child(4) { animation-delay: 0.22s; }
+
+/* PLATFORM FILTER */
+.plat-filter {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 10px;
+  padding: 0 8px;
+}
+
+.pf-btn {
+  padding: 3px 10px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  transition: all 0.1s;
+}
+
+.pf-btn.active.ig { border-color: var(--instagram); color: var(--instagram); }
+.pf-btn.active.tt { border-color: var(--tiktok); color: var(--tiktok); }
+.pf-btn.active.all { border-color: var(--text2); color: var(--text2); }
+.pf-btn:hover:not(.active) { color: var(--text2); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     AUTH SCREEN
+══════════════════════════════════════ -->
+<div id="authScreen">
+  <div class="auth-box">
+    <div class="auth-logo">track<em>studio</em></div>
+    <div class="auth-tagline">Social Analytics Dashboard</div>
+
+    <div class="auth-step">
+      <div class="auth-step-label">Connect Google Drive to load your reports</div>
+      <button class="auth-gdrive-btn" onclick="connectGoogleDrive()">
+        <svg width="16" height="16" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+          <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+          <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
+          <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
+          <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
+          <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
+          <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
+        </svg>
+        Sign in with Google Drive
+      </button>
+    </div>
+
+    <div class="auth-divider">or enter folder ID manually</div>
+
+    <div class="auth-step">
+      <div class="auth-step-label">Google Drive Folder ID</div>
+      <input class="auth-input" id="folderIdInput" type="text" placeholder="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74…" />
+    </div>
+
+    <div class="auth-step">
+      <div class="auth-step-label">Your name (for display)</div>
+      <input class="auth-input" id="nameInput" type="text" placeholder="Lauren" />
+    </div>
+
+    <button class="auth-btn" onclick="loginWithFolder()">Load Dashboard →</button>
+
+    <div class="auth-note">
+      Your reports folder on Google Drive contains your client report files.<br>
+      The dashboard reads them directly — nothing is stored elsewhere.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     APP SHELL
+══════════════════════════════════════ -->
+<div id="appShell">
+  <div class="topbar">
+    <div class="topbar-logo">track<em>studio</em></div>
+
+    <div class="topbar-center" id="clientTabs">
+      <!-- injected -->
+    </div>
+
+    <div class="topbar-right">
+      <div class="sync-status">
+        <div class="sync-dot"></div>
+        <span id="syncLabel">synced</span>
+      </div>
+      <div class="gdrive-badge">
+        <svg width="12" height="12" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+          <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+          <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
+          <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
+          <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
+          <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
+          <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
+        </svg>
+        Google Drive
+      </div>
+      <button class="nav-btn" id="btnPosts" onclick="setView('posts')" style="color:var(--text);border-color:var(--text2)">Posts</button>
+      <button class="nav-btn" id="btnUpcoming" onclick="setView('upcoming')">Upcoming</button>
+    </div>
+  </div>
+
+  <div class="body-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="baseline-header">Baselines</div>
+        <div id="baselineBlock"><!-- injected --></div>
+      </div>
+
+      <div class="post-scroll">
+        <div class="plat-filter">
+          <button class="pf-btn active all" onclick="filterPlat('all',this)">All</button>
+          <button class="pf-btn ig" onclick="filterPlat('ig',this)">IG</button>
+          <button class="pf-btn tt" onclick="filterPlat('tt',this)">TT</button>
+        </div>
+        <div class="sidebar-section-label">Posts</div>
+        <div id="postList"><!-- injected --></div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-content" id="mainContent">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// DATA — this is what gets populated
+// from your Google Drive reports.md files
+// ══════════════════════════════════════
+
+const CLIENTS = {
+  CEA: {
+    name: 'CEA',
+    baselines: { ig: 1900, tt: 960 }
+  },
+  RDC: {
+    name: 'RDC',
+    baselines: { ig: 1000, tt: 866 }
+  }
+};
+
+// Sample posts — in the real version these are
+// parsed from your Google Drive reports.md files
+const POSTS = [
+  {
+    id: 1,
+    client: 'CEA',
+    platform: 'ig',
+    title: 'Regina George founder energy',
+    date: 'Mar 4, 2026',
+    duration: '0:47',
+    checks: {
+      '24h': {
+        views: 812, uniqueViewers: 740,
+        nonFollowerPct: 71, watchTimeSec: 19,
+        watchTimePct: 40, saves: 28, shares: 9,
+        distribution: 'Promising - algo pushing'
+      },
+      '7d': {
+        views: 4280, uniqueViewers: 3910,
+        nonFollowerPct: 68, watchTimeSec: 19,
+        watchTimePct: 41, saves: 90, shares: 60,
+        comments: 34, follows: 12,
+        saveRate: 2.1, shareRate: 1.4,
+        engagementRate: 4.8, followsPer1k: 0.8,
+        distribution: 'Above baseline — expanded reach',
+        engagementQuality: 'Strong',
+        businessSignal: 'Neutral',
+        outcome: 'Winner',
+        nextAction: 'Repeat',
+        notes: 'Hook: "possessed by Regina George" — strong identity hook. Burn book framing was fresh. Consider follow-up using same character voice.'
+      }
+    },
+    dueChecks: { '30d': 'Mar 31, 2026' }
+  },
+  {
+    id: 2,
+    client: 'CEA',
+    platform: 'tt',
+    title: 'The algo doesn\'t owe you anything',
+    date: 'Feb 27, 2026',
+    duration: '1:02',
+    checks: {
+      '24h': {
+        views: 430, uniqueViewers: 395,
+        nonFollowerPct: 88, watchTimeSec: 22,
+        watchTimePct: 35, saves: 18, shares: 4,
+        distribution: 'Neutral - testing'
+      }
+    },
+    dueChecks: { '7d': 'Mar 6, 2026', '30d': 'Mar 29, 2026' }
+  },
+  {
+    id: 3,
+    client: 'CEA',
+    platform: 'ig',
+    title: 'Why I stopped batch filming',
+    date: 'Feb 26, 2026',
+    duration: '0:38',
+    checks: {
+      '24h': {
+        views: 290, uniqueViewers: 260,
+        nonFollowerPct: 52, watchTimeSec: 11,
+        watchTimePct: 29, saves: 8, shares: 2,
+        distribution: 'Neutral - testing'
+      }
+    },
+    dueChecks: { '7d': 'Mar 5, 2026', '30d': 'Mar 28, 2026' }
+  },
+  {
+    id: 4,
+    client: 'RDC',
+    platform: 'tt',
+    title: '3 things founders never post',
+    date: 'Mar 4, 2026',
+    duration: '0:55',
+    checks: {},
+    dueChecks: { '24h': 'Mar 5, 2026', '7d': 'Mar 11, 2026', '30d': 'Apr 3, 2026' }
+  },
+  {
+    id: 5,
+    client: 'RDC',
+    platform: 'ig',
+    title: 'Content strategy for service businesses',
+    date: 'Feb 3, 2026',
+    duration: '1:15',
+    checks: {
+      '24h': {
+        views: 180, uniqueViewers: 165,
+        nonFollowerPct: 42, watchTimeSec: 18,
+        watchTimePct: 24, saves: 4, shares: 1,
+        distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 620, uniqueViewers: 580,
+        nonFollowerPct: 44, watchTimeSec: 17,
+        watchTimePct: 23, saves: 9, shares: 2,
+        comments: 5, follows: 1,
+        saveRate: 1.5, shareRate: 0.3,
+        engagementRate: 2.6, followsPer1k: 1.6,
+        distribution: 'Below baseline — limited reach',
+        engagementQuality: 'Neutral',
+        businessSignal: 'Neutral',
+        outcome: 'Learning',
+        nextAction: 'Iterate',
+        notes: 'Watch time dropped at the midpoint — hook was good but delivery slowed in the middle section. Try tighter edit next time.'
+      }
+    },
+    dueChecks: { '30d': 'Mar 5, 2026' }
+  }
+];
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let state = {
+  activeClient: 'CEA',
+  activePost: 1,
+  activeCheck: '7d',
+  activeView: 'posts',
+  platFilter: 'all',
+  userName: 'Lauren',
+  connected: false
+};
+
+// ══════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════
+function connectGoogleDrive() {
+  // In production: trigger Google OAuth flow
+  // For now, simulate connection
+  alert('In the real version, this opens Google OAuth.\n\nFor this demo, click OK to load with sample data.');
+  loadApp('Demo User');
+}
+
+function loginWithFolder() {
+  const name = document.getElementById('nameInput').value || 'Lauren';
+  // In production: use folder ID to fetch reports via Google Drive API
+  loadApp(name);
+}
+
+function loadApp(name) {
+  state.userName = name;
+  state.connected = true;
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('appShell').classList.add('visible');
+  renderAll();
+}
+
+// ══════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════
+function renderAll() {
+  renderClientTabs();
+  renderBaselines();
+  renderPostList();
+  renderMain();
+}
+
+function renderClientTabs() {
+  const el = document.getElementById('clientTabs');
+  el.innerHTML = Object.keys(CLIENTS).map(c =>
+    `<button class="client-pill ${c === state.activeClient ? 'active' : ''}" onclick="setClient('${c}')">${c}</button>`
+  ).join('');
+}
+
+function renderBaselines() {
+  const c = CLIENTS[state.activeClient];
+  document.getElementById('baselineBlock').innerHTML = `
+    <div class="baseline-row">
+      <div class="baseline-left">
+        <div class="plat-dot ig"></div>
+        <div class="baseline-name">Instagram</div>
+      </div>
+      <div class="baseline-val">${c.baselines.ig.toLocaleString()}</div>
+    </div>
+    <div class="baseline-row">
+      <div class="baseline-left">
+        <div class="plat-dot tt"></div>
+        <div class="baseline-name">TikTok</div>
+      </div>
+      <div class="baseline-val">${c.baselines.tt.toLocaleString()}</div>
+    </div>
+  `;
+}
+
+function getFilteredPosts() {
+  return POSTS.filter(p => {
+    if (p.client !== state.activeClient) return false;
+    if (state.platFilter !== 'all' && p.platform !== state.platFilter) return false;
+    return true;
+  });
+}
+
+function renderPostList() {
+  const posts = getFilteredPosts();
+  const el = document.getElementById('postList');
+  if (!posts.length) {
+    el.innerHTML = '<div style="padding:12px 8px;font-size:10px;color:var(--muted);">No posts found</div>';
+    return;
+  }
+  el.innerHTML = posts.map(p => {
+    const checkKeys = ['24h','7d','30d'];
+    const dots = checkKeys.map(k => {
+      const done = !!p.checks[k];
+      const due = !done && p.dueChecks[k];
+      const cls = done ? 'done' : (due ? 'due' : '');
+      return `<div class="cdot ${cls}" title="${k}">${k.replace('d','')}</div>`;
+    }).join('');
+
+    return `
+      <div class="post-row ${p.id === state.activePost ? 'active' : ''}" onclick="selectPost(${p.id})">
+        <div class="post-row-top">
+          <div class="post-row-title">${p.title}</div>
+          <div class="mini-dot plat-dot ${p.platform}"></div>
+        </div>
+        <div class="post-row-meta">
+          <div class="post-row-date">${p.date}</div>
+          <div class="check-dots">${dots}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderMain() {
+  if (state.activeView === 'upcoming') { renderUpcoming(); return; }
+
+  const post = POSTS.find(p => p.id === state.activePost);
+  if (!post) { renderEmpty(); return; }
+
+  const check = post.checks[state.activeCheck];
+  const el = document.getElementById('mainContent');
+
+  // Build check tabs
+  const tabHtml = ['24h','7d','30d'].map(k => {
+    const done = !!post.checks[k];
+    const due = post.dueChecks[k];
+    const cls = k === state.activeCheck ? 'active' : (due && !done ? 'due' : (done ? '' : 'locked'));
+    const label = done ? k : (due ? `${k} — due ${due}` : `${k}`);
+    const clickable = done || due;
+    return `<button class="ctab ${cls}" onclick="${clickable ? `setCheck('${k}')` : ''}">${label}</button>`;
+  }).join('');
+
+  // Outcome
+  const outcome = check?.outcome || null;
+  const outcomeCls = outcome ? outcome.toLowerCase() : '';
+
+  el.innerHTML = `
+    <div style="animation: fadeUp 0.25s ease both;">
+      <div class="post-header">
+        <div>
+          <div class="post-headline">"<em>${post.title}</em>"</div>
+          <div class="post-meta-row">
+            <div class="meta-chip">
+              <div class="plat-dot ${post.platform}"></div>
+              ${post.platform === 'ig' ? 'Instagram' : 'TikTok'}
+            </div>
+            <div class="meta-chip" style="color:var(--muted)">Posted ${post.date}</div>
+            <div class="meta-chip" style="color:var(--muted)">${post.duration}</div>
+          </div>
+        </div>
+        ${outcome ? `<div class="outcome-tag ${outcomeCls}">${outcome}</div>` : ''}
+      </div>
+
+      <div class="check-tabs">${tabHtml}</div>
+
+      ${check ? renderCheckContent(check, post) : renderNoData(post, state.activeCheck)}
+    </div>
+  `;
+}
+
+function renderCheckContent(check, post) {
+  const is7d = state.activeCheck === '7d';
+  const is30d = state.activeCheck === '30d';
+  const baseline = CLIENTS[post.client].baselines[post.platform];
+  const baselinePct = check.views ? Math.round((check.views / baseline) * 100) : null;
+
+  const distColor = check.distribution?.includes('Above') || check.distribution?.includes('Promising') ? 'green'
+    : check.distribution?.includes('Below') || check.distribution?.includes('Weak') ? 'red' : 'orange';
+
+  return `
+    <!-- METRICS -->
+    <div class="metrics-row">
+      <div class="mcard ${baselinePct > 120 ? 'positive' : baselinePct < 80 ? 'negative' : 'neutral'}">
+        <div class="mcard-label">Views</div>
+        <div class="mcard-val ${baselinePct > 120 ? 'green' : baselinePct < 80 ? 'red' : 'orange'}">${check.views?.toLocaleString()}</div>
+        <div class="mcard-sub">${baselinePct}% of baseline</div>
+      </div>
+      <div class="mcard">
+        <div class="mcard-label">Unique Viewers</div>
+        <div class="mcard-val neutral">${check.uniqueViewers?.toLocaleString()}</div>
+        <div class="mcard-sub">${Math.round((check.uniqueViewers/check.views)*100)}% unique rate</div>
+      </div>
+      <div class="mcard ${check.nonFollowerPct > 60 ? 'positive' : ''}">
+        <div class="mcard-label">Non-Follower %</div>
+        <div class="mcard-val ${check.nonFollowerPct > 60 ? 'green' : 'orange'}">${check.nonFollowerPct}%</div>
+        <div class="mcard-sub">${check.nonFollowerPct > 60 ? 'algo pushing' : 'mostly followers'}</div>
+      </div>
+      <div class="mcard ${check.watchTimePct > 35 ? 'positive' : check.watchTimePct < 20 ? 'negative' : 'neutral'}">
+        <div class="mcard-label">Watch Time %</div>
+        <div class="mcard-val ${check.watchTimePct > 35 ? 'green' : check.watchTimePct < 20 ? 'red' : 'orange'}">${check.watchTimePct}%</div>
+        <div class="mcard-sub">${check.watchTimeSec}s avg</div>
+      </div>
+    </div>
+
+    <!-- TAGS (7d only) -->
+    ${is7d ? `
+    <div class="tags-grid">
+      <div class="tcard">
+        <div class="tcard-cat">Distribution</div>
+        <div class="tcard-val ${distColor}">${check.distribution}</div>
+        <div class="tcard-desc">${check.views?.toLocaleString()} views vs ${baseline?.toLocaleString()} baseline</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-cat">Engagement Quality</div>
+        <div class="tcard-val ${check.engagementQuality === 'Strong' ? 'green' : check.engagementQuality === 'Weak' ? 'red' : 'orange'}">${check.engagementQuality}</div>
+        <div class="tcard-desc">Save rate ${check.saveRate}% · ${check.shares} shares · ${check.comments} comments</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-cat">Business Signal</div>
+        <div class="tcard-val ${check.businessSignal === 'Strong' ? 'green' : check.businessSignal === 'Weak' ? 'red' : 'orange'}">${check.businessSignal}</div>
+        <div class="tcard-desc">${check.follows} follows · ${check.followsPer1k} per 1K views</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-cat">Outcome</div>
+        <div class="tcard-val ${check.outcome === 'Winner' ? 'green' : check.outcome === 'Underperformed' ? 'red' : 'orange'}">${check.outcome}</div>
+        <div class="tcard-desc">Based on distribution + engagement criteria</div>
+      </div>
+    </div>
+
+    <!-- RATES -->
+    <div class="section-hd">Calculated Rates</div>
+    <div class="rates-row" style="margin-bottom:20px;">
+      ${rateCard('Save Rate', check.saveRate + '%', check.saveRate > 1 ? 'green' : check.saveRate > 0.5 ? 'orange' : 'red', Math.min(check.saveRate * 33, 100))}
+      ${rateCard('Share Rate', check.shareRate + '%', check.shareRate > 1 ? 'green' : 'orange', Math.min(check.shareRate * 25, 100))}
+      ${rateCard('Engagement Rate', check.engagementRate + '%', check.engagementRate > 3 ? 'green' : check.engagementRate > 1.5 ? 'orange' : 'red', Math.min(check.engagementRate * 10, 100))}
+      ${rateCard('Follows / 1K', check.followsPer1k, check.followsPer1k > 2 ? 'green' : 'orange', Math.min(check.followsPer1k * 20, 100))}
+    </div>
+
+    <!-- NEXT ACTION -->
+    <div class="action-section">
+      <div class="section-hd">Next Action</div>
+      <div class="action-grid">
+        ${actionCard('Repeat', 'green', check.nextAction === 'Repeat', [
+          [check.views > baseline * 1.2, 'Above baseline views'],
+          [check.watchTimePct > 35, 'Watch time >35%'],
+          [check.saves > 10 || check.saveRate > 1, 'Saves >10 or Save rate >1%'],
+          [check.follows > 0, 'Follows attributed'],
+          [check.distribution?.includes('Above'), 'Distribution = Expanded']
+        ])}
+        ${actionCard('Iterate', 'orange', check.nextAction === 'Iterate', [
+          [check.watchTimePct > 35 && check.views < baseline, 'Good watch time + low views'],
+          [check.views > baseline && check.watchTimePct < 25, 'High views + low watch time'],
+          [check.saves > 10 && !check.follows, 'Good saves + no follows'],
+          [check.distribution?.includes('At baseline') || check.distribution?.includes('Typical'), 'Distribution = Typical'],
+          [false, 'Strong topic, weak execution']
+        ])}
+        ${actionCard('Drop', 'red', check.nextAction === 'Drop', [
+          [check.views < baseline * 0.8, 'Below baseline views'],
+          [check.watchTimePct < 15, 'Watch time <15%'],
+          [check.saves === 0 && check.shares === 0, 'Zero saves + zero shares'],
+          [check.distribution?.includes('Below') || check.distribution?.includes('Limited'), 'Distribution = Limited'],
+          [check.outcome === 'Underperformed', 'Outcome = Underperformed']
+        ])}
+      </div>
+    </div>
+    ` : ''}
+
+    <!-- NOTES -->
+    <div class="section-hd">Notes</div>
+    <div class="notes-block">
+      <textarea placeholder="Hook effectiveness, topic angle, posting time, audio choice, trend alignment…">${check.notes || ''}</textarea>
+    </div>
+  `;
+}
+
+function rateCard(name, val, color, pct) {
+  return `
+    <div class="rcard">
+      <div class="rcard-top">
+        <span class="rcard-name">${name}</span>
+        <span class="rcard-val ${color}">${val}</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill ${color}" style="width:${pct}%"></div></div>
+    </div>
+  `;
+}
+
+function actionCard(title, color, selected, criteria) {
+  const selClass = selected ? `selected-${title.toLowerCase()}` : '';
+  const rows = criteria.map(([met, label]) =>
+    `<div class="${met ? 'crit-met' : 'crit-unmet'}">${met ? '✓' : '—'} ${label}</div>`
+  ).join('');
+  return `
+    <div class="acard ${selClass}">
+      <div class="acard-title ${color}">${selected ? '✓ ' : ''}${title}</div>
+      <div class="criteria-list">${rows}</div>
+    </div>
+  `;
+}
+
+function renderNoData(post, check) {
+  const due = post.dueChecks[check];
+  return `
+    <div class="empty-state">
+      <div class="empty-icon">⏳</div>
+      <div class="empty-title">${check} check not yet completed</div>
+      <div class="empty-sub">${due ? `Due ${due}. Run /track-post in Claude Code to pull this data.` : 'This check window hasn\'t opened yet.'}</div>
+    </div>
+  `;
+}
+
+function renderEmpty() {
+  document.getElementById('mainContent').innerHTML = `
+    <div class="empty-state">
+      <div class="empty-icon">📊</div>
+      <div class="empty-title">Select a post to view analytics</div>
+      <div class="empty-sub">Choose a post from the sidebar to see its performance data.</div>
+    </div>
+  `;
+}
+
+function renderUpcoming() {
+  const allDue = [];
+  POSTS.filter(p => p.client === state.activeClient).forEach(p => {
+    Object.entries(p.dueChecks || {}).forEach(([check, date]) => {
+      allDue.push({ post: p, check, date, dateObj: new Date(date) });
+    });
+  });
+
+  allDue.sort((a,b) => a.dateObj - b.dateObj);
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const todayItems = allDue.filter(d => {
+    const dd = new Date(d.dateObj); dd.setHours(0,0,0,0);
+    return dd <= today;
+  });
+
+  const upcomingItems = allDue.filter(d => {
+    const dd = new Date(d.dateObj); dd.setHours(0,0,0,0);
+    return dd > today;
+  });
+
+  const renderDueRow = (item) => `
+    <div class="due-row" onclick="selectPost(${item.post.id}); setView('posts');">
+      <div>
+        <div class="due-title">${item.post.title}</div>
+        <div class="due-meta">${item.post.client} · ${item.post.platform === 'ig' ? 'Instagram' : 'TikTok'} · Posted ${item.post.date}</div>
+      </div>
+      <div class="due-right">
+        <div class="due-when ${item.dateObj <= today ? 'today' : 'soon'}">${item.dateObj <= today ? 'Due now' : item.date}</div>
+        <div class="due-check">${item.check} check</div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('mainContent').innerHTML = `
+    <div class="upcoming-view">
+      <div class="upcoming-hd">Upcoming <em>checks</em></div>
+      <div class="upcoming-sub">Posts waiting for their next data pull — run /track-post in Claude Code</div>
+
+      ${todayItems.length ? `
+        <div class="due-section">
+          <div class="due-label">Due now</div>
+          ${todayItems.map(renderDueRow).join('')}
+        </div>
+      ` : ''}
+
+      ${upcomingItems.length ? `
+        <div class="due-section">
+          <div class="due-label">Coming up</div>
+          ${upcomingItems.map(renderDueRow).join('')}
+        </div>
+      ` : ''}
+
+      ${!todayItems.length && !upcomingItems.length ? `
+        <div class="empty-state">
+          <div class="empty-icon">✅</div>
+          <div class="empty-title">All caught up</div>
+          <div class="empty-sub">No pending checks for ${state.activeClient}.</div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════
+// INTERACTIONS
+// ══════════════════════════════════════
+function setClient(c) {
+  state.activeClient = c;
+  const posts = getFilteredPosts();
+  state.activePost = posts[0]?.id || null;
+  state.activeCheck = '7d';
+  renderAll();
+}
+
+function selectPost(id) {
+  state.activePost = id;
+  state.activeView = 'posts';
+  // pick best available check
+  const post = POSTS.find(p => p.id === id);
+  const preferred = ['7d','24h','30d'];
+  state.activeCheck = preferred.find(c => post?.checks[c]) || '24h';
+  renderPostList();
+  renderMain();
+  document.getElementById('btnPosts').classList.add('active');
+  document.getElementById('btnUpcoming').classList.remove('active');
+}
+
+function setCheck(c) {
+  state.activeCheck = c;
+  renderMain();
+}
+
+function setView(v) {
+  state.activeView = v;
+  document.getElementById('btnPosts').classList.toggle('active', v === 'posts');
+  document.getElementById('btnUpcoming').classList.toggle('active', v === 'upcoming');
+  renderMain();
+}
+
+function filterPlat(plat, btn) {
+  state.platFilter = plat;
+  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPostList();
+}
+</script>
+</body>
+</html>
