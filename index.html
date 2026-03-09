@@ -3,1530 +3,534 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrackStudio — Social Analytics</title>
+<title>TrackStudio</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0a;
-  --surface: #131313;
-  --surface2: #1a1a1a;
-  --surface3: #222;
-  --border: #252525;
-  --border2: #2e2e2e;
-  --text: #ede8df;
-  --text2: #9a9490;
-  --muted: #555;
-  --accent: #c6f135;
-  --accent-dim: rgba(198,241,53,0.08);
-  --warn: #f0a830;
-  --warn-dim: rgba(240,168,48,0.08);
-  --danger: #e85050;
-  --danger-dim: rgba(232,80,80,0.08);
-  --instagram: #e1306c;
-  --tiktok: #5ecdd4;
-  --radius: 2px;
+  --bg:#0a0a0a;--surface:#131313;--surface2:#1a1a1a;--border:#252525;--border2:#2e2e2e;
+  --text:#ede8df;--text2:#9a9490;--muted:#555;
+  --accent:#c6f135;--accent-dim:rgba(198,241,53,0.08);
+  --warn:#f0a830;--warn-dim:rgba(240,168,48,0.08);
+  --danger:#e85050;--danger-dim:rgba(232,80,80,0.08);
+  --instagram:#e1306c;--tiktok:#5ecdd4;
 }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+/* ── AUTH ── */
+#authScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+#authScreen::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(198,241,53,0.05) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.auth-box{width:420px;padding:48px;border:1px solid var(--border2);background:var(--surface);animation:fadeUp 0.5s ease both;}
+.auth-logo{font-family:'Fraunces',serif;font-size:26px;font-weight:300;margin-bottom:4px;letter-spacing:-0.5px;}
+.auth-logo em{font-style:italic;color:var(--accent);}
+.auth-tagline{font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:32px;}
+.auth-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
+.auth-input{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:11px 14px;outline:none;transition:border-color 0.15s;margin-bottom:14px;}
+.auth-input:focus{border-color:var(--accent);}
+.auth-input::placeholder{color:var(--muted);}
+.auth-btn{width:100%;padding:12px;background:var(--accent);color:var(--bg);border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:opacity 0.15s;}
+.auth-btn:hover{opacity:0.88;}
+.auth-error{font-size:11px;color:var(--danger);margin-top:10px;display:none;}
+.auth-note{font-size:10px;color:var(--muted);margin-top:18px;line-height:1.7;text-align:center;}
 
-html, body {
-  height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── AUTH SCREEN ── */
-#authScreen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg);
-  position: relative;
-  overflow: hidden;
-}
-
-#authScreen::before {
-  content: '';
-  position: absolute;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(198,241,53,0.04) 0%, transparent 70%);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.auth-box {
-  width: 420px;
-  padding: 48px;
-  border: 1px solid var(--border2);
-  background: var(--surface);
-  position: relative;
-  animation: fadeUp 0.5s ease both;
-}
-
-.auth-logo {
-  font-family: 'Fraunces', serif;
-  font-size: 28px;
-  font-weight: 300;
-  margin-bottom: 6px;
-  letter-spacing: -0.5px;
-}
-
-.auth-logo em { font-style: italic; color: var(--accent); }
-
-.auth-tagline {
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 36px;
-}
-
-.auth-step {
-  margin-bottom: 20px;
-}
-
-.auth-step-label {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text2);
-  margin-bottom: 8px;
-}
-
-.auth-input {
-  width: 100%;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  color: var(--text);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  padding: 10px 14px;
-  outline: none;
-  transition: border-color 0.15s;
-}
-
-.auth-input:focus { border-color: var(--accent); }
-.auth-input::placeholder { color: var(--muted); }
-
-.auth-btn {
-  width: 100%;
-  padding: 12px;
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: opacity 0.15s;
-}
-
-.auth-btn:hover { opacity: 0.88; }
-
-.auth-gdrive-btn {
-  width: 100%;
-  padding: 12px;
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border2);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: border-color 0.15s, background 0.15s;
-  margin-top: 8px;
-}
-
-.auth-gdrive-btn:hover { border-color: var(--text2); background: var(--surface2); }
-
-.gdrive-icon {
-  width: 16px; height: 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-}
-
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 20px 0;
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-}
-
-.auth-divider::before, .auth-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.auth-note {
-  font-size: 10px;
-  color: var(--muted);
-  margin-top: 20px;
-  line-height: 1.6;
-  text-align: center;
-}
-
-/* ── APP SHELL ── */
-#appShell { display: none; height: 100vh; flex-direction: column; }
-#appShell.visible { display: flex; }
+/* ── APP ── */
+#appShell{display:none;height:100vh;flex-direction:column;}
+#appShell.visible{display:flex;}
 
 /* TOPBAR */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
-  height: 56px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-  background: var(--bg);
-}
-
-.topbar-logo {
-  font-family: 'Fraunces', serif;
-  font-size: 18px;
-  font-weight: 300;
-  letter-spacing: -0.3px;
-}
-.topbar-logo em { font-style: italic; color: var(--accent); }
-
-.topbar-center {
-  display: flex;
-  gap: 3px;
-}
-
-.client-pill {
-  padding: 5px 14px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid var(--border2);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  font-family: 'DM Mono', monospace;
-  transition: all 0.12s;
-}
-
-.client-pill.active {
-  background: var(--accent);
-  color: var(--bg);
-  border-color: var(--accent);
-  font-weight: 500;
-}
-
-.client-pill:hover:not(.active) { color: var(--text); border-color: var(--text2); }
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.sync-status {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-}
-
-.sync-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2.5s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.nav-btn {
-  padding: 5px 12px;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid var(--border2);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  font-family: 'DM Mono', monospace;
-  transition: all 0.12s;
-}
-
-.nav-btn.active { color: var(--text); border-color: var(--text2); }
-.nav-btn:hover:not(.active) { color: var(--text2); }
-
-/* ── BODY LAYOUT ── */
-.body-layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  flex: 1;
-  overflow: hidden;
-}
-
-/* SIDEBAR */
-.sidebar {
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--surface);
-}
-
-.sidebar-top {
-  padding: 20px 18px 14px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
-
-.baseline-block {
-  margin-bottom: 4px;
-}
-
-.baseline-header {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.baseline-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.baseline-row:last-child { border-bottom: none; }
-
-.baseline-left {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.plat-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.plat-dot.ig { background: var(--instagram); }
-.plat-dot.tt { background: var(--tiktok); }
-
-.baseline-name { font-size: 10px; color: var(--text2); letter-spacing: 0.04em; }
-
-.baseline-val {
-  font-family: 'Fraunces', serif;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text);
-}
-
-/* POST LIST */
-.post-scroll {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 10px;
-}
-
-.post-scroll::-webkit-scrollbar { width: 3px; }
-.post-scroll::-webkit-scrollbar-thumb { background: var(--border2); }
-
-.sidebar-section-label {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: 0 8px;
-  margin-bottom: 8px;
-  margin-top: 4px;
-}
-
-.post-row {
-  padding: 10px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.1s;
-  margin-bottom: 3px;
-  border-radius: var(--radius);
-}
-
-.post-row:hover { background: var(--surface2); border-color: var(--border); }
-.post-row.active { background: var(--surface2); border-color: var(--border2); }
-.post-row.active .post-row-title { color: var(--text); }
-
-.post-row-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 6px;
-  gap: 8px;
-}
-
-.post-row-title {
-  font-size: 11px;
-  color: var(--text2);
-  line-height: 1.35;
-  flex: 1;
-}
-
-.mini-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  margin-top: 4px;
-  flex-shrink: 0;
-}
-
-.post-row-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.post-row-date { font-size: 10px; color: var(--muted); }
-
-.check-dots {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.check-dot-label {
-  font-size: 9px;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-}
-
-.cdot {
-  width: 16px; height: 16px;
-  border: 1px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 8px;
-  color: var(--muted);
-  letter-spacing: 0;
-}
-
-.cdot.done { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-.cdot.due { border-color: var(--warn); color: var(--warn); background: var(--warn-dim); animation: glow 2s infinite; }
-
-@keyframes glow {
-  0%, 100% { box-shadow: none; }
-  50% { box-shadow: 0 0 6px rgba(240,168,48,0.3); }
-}
-
-/* ── MAIN CONTENT ── */
-.main-content {
-  overflow-y: auto;
-  padding: 28px 32px;
-  background: var(--bg);
-}
-
-.main-content::-webkit-scrollbar { width: 3px; }
-.main-content::-webkit-scrollbar-thumb { background: var(--border2); }
-
-/* POST HEADER */
-.post-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-
-.post-headline {
-  font-family: 'Fraunces', serif;
-  font-size: 30px;
-  font-weight: 300;
-  line-height: 1.1;
-  margin-bottom: 10px;
-  letter-spacing: -0.5px;
-}
-
-.post-headline em { font-style: italic; color: var(--accent); }
-
-.post-meta-row {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.meta-chip {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 10px;
-  color: var(--text2);
-  letter-spacing: 0.04em;
-}
-
-.outcome-tag {
-  padding: 7px 18px;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 500;
-  align-self: flex-start;
-  flex-shrink: 0;
-}
-
-.outcome-tag.winner { background: var(--accent); color: var(--bg); }
-.outcome-tag.learning { background: var(--warn); color: var(--bg); }
-.outcome-tag.underperformed { background: var(--danger); color: #fff; }
-.outcome-tag.testing { background: var(--surface2); color: var(--muted); border: 1px solid var(--border2); }
-
-/* CHECK TABS */
-.check-tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 24px;
-  gap: 0;
-}
-
-.ctab {
-  padding: 9px 18px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: var(--muted);
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  transition: all 0.12s;
-}
-
-.ctab.active { color: var(--accent); border-bottom-color: var(--accent); }
-.ctab:hover:not(.active):not(.locked) { color: var(--text2); }
-.ctab.locked { color: var(--border2); cursor: default; }
-.ctab.due { color: var(--warn); }
-
-/* METRICS ROW */
-.metrics-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.mcard {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 16px 14px;
-  position: relative;
-  overflow: hidden;
-  animation: fadeUp 0.3s ease both;
-}
-
-.mcard::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--border);
-}
-
-.mcard.positive::after { background: var(--accent); }
-.mcard.neutral::after { background: var(--warn); }
-.mcard.negative::after { background: var(--danger); }
-
-.mcard-label {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.mcard-val {
-  font-family: 'Fraunces', serif;
-  font-size: 34px;
-  font-weight: 600;
-  line-height: 1;
-  margin-bottom: 5px;
-}
-
-.mcard-val.green { color: var(--accent); }
-.mcard-val.orange { color: var(--warn); }
-.mcard-val.neutral { color: var(--text); }
-
-.mcard-sub { font-size: 10px; color: var(--muted); }
-
-/* TAGS GRID */
-.tags-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.tcard {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 14px;
-  animation: fadeUp 0.3s ease both;
-}
-
-.tcard-cat {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 7px;
-}
-
-.tcard-val {
-  font-size: 12px;
-  font-weight: 500;
-  margin-bottom: 4px;
-  letter-spacing: 0.02em;
-}
-
-.tcard-val.green { color: var(--accent); }
-.tcard-val.orange { color: var(--warn); }
-.tcard-val.red { color: var(--danger); }
-.tcard-val.dim { color: var(--text2); }
-
-.tcard-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
-
-/* RATES */
-.rates-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.rcard {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 14px;
-  animation: fadeUp 0.35s ease both;
-}
-
-.rcard-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 10px;
-}
-
-.rcard-name { font-size: 10px; color: var(--text2); }
-.rcard-val { font-size: 16px; font-family: 'Fraunces', serif; font-weight: 600; }
-.rcard-val.green { color: var(--accent); }
-.rcard-val.orange { color: var(--warn); }
-.rcard-val.red { color: var(--danger); }
-
-.bar-track { height: 2px; background: var(--border2); }
-.bar-fill { height: 100%; transition: width 0.7s cubic-bezier(0.16,1,0.3,1); }
-.bar-fill.green { background: var(--accent); }
-.bar-fill.orange { background: var(--warn); }
-.bar-fill.red { background: var(--danger); }
-
-/* ACTION ROW */
-.action-section { margin-bottom: 20px; }
-
-.section-hd {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-
-.action-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.acard {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  padding: 18px;
-  transition: border-color 0.15s;
-}
-
-.acard.selected-repeat { border-color: var(--accent); background: var(--accent-dim); }
-.acard.selected-iterate { border-color: var(--warn); background: var(--warn-dim); }
-.acard.selected-drop { border-color: var(--danger); background: var(--danger-dim); }
-
-.acard-title {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-.acard-title.green { color: var(--accent); }
-.acard-title.orange { color: var(--warn); }
-.acard-title.red { color: var(--danger); }
-
-.criteria-list { font-size: 10px; line-height: 2; }
-.crit-met { color: var(--accent); }
-.crit-unmet { color: var(--border2); }
-
-/* NOTES */
-.notes-block {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 16px;
-  margin-bottom: 20px;
-}
-
-.notes-block textarea {
-  width: 100%;
-  background: transparent;
-  border: none;
-  color: var(--text2);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  resize: none;
-  outline: none;
-  line-height: 1.7;
-  min-height: 70px;
-}
-
-.notes-block textarea::placeholder { color: var(--muted); }
-
-/* UPCOMING VIEW */
-.upcoming-view { animation: fadeUp 0.3s ease both; }
-
-.upcoming-hd {
-  font-family: 'Fraunces', serif;
-  font-size: 26px;
-  font-weight: 300;
-  margin-bottom: 6px;
-}
-
-.upcoming-hd em { font-style: italic; color: var(--accent); }
-
-.upcoming-sub {
-  font-size: 11px;
-  color: var(--muted);
-  margin-bottom: 28px;
-}
-
-.due-section { margin-bottom: 28px; }
-
-.due-label {
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.due-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  margin-bottom: 6px;
-  cursor: pointer;
-  transition: border-color 0.12s;
-}
-
-.due-row:hover { border-color: var(--border2); }
-
-.due-title { font-size: 12px; margin-bottom: 3px; }
-.due-meta { font-size: 10px; color: var(--muted); }
-
-.due-right { text-align: right; }
-
-.due-when {
-  font-size: 11px;
-  font-weight: 500;
-  margin-bottom: 3px;
-}
-
-.due-when.today { color: var(--warn); }
-.due-when.soon { color: var(--text2); }
-.due-when.later { color: var(--muted); }
-
-.due-check {
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* LOADING */
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-  color: var(--muted);
-  gap: 16px;
-}
-
-.loading-spinner {
-  width: 24px; height: 24px;
-  border: 2px solid var(--border2);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* EMPTY STATE */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-  color: var(--muted);
-  gap: 10px;
-  text-align: center;
-}
-
-.empty-icon { font-size: 32px; margin-bottom: 4px; opacity: 0.4; }
-.empty-title { font-size: 13px; color: var(--text2); }
-.empty-sub { font-size: 11px; max-width: 260px; line-height: 1.6; }
-
-/* GDRIVE CONNECTED BADGE */
-.gdrive-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
-  color: var(--muted);
-  padding: 5px 10px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
-
-/* ANIMATIONS */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.mcard:nth-child(1) { animation-delay: 0.04s; }
-.mcard:nth-child(2) { animation-delay: 0.08s; }
-.mcard:nth-child(3) { animation-delay: 0.12s; }
-.mcard:nth-child(4) { animation-delay: 0.16s; }
-.tcard:nth-child(1) { animation-delay: 0.1s; }
-.tcard:nth-child(2) { animation-delay: 0.14s; }
-.tcard:nth-child(3) { animation-delay: 0.18s; }
-.tcard:nth-child(4) { animation-delay: 0.22s; }
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.topbar-logo{font-family:'Fraunces',serif;font-size:17px;font-weight:300;letter-spacing:-0.3px;}
+.topbar-logo em{font-style:italic;color:var(--accent);}
+.topbar-center{display:flex;gap:3px;}
+.client-pill{padding:5px 13px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
+.client-pill.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:500;}
+.client-pill:hover:not(.active){color:var(--text);border-color:var(--text2);}
+.topbar-right{display:flex;align-items:center;gap:8px;}
+.sync-dot-wrap{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);}
+.sync-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 2.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.client-badge{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text2);padding:5px 12px;border:1px solid var(--border2);}
+.client-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.nav-btn{padding:5px 12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
+.nav-btn.active{color:var(--text);border-color:var(--text2);}
+
+/* BODY */
+.body-layout{display:grid;grid-template-columns:258px 1fr;flex:1;overflow:hidden;}
+.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--surface);}
+.sidebar-top{padding:18px 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.baseline-header{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.bl-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);}
+.bl-row:last-child{border-bottom:none;}
+.bl-left{display:flex;align-items:center;gap:7px;}
+.pdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.pdot.ig{background:var(--instagram);}
+.pdot.tt{background:var(--tiktok);}
+.bl-name{font-size:10px;color:var(--text2);}
+.bl-val{font-family:'Fraunces',serif;font-size:16px;font-weight:600;}
+.post-scroll{flex:1;overflow-y:auto;padding:10px 8px;}
+.post-scroll::-webkit-scrollbar{width:3px;}
+.post-scroll::-webkit-scrollbar-thumb{background:var(--border2);}
+.ssl{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 8px;margin:6px 0 8px;}
+.prow{padding:10px;border:1px solid transparent;cursor:pointer;transition:all 0.1s;margin-bottom:3px;}
+.prow:hover{background:var(--surface2);border-color:var(--border);}
+.prow.active{background:var(--surface2);border-color:var(--border2);}
+.prow.active .prow-title{color:var(--text);}
+.prow-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:8px;}
+.prow-title{font-size:11px;color:var(--text2);line-height:1.35;flex:1;}
+.mini-pdot{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.prow-meta{display:flex;align-items:center;justify-content:space-between;}
+.prow-date{font-size:10px;color:var(--muted);}
+.cdots{display:flex;gap:3px;}
+.cdot{width:15px;height:15px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--muted);}
+.cdot.done{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);}
+.cdot.due{border-color:var(--warn);color:var(--warn);background:var(--warn-dim);animation:glow 2s infinite;}
+@keyframes glow{0%,100%{box-shadow:none;}50%{box-shadow:0 0 5px rgba(240,168,48,0.35);}}
 
 /* PLATFORM FILTER */
-.plat-filter {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 10px;
-  padding: 0 8px;
-}
+.pf-row{display:flex;gap:3px;margin-bottom:8px;padding:0 8px;}
+.pf-btn{padding:3px 9px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.1s;}
+.pf-btn.active.ig{border-color:var(--instagram);color:var(--instagram);}
+.pf-btn.active.tt{border-color:var(--tiktok);color:var(--tiktok);}
+.pf-btn.active.all{border-color:var(--text2);color:var(--text2);}
 
-.pf-btn {
-  padding: 3px 10px;
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  font-family: 'DM Mono', monospace;
-  transition: all 0.1s;
-}
+/* MAIN */
+.main-content{overflow-y:auto;padding:26px 30px;background:var(--bg);}
+.main-content::-webkit-scrollbar{width:3px;}
+.main-content::-webkit-scrollbar-thumb{background:var(--border2);}
+.post-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.post-hl{font-family:'Fraunces',serif;font-size:27px;font-weight:300;line-height:1.1;margin-bottom:9px;letter-spacing:-0.5px;}
+.post-hl em{font-style:italic;color:var(--accent);}
+.meta-row{display:flex;gap:14px;}
+.meta-chip{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);}
+.otag{padding:7px 16px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;align-self:flex-start;flex-shrink:0;}
+.otag.winner{background:var(--accent);color:var(--bg);}
+.otag.learning{background:var(--warn);color:var(--bg);}
+.otag.underperformed{background:var(--danger);color:#fff;}
+.otag.testing{background:var(--surface2);color:var(--muted);border:1px solid var(--border2);}
+.ctabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:22px;}
+.ctab{padding:8px 16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.12s;}
+.ctab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.ctab:hover:not(.active):not(.locked){color:var(--text2);}
+.ctab.locked{color:var(--border2);cursor:default;}
+.ctab.due{color:var(--warn);}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.mc{background:var(--surface);border:1px solid var(--border);padding:15px 13px;position:relative;overflow:hidden;animation:fadeUp 0.3s ease both;}
+.mc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--border);}
+.mc.pos::after{background:var(--accent);}
+.mc.neu::after{background:var(--warn);}
+.mc.neg::after{background:var(--danger);}
+.mc-lbl{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+.mc-val{font-family:'Fraunces',serif;font-size:30px;font-weight:600;line-height:1;margin-bottom:4px;}
+.mc-val.g{color:var(--accent);}
+.mc-val.o{color:var(--warn);}
+.mc-val.r{color:var(--danger);}
+.mc-val.n{color:var(--text);}
+.mc-sub{font-size:10px;color:var(--muted);}
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.tc{background:var(--surface);border:1px solid var(--border);padding:13px;animation:fadeUp 0.3s ease both;}
+.tc-cat{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.tc-val{font-size:11px;font-weight:500;margin-bottom:3px;}
+.tc-val.g{color:var(--accent);}
+.tc-val.o{color:var(--warn);}
+.tc-val.r{color:var(--danger);}
+.tc-desc{font-size:10px;color:var(--muted);line-height:1.5;}
+.shd{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.rc{background:var(--surface);border:1px solid var(--border);padding:13px;}
+.rc-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+.rc-name{font-size:10px;color:var(--text2);}
+.rc-val{font-size:15px;font-family:'Fraunces',serif;font-weight:600;}
+.rc-val.g{color:var(--accent);}
+.rc-val.o{color:var(--warn);}
+.rc-val.r{color:var(--danger);}
+.bt{height:2px;background:var(--border2);}
+.bf{height:100%;transition:width 0.7s cubic-bezier(0.16,1,0.3,1);}
+.bf.g{background:var(--accent);}
+.bf.o{background:var(--warn);}
+.bf.r{background:var(--danger);}
+.agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+.ac{background:var(--surface);border:2px solid var(--border);padding:16px;}
+.ac.sel-repeat{border-color:var(--accent);background:var(--accent-dim);}
+.ac.sel-iterate{border-color:var(--warn);background:var(--warn-dim);}
+.ac.sel-drop{border-color:var(--danger);background:var(--danger-dim);}
+.ac-title{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
+.ac-title.g{color:var(--accent);}
+.ac-title.o{color:var(--warn);}
+.ac-title.r{color:var(--danger);}
+.cl{font-size:10px;line-height:2;}
+.cm{color:var(--accent);}
+.cu{color:var(--border2);}
+.nb{background:var(--surface);border:1px solid var(--border);padding:14px;margin-bottom:18px;}
+.nb textarea{width:100%;background:transparent;border:none;color:var(--text2);font-family:'DM Mono',monospace;font-size:12px;resize:none;outline:none;line-height:1.7;min-height:65px;}
+.nb textarea::placeholder{color:var(--muted);}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;color:var(--muted);gap:8px;text-align:center;}
+.ei{font-size:30px;opacity:0.35;margin-bottom:4px;}
+.et{font-size:13px;color:var(--text2);}
+.es{font-size:11px;max-width:260px;line-height:1.6;}
+.uh{font-family:'Fraunces',serif;font-size:24px;font-weight:300;margin-bottom:5px;}
+.uh em{font-style:italic;color:var(--accent);}
+.usub{font-size:11px;color:var(--muted);margin-bottom:24px;}
+.dl{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:13px 15px;background:var(--surface);border:1px solid var(--border);margin-bottom:5px;cursor:pointer;transition:border-color 0.1s;}
+.dr:hover{border-color:var(--border2);}
+.dr-title{font-size:12px;margin-bottom:3px;}
+.dr-meta{font-size:10px;color:var(--muted);}
+.dr-right{text-align:right;}
+.dw{font-size:11px;font-weight:500;margin-bottom:2px;}
+.dw.today{color:var(--warn);}
+.dw.soon{color:var(--text2);}
+.dc{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
 
-.pf-btn.active.ig { border-color: var(--instagram); color: var(--instagram); }
-.pf-btn.active.tt { border-color: var(--tiktok); color: var(--tiktok); }
-.pf-btn.active.all { border-color: var(--text2); color: var(--text2); }
-.pf-btn:hover:not(.active) { color: var(--text2); }
+/* ADMIN URL SECTION */
+.url-section{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);}
+.url-sec-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.url-item{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);margin-bottom:4px;}
+.url-cname{font-size:10px;color:var(--text2);margin-bottom:2px;}
+.url-str{font-size:9px;color:var(--muted);word-break:break-all;max-width:160px;}
+.url-copy{font-size:9px;color:var(--accent);cursor:pointer;background:none;border:1px solid var(--border);font-family:'DM Mono',monospace;padding:2px 7px;transition:all 0.1s;flex-shrink:0;margin-left:8px;}
+.url-copy:hover{background:var(--accent-dim);border-color:var(--accent);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.mc:nth-child(1){animation-delay:.04s;}.mc:nth-child(2){animation-delay:.08s;}.mc:nth-child(3){animation-delay:.12s;}.mc:nth-child(4){animation-delay:.16s;}
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     AUTH SCREEN
-══════════════════════════════════════ -->
+<!-- AUTH -->
 <div id="authScreen">
   <div class="auth-box">
     <div class="auth-logo">track<em>studio</em></div>
-    <div class="auth-tagline">Social Analytics Dashboard</div>
-
-    <div class="auth-step">
-      <div class="auth-step-label">Connect Google Drive to load your reports</div>
-      <button class="auth-gdrive-btn" onclick="connectGoogleDrive()">
-        <svg width="16" height="16" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-          <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
-          <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
-          <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
-          <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
-          <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
-          <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
-        </svg>
-        Sign in with Google Drive
-      </button>
-    </div>
-
-    <div class="auth-divider">or enter folder ID manually</div>
-
-    <div class="auth-step">
-      <div class="auth-step-label">Google Drive Folder ID</div>
-      <input class="auth-input" id="folderIdInput" type="text" placeholder="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74…" />
-    </div>
-
-    <div class="auth-step">
-      <div class="auth-step-label">Your name (for display)</div>
-      <input class="auth-input" id="nameInput" type="text" placeholder="Lauren" />
-    </div>
-
-    <button class="auth-btn" onclick="loginWithFolder()">Load Dashboard →</button>
-
-    <div class="auth-note">
-      Your reports folder on Google Drive contains your client report files.<br>
-      The dashboard reads them directly — nothing is stored elsewhere.
-    </div>
+    <div class="auth-tagline">Social Analytics</div>
+    <div class="auth-label">Access key</div>
+    <input class="auth-input" id="keyInput" type="password" placeholder="Enter your access key…" onkeydown="if(event.key==='Enter')login()"/>
+    <button class="auth-btn" onclick="login()">Enter →</button>
+    <div class="auth-error" id="authError">Invalid key. Please use the link provided to you.</div>
+    <div class="auth-note">Each access key shows only your account's data.<br>Your key was provided by your analytics manager.</div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     APP SHELL
-══════════════════════════════════════ -->
+<!-- APP -->
 <div id="appShell">
   <div class="topbar">
     <div class="topbar-logo">track<em>studio</em></div>
-
-    <div class="topbar-center" id="clientTabs">
-      <!-- injected -->
-    </div>
-
+    <div class="topbar-center" id="clientTabs"></div>
     <div class="topbar-right">
-      <div class="sync-status">
-        <div class="sync-dot"></div>
-        <span id="syncLabel">synced</span>
-      </div>
-      <div class="gdrive-badge">
-        <svg width="12" height="12" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-          <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
-          <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
-          <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
-          <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
-          <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
-          <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 27h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
-        </svg>
-        Google Drive
-      </div>
-      <button class="nav-btn" id="btnPosts" onclick="setView('posts')" style="color:var(--text);border-color:var(--text2)">Posts</button>
+      <div class="sync-dot-wrap"><div class="sync-dot"></div><span>synced</span></div>
+      <div id="clientBadge" class="client-badge" style="display:none"><div class="client-badge-dot"></div><span id="clientBadgeLabel"></span></div>
+      <button class="nav-btn active" id="btnPosts" onclick="setView('posts')">Posts</button>
       <button class="nav-btn" id="btnUpcoming" onclick="setView('upcoming')">Upcoming</button>
     </div>
   </div>
-
   <div class="body-layout">
-    <!-- SIDEBAR -->
     <div class="sidebar">
-      <div class="sidebar-top">
+      <div class="sidebar-top" id="sidebarTop">
         <div class="baseline-header">Baselines</div>
-        <div id="baselineBlock"><!-- injected --></div>
+        <div id="baselineBlock"></div>
       </div>
-
       <div class="post-scroll">
-        <div class="plat-filter">
+        <div class="pf-row">
           <button class="pf-btn active all" onclick="filterPlat('all',this)">All</button>
           <button class="pf-btn ig" onclick="filterPlat('ig',this)">IG</button>
           <button class="pf-btn tt" onclick="filterPlat('tt',this)">TT</button>
         </div>
-        <div class="sidebar-section-label">Posts</div>
-        <div id="postList"><!-- injected --></div>
+        <div class="ssl">Posts</div>
+        <div id="postList"></div>
       </div>
     </div>
-
-    <!-- MAIN -->
-    <div class="main-content" id="mainContent">
-      <!-- injected by JS -->
-    </div>
+    <div class="main-content" id="mainContent"></div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════
-// DATA — this is what gets populated
-// from your Google Drive reports.md files
-// ══════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// ACCESS KEYS
+// 'key-string': 'CLIENT' or 'ADMIN'
+// Change these before deploying. Keep them secret.
+// ══════════════════════════════════════════════════════
+const ACCESS_KEYS = {
+  'lks-admin-2026':   'ADMIN',
+  'cea-view-2026':    'CEA',
+  'rdc-view-2026':    'RDC',
+  'lks-view-2026':    'LKS'
+};
 
+// ══════════════════════════════════════════════════════
+// CLIENT CONFIG
+// ══════════════════════════════════════════════════════
 const CLIENTS = {
-  CEA: {
-    name: 'CEA',
-    baselines: { ig: 1900, tt: 960 }
-  },
-  RDC: {
-    name: 'RDC',
-    baselines: { ig: 1000, tt: 866 }
-  }
+  CEA: { name:'CEA', baselines:{ ig:1900, tt:960 } },
+  RDC: { name:'RDC', baselines:{ ig:1000, tt:866 } },
+  LKS: { name:'LKS', baselines:{ ig:500, tt:400 } }
 };
 
-// Sample posts — in the real version these are
-// parsed from your Google Drive reports.md files
+// ══════════════════════════════════════════════════════
+// POSTS — Claude's /update-dashboard rewrites this block
+// ══════════════════════════════════════════════════════
+// DATA_START
 const POSTS = [
-  {
-    id: 1,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'Regina George founder energy',
-    date: 'Mar 4, 2026',
-    duration: '0:47',
-    checks: {
-      '24h': {
-        views: 812, uniqueViewers: 740,
-        nonFollowerPct: 71, watchTimeSec: 19,
-        watchTimePct: 40, saves: 28, shares: 9,
-        distribution: 'Promising - algo pushing'
-      },
-      '7d': {
-        views: 4280, uniqueViewers: 3910,
-        nonFollowerPct: 68, watchTimeSec: 19,
-        watchTimePct: 41, saves: 90, shares: 60,
-        comments: 34, follows: 12,
-        saveRate: 2.1, shareRate: 1.4,
-        engagementRate: 4.8, followsPer1k: 0.8,
-        distribution: 'Above baseline — expanded reach',
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
-        outcome: 'Winner',
-        nextAction: 'Repeat',
-        notes: 'Hook: "possessed by Regina George" — strong identity hook. Burn book framing was fresh. Consider follow-up using same character voice.'
-      }
-    },
-    dueChecks: { '30d': 'Mar 31, 2026' }
-  },
-  {
-    id: 2,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'The algo doesn\'t owe you anything',
-    date: 'Feb 27, 2026',
-    duration: '1:02',
-    checks: {
-      '24h': {
-        views: 430, uniqueViewers: 395,
-        nonFollowerPct: 88, watchTimeSec: 22,
-        watchTimePct: 35, saves: 18, shares: 4,
-        distribution: 'Neutral - testing'
-      }
-    },
-    dueChecks: { '7d': 'Mar 6, 2026', '30d': 'Mar 29, 2026' }
-  },
-  {
-    id: 3,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'Why I stopped batch filming',
-    date: 'Feb 26, 2026',
-    duration: '0:38',
-    checks: {
-      '24h': {
-        views: 290, uniqueViewers: 260,
-        nonFollowerPct: 52, watchTimeSec: 11,
-        watchTimePct: 29, saves: 8, shares: 2,
-        distribution: 'Neutral - testing'
-      }
-    },
-    dueChecks: { '7d': 'Mar 5, 2026', '30d': 'Mar 28, 2026' }
-  },
-  {
-    id: 4,
-    client: 'RDC',
-    platform: 'tt',
-    title: '3 things founders never post',
-    date: 'Mar 4, 2026',
-    duration: '0:55',
-    checks: {},
-    dueChecks: { '24h': 'Mar 5, 2026', '7d': 'Mar 11, 2026', '30d': 'Apr 3, 2026' }
-  },
-  {
-    id: 5,
-    client: 'RDC',
-    platform: 'ig',
-    title: 'Content strategy for service businesses',
-    date: 'Feb 3, 2026',
-    duration: '1:15',
-    checks: {
-      '24h': {
-        views: 180, uniqueViewers: 165,
-        nonFollowerPct: 42, watchTimeSec: 18,
-        watchTimePct: 24, saves: 4, shares: 1,
-        distribution: 'Weak - limited algo test'
-      },
-      '7d': {
-        views: 620, uniqueViewers: 580,
-        nonFollowerPct: 44, watchTimeSec: 17,
-        watchTimePct: 23, saves: 9, shares: 2,
-        comments: 5, follows: 1,
-        saveRate: 1.5, shareRate: 0.3,
-        engagementRate: 2.6, followsPer1k: 1.6,
-        distribution: 'Below baseline — limited reach',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        outcome: 'Learning',
-        nextAction: 'Iterate',
-        notes: 'Watch time dropped at the midpoint — hook was good but delivery slowed in the middle section. Try tighter edit next time.'
-      }
-    },
-    dueChecks: { '30d': 'Mar 5, 2026' }
-  }
+  { id:1, client:'CEA', platform:'ig', title:'Regina George founder energy', date:'Mar 4, 2026', duration:'0:47',
+    checks:{
+      '24h':{ views:812, uniqueViewers:740, nonFollowerPct:71, watchTimeSec:19, watchTimePct:40, saves:28, shares:9, distribution:'Promising - algo pushing' },
+      '7d':{ views:4280, uniqueViewers:3910, nonFollowerPct:68, watchTimeSec:19, watchTimePct:41, saves:90, shares:60, comments:34, follows:12, saveRate:2.1, shareRate:1.4, engagementRate:4.8, followsPer1k:0.8, distribution:'Above baseline — expanded reach', engagementQuality:'Strong', businessSignal:'Neutral', outcome:'Winner', nextAction:'Repeat', notes:'Hook: "possessed by Regina George" — strong identity hook. Burn book framing was fresh. Consider follow-up using same character voice.' }
+    }, dueChecks:{ '30d':'Mar 31, 2026' } },
+  { id:2, client:'CEA', platform:'tt', title:"The algo doesn't owe you anything", date:'Feb 27, 2026', duration:'1:02',
+    checks:{
+      '24h':{ views:430, uniqueViewers:395, nonFollowerPct:88, watchTimeSec:22, watchTimePct:35, saves:18, shares:4, distribution:'Neutral - testing' }
+    }, dueChecks:{ '7d':'Mar 6, 2026', '30d':'Mar 29, 2026' } },
+  { id:3, client:'RDC', platform:'ig', title:'Content strategy for service businesses', date:'Feb 3, 2026', duration:'1:15',
+    checks:{
+      '24h':{ views:180, uniqueViewers:165, nonFollowerPct:42, watchTimeSec:18, watchTimePct:24, saves:4, shares:1, distribution:'Weak - limited algo test' },
+      '7d':{ views:620, uniqueViewers:580, nonFollowerPct:44, watchTimeSec:17, watchTimePct:23, saves:9, shares:2, comments:5, follows:1, saveRate:1.5, shareRate:0.3, engagementRate:2.6, followsPer1k:1.6, distribution:'Below baseline — limited reach', engagementQuality:'Neutral', businessSignal:'Neutral', outcome:'Learning', nextAction:'Iterate', notes:'Watch time dropped at midpoint. Hook was strong but delivery slowed. Try tighter edit.' }
+    }, dueChecks:{ '30d':'Mar 5, 2026' } },
+  { id:4, client:'RDC', platform:'tt', title:'3 things founders never post', date:'Mar 4, 2026', duration:'0:55',
+    checks:{}, dueChecks:{ '24h':'Mar 5, 2026', '7d':'Mar 11, 2026', '30d':'Apr 3, 2026' } },
+  { id:5, client:'LKS', platform:'ig', title:'Why your content feels generic', date:'Mar 3, 2026', duration:'0:52',
+    checks:{
+      '24h':{ views:620, uniqueViewers:570, nonFollowerPct:74, watchTimeSec:21, watchTimePct:40, saves:22, shares:6, distribution:'Promising - algo pushing' }
+    }, dueChecks:{ '7d':'Mar 10, 2026', '30d':'Apr 2, 2026' } },
+  { id:6, client:'LKS', platform:'tt', title:'The content strategy nobody teaches', date:'Feb 28, 2026', duration:'0:44',
+    checks:{
+      '24h':{ views:390, uniqueViewers:350, nonFollowerPct:65, watchTimeSec:16, watchTimePct:36, saves:14, shares:3, distribution:'Neutral - testing' }
+    }, dueChecks:{ '7d':'Mar 7, 2026', '30d':'Mar 30, 2026' } }
 ];
+// DATA_END
 
-// ══════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // STATE
-// ══════════════════════════════════════
-let state = {
-  activeClient: 'CEA',
-  activePost: 1,
-  activeCheck: '7d',
-  activeView: 'posts',
-  platFilter: 'all',
-  userName: 'Lauren',
-  connected: false
-};
+// ══════════════════════════════════════════════════════
+let S = { role:null, activeClient:null, activePost:null, activeCheck:'7d', activeView:'posts', platFilter:'all' };
 
-// ══════════════════════════════════════
-// AUTH
-// ══════════════════════════════════════
-function connectGoogleDrive() {
-  // In production: trigger Google OAuth flow
-  // For now, simulate connection
-  alert('In the real version, this opens Google OAuth.\n\nFor this demo, click OK to load with sample data.');
-  loadApp('Demo User');
+// ══════════════════════════════════════════════════════
+// INIT — check URL key param first
+// ══════════════════════════════════════════════════════
+function init() {
+  const params = new URLSearchParams(window.location.search);
+  const k = params.get('key');
+  if (k && ACCESS_KEYS[k]) startSession(ACCESS_KEYS[k]);
 }
 
-function loginWithFolder() {
-  const name = document.getElementById('nameInput').value || 'Lauren';
-  // In production: use folder ID to fetch reports via Google Drive API
-  loadApp(name);
+function login() {
+  const k = document.getElementById('keyInput').value.trim();
+  if (ACCESS_KEYS[k]) { startSession(ACCESS_KEYS[k]); }
+  else {
+    document.getElementById('authError').style.display = 'block';
+    document.getElementById('keyInput').style.borderColor = 'var(--danger)';
+  }
 }
 
-function loadApp(name) {
-  state.userName = name;
-  state.connected = true;
+function startSession(role) {
+  S.role = role;
+  const isAdmin = role === 'ADMIN';
+  const clients = isAdmin ? Object.keys(CLIENTS) : [role];
+  S.activeClient = clients[0];
+  const first = POSTS.find(p => p.client === S.activeClient);
+  S.activePost = first?.id || null;
+  if (first) S.activeCheck = ['7d','24h','30d'].find(c => first.checks[c]) || '24h';
   document.getElementById('authScreen').style.display = 'none';
   document.getElementById('appShell').classList.add('visible');
-  renderAll();
+  if (!isAdmin) {
+    document.getElementById('clientBadge').style.display = 'flex';
+    document.getElementById('clientBadgeLabel').textContent = CLIENTS[role]?.name || role;
+  }
+  renderAll(isAdmin, clients);
 }
 
-// ══════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // RENDER
-// ══════════════════════════════════════
-function renderAll() {
-  renderClientTabs();
+// ══════════════════════════════════════════════════════
+function renderAll(isAdmin, clients) {
+  isAdmin = isAdmin ?? S.role === 'ADMIN';
+  clients = clients ?? (isAdmin ? Object.keys(CLIENTS) : [S.role]);
+  renderClientTabs(isAdmin, clients);
   renderBaselines();
   renderPostList();
   renderMain();
+  if (isAdmin && !document.getElementById('urlSection')) renderAdminUrls();
 }
 
-function renderClientTabs() {
+function renderClientTabs(isAdmin, clients) {
   const el = document.getElementById('clientTabs');
-  el.innerHTML = Object.keys(CLIENTS).map(c =>
-    `<button class="client-pill ${c === state.activeClient ? 'active' : ''}" onclick="setClient('${c}')">${c}</button>`
+  if (!isAdmin) { el.innerHTML = ''; return; }
+  el.innerHTML = clients.map(c =>
+    `<button class="client-pill ${c===S.activeClient?'active':''}" onclick="setClient('${c}')">${c}</button>`
   ).join('');
 }
 
 function renderBaselines() {
-  const c = CLIENTS[state.activeClient];
+  const c = CLIENTS[S.activeClient];
   document.getElementById('baselineBlock').innerHTML = `
-    <div class="baseline-row">
-      <div class="baseline-left">
-        <div class="plat-dot ig"></div>
-        <div class="baseline-name">Instagram</div>
-      </div>
-      <div class="baseline-val">${c.baselines.ig.toLocaleString()}</div>
-    </div>
-    <div class="baseline-row">
-      <div class="baseline-left">
-        <div class="plat-dot tt"></div>
-        <div class="baseline-name">TikTok</div>
-      </div>
-      <div class="baseline-val">${c.baselines.tt.toLocaleString()}</div>
-    </div>
-  `;
+    <div class="bl-row"><div class="bl-left"><div class="pdot ig"></div><div class="bl-name">Instagram</div></div><div class="bl-val">${c.baselines.ig.toLocaleString()}</div></div>
+    <div class="bl-row"><div class="bl-left"><div class="pdot tt"></div><div class="bl-name">TikTok</div></div><div class="bl-val">${c.baselines.tt.toLocaleString()}</div></div>`;
 }
 
-function getFilteredPosts() {
-  return POSTS.filter(p => {
-    if (p.client !== state.activeClient) return false;
-    if (state.platFilter !== 'all' && p.platform !== state.platFilter) return false;
-    return true;
-  });
+function getFP() {
+  return POSTS.filter(p => p.client===S.activeClient && (S.platFilter==='all'||p.platform===S.platFilter));
 }
 
 function renderPostList() {
-  const posts = getFilteredPosts();
+  const posts = getFP();
   const el = document.getElementById('postList');
-  if (!posts.length) {
-    el.innerHTML = '<div style="padding:12px 8px;font-size:10px;color:var(--muted);">No posts found</div>';
-    return;
-  }
+  if (!posts.length) { el.innerHTML = '<div style="padding:10px 8px;font-size:10px;color:var(--muted)">No posts found</div>'; return; }
   el.innerHTML = posts.map(p => {
-    const checkKeys = ['24h','7d','30d'];
-    const dots = checkKeys.map(k => {
-      const done = !!p.checks[k];
-      const due = !done && p.dueChecks[k];
-      const cls = done ? 'done' : (due ? 'due' : '');
-      return `<div class="cdot ${cls}" title="${k}">${k.replace('d','')}</div>`;
+    const dots = ['24h','7d','30d'].map(k => {
+      const done = !!p.checks[k], due = !done && p.dueChecks?.[k];
+      return `<div class="cdot ${done?'done':due?'due':''}">${k.replace('d','')}</div>`;
     }).join('');
-
-    return `
-      <div class="post-row ${p.id === state.activePost ? 'active' : ''}" onclick="selectPost(${p.id})">
-        <div class="post-row-top">
-          <div class="post-row-title">${p.title}</div>
-          <div class="mini-dot plat-dot ${p.platform}"></div>
-        </div>
-        <div class="post-row-meta">
-          <div class="post-row-date">${p.date}</div>
-          <div class="check-dots">${dots}</div>
-        </div>
-      </div>
-    `;
+    return `<div class="prow ${p.id===S.activePost?'active':''}" onclick="selectPost(${p.id})">
+      <div class="prow-top"><div class="prow-title">${p.title}</div><div class="mini-pdot pdot ${p.platform}"></div></div>
+      <div class="prow-meta"><div class="prow-date">${p.date}</div><div class="cdots">${dots}</div></div>
+    </div>`;
   }).join('');
 }
 
 function renderMain() {
-  if (state.activeView === 'upcoming') { renderUpcoming(); return; }
-
-  const post = POSTS.find(p => p.id === state.activePost);
-  if (!post) { renderEmpty(); return; }
-
-  const check = post.checks[state.activeCheck];
-  const el = document.getElementById('mainContent');
-
-  // Build check tabs
-  const tabHtml = ['24h','7d','30d'].map(k => {
-    const done = !!post.checks[k];
-    const due = post.dueChecks[k];
-    const cls = k === state.activeCheck ? 'active' : (due && !done ? 'due' : (done ? '' : 'locked'));
-    const label = done ? k : (due ? `${k} — due ${due}` : `${k}`);
-    const clickable = done || due;
-    return `<button class="ctab ${cls}" onclick="${clickable ? `setCheck('${k}')` : ''}">${label}</button>`;
+  if (S.activeView==='upcoming') { renderUpcoming(); return; }
+  const post = POSTS.find(p => p.id===S.activePost);
+  if (!post) { document.getElementById('mainContent').innerHTML = `<div class="empty-state"><div class="ei">📊</div><div class="et">Select a post</div></div>`; return; }
+  const check = post.checks[S.activeCheck];
+  const baseline = CLIENTS[S.activeClient].baselines[post.platform];
+  const outcome = check?.outcome;
+  const tabs = ['24h','7d','30d'].map(k => {
+    const done=!!post.checks[k], due=post.dueChecks?.[k];
+    const cls = k===S.activeCheck?'active':(!done&&!due?'locked':due&&!done?'due':'');
+    return `<button class="ctab ${cls}" ${(done||due)?`onclick="setCheck('${k}')"`:''}>${k}${due&&!done?` — due ${due}`:''}</button>`;
   }).join('');
-
-  // Outcome
-  const outcome = check?.outcome || null;
-  const outcomeCls = outcome ? outcome.toLowerCase() : '';
-
-  el.innerHTML = `
-    <div style="animation: fadeUp 0.25s ease both;">
-      <div class="post-header">
+  document.getElementById('mainContent').innerHTML = `
+    <div style="animation:fadeUp 0.25s ease both">
+      <div class="post-hdr">
         <div>
-          <div class="post-headline">"<em>${post.title}</em>"</div>
-          <div class="post-meta-row">
-            <div class="meta-chip">
-              <div class="plat-dot ${post.platform}"></div>
-              ${post.platform === 'ig' ? 'Instagram' : 'TikTok'}
-            </div>
+          <div class="post-hl">"<em>${post.title}</em>"</div>
+          <div class="meta-row">
+            <div class="meta-chip"><div class="pdot ${post.platform}"></div>${post.platform==='ig'?'Instagram':'TikTok'}</div>
             <div class="meta-chip" style="color:var(--muted)">Posted ${post.date}</div>
             <div class="meta-chip" style="color:var(--muted)">${post.duration}</div>
           </div>
         </div>
-        ${outcome ? `<div class="outcome-tag ${outcomeCls}">${outcome}</div>` : ''}
+        ${outcome?`<div class="otag ${outcome.toLowerCase()}">${outcome}</div>`:''}
       </div>
-
-      <div class="check-tabs">${tabHtml}</div>
-
-      ${check ? renderCheckContent(check, post) : renderNoData(post, state.activeCheck)}
-    </div>
-  `;
+      <div class="ctabs">${tabs}</div>
+      ${check ? renderCheck(check, post, baseline) : `<div class="empty-state"><div class="ei">⏳</div><div class="et">${S.activeCheck} check pending</div><div class="es">${post.dueChecks?.[S.activeCheck]?`Due ${post.dueChecks[S.activeCheck]}. Run /track-post in Claude Code.`:"Check window hasn't opened yet."}</div></div>`}
+    </div>`;
 }
 
-function renderCheckContent(check, post) {
-  const is7d = state.activeCheck === '7d';
-  const is30d = state.activeCheck === '30d';
-  const baseline = CLIENTS[post.client].baselines[post.platform];
-  const baselinePct = check.views ? Math.round((check.views / baseline) * 100) : null;
-
-  const distColor = check.distribution?.includes('Above') || check.distribution?.includes('Promising') ? 'green'
-    : check.distribution?.includes('Below') || check.distribution?.includes('Weak') ? 'red' : 'orange';
-
+function renderCheck(c, post, bl) {
+  const is7 = S.activeCheck==='7d';
+  const bp = c.views ? Math.round((c.views/bl)*100) : 0;
+  const dc = c.distribution?.includes('Above')||c.distribution?.includes('Promising')?'g':c.distribution?.includes('Below')||c.distribution?.includes('Weak')?'r':'o';
+  const mc = (lbl,val,cls,sub,bar) => `<div class="mc ${bar}"><div class="mc-lbl">${lbl}</div><div class="mc-val ${cls}">${val}</div><div class="mc-sub">${sub}</div></div>`;
+  const rc = (n,v,cl,pct) => `<div class="rc"><div class="rc-top"><span class="rc-name">${n}</span><span class="rc-val ${cl}">${v}</span></div><div class="bt"><div class="bf ${cl}" style="width:${pct}%"></div></div></div>`;
+  const ac = (t,col,sel,crit) => {
+    const rows = crit.map(([met,lbl])=>`<div class="${met?'cm':'cu'}">${met?'✓':'—'} ${lbl}</div>`).join('');
+    return `<div class="ac ${sel?`sel-${t.toLowerCase()}`:''}"><div class="ac-title ${col}">${sel?'✓ ':''}${t}</div><div class="cl">${rows}</div></div>`;
+  };
   return `
-    <!-- METRICS -->
-    <div class="metrics-row">
-      <div class="mcard ${baselinePct > 120 ? 'positive' : baselinePct < 80 ? 'negative' : 'neutral'}">
-        <div class="mcard-label">Views</div>
-        <div class="mcard-val ${baselinePct > 120 ? 'green' : baselinePct < 80 ? 'red' : 'orange'}">${check.views?.toLocaleString()}</div>
-        <div class="mcard-sub">${baselinePct}% of baseline</div>
-      </div>
-      <div class="mcard">
-        <div class="mcard-label">Unique Viewers</div>
-        <div class="mcard-val neutral">${check.uniqueViewers?.toLocaleString()}</div>
-        <div class="mcard-sub">${Math.round((check.uniqueViewers/check.views)*100)}% unique rate</div>
-      </div>
-      <div class="mcard ${check.nonFollowerPct > 60 ? 'positive' : ''}">
-        <div class="mcard-label">Non-Follower %</div>
-        <div class="mcard-val ${check.nonFollowerPct > 60 ? 'green' : 'orange'}">${check.nonFollowerPct}%</div>
-        <div class="mcard-sub">${check.nonFollowerPct > 60 ? 'algo pushing' : 'mostly followers'}</div>
-      </div>
-      <div class="mcard ${check.watchTimePct > 35 ? 'positive' : check.watchTimePct < 20 ? 'negative' : 'neutral'}">
-        <div class="mcard-label">Watch Time %</div>
-        <div class="mcard-val ${check.watchTimePct > 35 ? 'green' : check.watchTimePct < 20 ? 'red' : 'orange'}">${check.watchTimePct}%</div>
-        <div class="mcard-sub">${check.watchTimeSec}s avg</div>
-      </div>
+    <div class="mgrid">
+      ${mc('Views',c.views?.toLocaleString(),bp>120?'g':bp<80?'r':'o',`${bp}% of baseline`,bp>120?'pos':bp<80?'neg':'neu')}
+      ${mc('Unique Viewers',c.uniqueViewers?.toLocaleString(),'n',`${Math.round((c.uniqueViewers/c.views)*100)}% unique`,'')}
+      ${mc('Non-Follower %',c.nonFollowerPct+'%',c.nonFollowerPct>60?'g':'o',c.nonFollowerPct>60?'algo pushing':'mostly followers',c.nonFollowerPct>60?'pos':'')}
+      ${mc('Watch Time %',c.watchTimePct+'%',c.watchTimePct>35?'g':c.watchTimePct<20?'r':'o',c.watchTimeSec+'s avg',c.watchTimePct>35?'pos':c.watchTimePct<20?'neg':'neu')}
     </div>
-
-    <!-- TAGS (7d only) -->
-    ${is7d ? `
-    <div class="tags-grid">
-      <div class="tcard">
-        <div class="tcard-cat">Distribution</div>
-        <div class="tcard-val ${distColor}">${check.distribution}</div>
-        <div class="tcard-desc">${check.views?.toLocaleString()} views vs ${baseline?.toLocaleString()} baseline</div>
-      </div>
-      <div class="tcard">
-        <div class="tcard-cat">Engagement Quality</div>
-        <div class="tcard-val ${check.engagementQuality === 'Strong' ? 'green' : check.engagementQuality === 'Weak' ? 'red' : 'orange'}">${check.engagementQuality}</div>
-        <div class="tcard-desc">Save rate ${check.saveRate}% · ${check.shares} shares · ${check.comments} comments</div>
-      </div>
-      <div class="tcard">
-        <div class="tcard-cat">Business Signal</div>
-        <div class="tcard-val ${check.businessSignal === 'Strong' ? 'green' : check.businessSignal === 'Weak' ? 'red' : 'orange'}">${check.businessSignal}</div>
-        <div class="tcard-desc">${check.follows} follows · ${check.followsPer1k} per 1K views</div>
-      </div>
-      <div class="tcard">
-        <div class="tcard-cat">Outcome</div>
-        <div class="tcard-val ${check.outcome === 'Winner' ? 'green' : check.outcome === 'Underperformed' ? 'red' : 'orange'}">${check.outcome}</div>
-        <div class="tcard-desc">Based on distribution + engagement criteria</div>
-      </div>
+    ${is7?`
+    <div class="tgrid">
+      <div class="tc"><div class="tc-cat">Distribution</div><div class="tc-val ${dc}">${c.distribution}</div><div class="tc-desc">${c.views?.toLocaleString()} vs ${bl?.toLocaleString()} baseline</div></div>
+      <div class="tc"><div class="tc-cat">Engagement Quality</div><div class="tc-val ${c.engagementQuality==='Strong'?'g':c.engagementQuality==='Weak'?'r':'o'}">${c.engagementQuality}</div><div class="tc-desc">Save rate ${c.saveRate}% · ${c.shares} shares · ${c.comments} comments</div></div>
+      <div class="tc"><div class="tc-cat">Business Signal</div><div class="tc-val ${c.businessSignal==='Strong'?'g':c.businessSignal==='Weak'?'r':'o'}">${c.businessSignal}</div><div class="tc-desc">${c.follows} follows · ${c.followsPer1k} per 1K</div></div>
+      <div class="tc"><div class="tc-cat">Outcome</div><div class="tc-val ${c.outcome==='Winner'?'g':c.outcome==='Underperformed'?'r':'o'}">${c.outcome}</div><div class="tc-desc">Distribution + engagement criteria</div></div>
     </div>
-
-    <!-- RATES -->
-    <div class="section-hd">Calculated Rates</div>
-    <div class="rates-row" style="margin-bottom:20px;">
-      ${rateCard('Save Rate', check.saveRate + '%', check.saveRate > 1 ? 'green' : check.saveRate > 0.5 ? 'orange' : 'red', Math.min(check.saveRate * 33, 100))}
-      ${rateCard('Share Rate', check.shareRate + '%', check.shareRate > 1 ? 'green' : 'orange', Math.min(check.shareRate * 25, 100))}
-      ${rateCard('Engagement Rate', check.engagementRate + '%', check.engagementRate > 3 ? 'green' : check.engagementRate > 1.5 ? 'orange' : 'red', Math.min(check.engagementRate * 10, 100))}
-      ${rateCard('Follows / 1K', check.followsPer1k, check.followsPer1k > 2 ? 'green' : 'orange', Math.min(check.followsPer1k * 20, 100))}
+    <div class="shd">Calculated Rates</div>
+    <div class="rgrid">
+      ${rc('Save Rate',c.saveRate+'%',c.saveRate>1?'g':c.saveRate>0.5?'o':'r',Math.min(c.saveRate*33,100))}
+      ${rc('Share Rate',c.shareRate+'%',c.shareRate>1?'g':'o',Math.min(c.shareRate*25,100))}
+      ${rc('Engagement Rate',c.engagementRate+'%',c.engagementRate>3?'g':c.engagementRate>1.5?'o':'r',Math.min(c.engagementRate*10,100))}
+      ${rc('Follows / 1K',c.followsPer1k,c.followsPer1k>2?'g':'o',Math.min(c.followsPer1k*20,100))}
     </div>
-
-    <!-- NEXT ACTION -->
-    <div class="action-section">
-      <div class="section-hd">Next Action</div>
-      <div class="action-grid">
-        ${actionCard('Repeat', 'green', check.nextAction === 'Repeat', [
-          [check.views > baseline * 1.2, 'Above baseline views'],
-          [check.watchTimePct > 35, 'Watch time >35%'],
-          [check.saves > 10 || check.saveRate > 1, 'Saves >10 or Save rate >1%'],
-          [check.follows > 0, 'Follows attributed'],
-          [check.distribution?.includes('Above'), 'Distribution = Expanded']
-        ])}
-        ${actionCard('Iterate', 'orange', check.nextAction === 'Iterate', [
-          [check.watchTimePct > 35 && check.views < baseline, 'Good watch time + low views'],
-          [check.views > baseline && check.watchTimePct < 25, 'High views + low watch time'],
-          [check.saves > 10 && !check.follows, 'Good saves + no follows'],
-          [check.distribution?.includes('At baseline') || check.distribution?.includes('Typical'), 'Distribution = Typical'],
-          [false, 'Strong topic, weak execution']
-        ])}
-        ${actionCard('Drop', 'red', check.nextAction === 'Drop', [
-          [check.views < baseline * 0.8, 'Below baseline views'],
-          [check.watchTimePct < 15, 'Watch time <15%'],
-          [check.saves === 0 && check.shares === 0, 'Zero saves + zero shares'],
-          [check.distribution?.includes('Below') || check.distribution?.includes('Limited'), 'Distribution = Limited'],
-          [check.outcome === 'Underperformed', 'Outcome = Underperformed']
-        ])}
-      </div>
-    </div>
-    ` : ''}
-
-    <!-- NOTES -->
-    <div class="section-hd">Notes</div>
-    <div class="notes-block">
-      <textarea placeholder="Hook effectiveness, topic angle, posting time, audio choice, trend alignment…">${check.notes || ''}</textarea>
-    </div>
-  `;
-}
-
-function rateCard(name, val, color, pct) {
-  return `
-    <div class="rcard">
-      <div class="rcard-top">
-        <span class="rcard-name">${name}</span>
-        <span class="rcard-val ${color}">${val}</span>
-      </div>
-      <div class="bar-track"><div class="bar-fill ${color}" style="width:${pct}%"></div></div>
-    </div>
-  `;
-}
-
-function actionCard(title, color, selected, criteria) {
-  const selClass = selected ? `selected-${title.toLowerCase()}` : '';
-  const rows = criteria.map(([met, label]) =>
-    `<div class="${met ? 'crit-met' : 'crit-unmet'}">${met ? '✓' : '—'} ${label}</div>`
-  ).join('');
-  return `
-    <div class="acard ${selClass}">
-      <div class="acard-title ${color}">${selected ? '✓ ' : ''}${title}</div>
-      <div class="criteria-list">${rows}</div>
-    </div>
-  `;
-}
-
-function renderNoData(post, check) {
-  const due = post.dueChecks[check];
-  return `
-    <div class="empty-state">
-      <div class="empty-icon">⏳</div>
-      <div class="empty-title">${check} check not yet completed</div>
-      <div class="empty-sub">${due ? `Due ${due}. Run /track-post in Claude Code to pull this data.` : 'This check window hasn\'t opened yet.'}</div>
-    </div>
-  `;
-}
-
-function renderEmpty() {
-  document.getElementById('mainContent').innerHTML = `
-    <div class="empty-state">
-      <div class="empty-icon">📊</div>
-      <div class="empty-title">Select a post to view analytics</div>
-      <div class="empty-sub">Choose a post from the sidebar to see its performance data.</div>
-    </div>
-  `;
+    <div class="shd">Next Action</div>
+    <div class="agrid">
+      ${ac('Repeat','g',c.nextAction==='Repeat',[[c.views>bl*1.2,'Above baseline views'],[c.watchTimePct>35,'Watch time >35%'],[c.saves>10||c.saveRate>1,'Saves >10 or save rate >1%'],[c.follows>0,'Follows attributed'],[c.distribution?.includes('Above'),'Distribution = Expanded']])}
+      ${ac('Iterate','o',c.nextAction==='Iterate',[[c.watchTimePct>35&&c.views<bl,'Good watch time + low views'],[c.views>bl&&c.watchTimePct<25,'High views + low watch time'],[c.saves>10&&!c.follows,'Good saves + no follows'],[c.distribution?.includes('Typical')||c.distribution?.includes('baseline'),'Distribution = Typical'],[false,'Strong topic, weak execution']])}
+      ${ac('Drop','r',c.nextAction==='Drop',[[c.views<bl*0.8,'Below baseline views'],[c.watchTimePct<15,'Watch time <15%'],[c.saves===0&&c.shares===0,'Zero saves + zero shares'],[c.distribution?.includes('Limited')||c.distribution?.includes('Weak'),'Distribution = Limited'],[c.outcome==='Underperformed','Outcome = Underperformed']])}
+    </div>`:''}
+    <div class="shd">Notes</div>
+    <div class="nb"><textarea placeholder="Hook effectiveness, topic angle, posting time, audio choice…">${c.notes||''}</textarea></div>`;
 }
 
 function renderUpcoming() {
   const allDue = [];
-  POSTS.filter(p => p.client === state.activeClient).forEach(p => {
-    Object.entries(p.dueChecks || {}).forEach(([check, date]) => {
-      allDue.push({ post: p, check, date, dateObj: new Date(date) });
-    });
+  POSTS.filter(p=>p.client===S.activeClient).forEach(p => {
+    Object.entries(p.dueChecks||{}).forEach(([check,date]) => allDue.push({post:p,check,date,dateObj:new Date(date)}));
   });
-
-  allDue.sort((a,b) => a.dateObj - b.dateObj);
-
-  const today = new Date();
-  today.setHours(0,0,0,0);
-
-  const todayItems = allDue.filter(d => {
-    const dd = new Date(d.dateObj); dd.setHours(0,0,0,0);
-    return dd <= today;
-  });
-
-  const upcomingItems = allDue.filter(d => {
-    const dd = new Date(d.dateObj); dd.setHours(0,0,0,0);
-    return dd > today;
-  });
-
-  const renderDueRow = (item) => `
-    <div class="due-row" onclick="selectPost(${item.post.id}); setView('posts');">
-      <div>
-        <div class="due-title">${item.post.title}</div>
-        <div class="due-meta">${item.post.client} · ${item.post.platform === 'ig' ? 'Instagram' : 'TikTok'} · Posted ${item.post.date}</div>
-      </div>
-      <div class="due-right">
-        <div class="due-when ${item.dateObj <= today ? 'today' : 'soon'}">${item.dateObj <= today ? 'Due now' : item.date}</div>
-        <div class="due-check">${item.check} check</div>
-      </div>
-    </div>
-  `;
-
+  allDue.sort((a,b)=>a.dateObj-b.dateObj);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const isToday = d => { const dd=new Date(d); dd.setHours(0,0,0,0); return dd<=today; };
+  const row = item => `<div class="dr" onclick="selectPost(${item.post.id});setView('posts')">
+    <div><div class="dr-title">${item.post.title}</div><div class="dr-meta">${item.post.platform==='ig'?'Instagram':'TikTok'} · Posted ${item.post.date}</div></div>
+    <div class="dr-right"><div class="dw ${isToday(item.dateObj)?'today':'soon'}">${isToday(item.dateObj)?'Due now':item.date}</div><div class="dc">${item.check} check</div></div>
+  </div>`;
+  const todayItems = allDue.filter(d=>isToday(d.dateObj));
+  const upcoming = allDue.filter(d=>!isToday(d.dateObj));
   document.getElementById('mainContent').innerHTML = `
-    <div class="upcoming-view">
-      <div class="upcoming-hd">Upcoming <em>checks</em></div>
-      <div class="upcoming-sub">Posts waiting for their next data pull — run /track-post in Claude Code</div>
-
-      ${todayItems.length ? `
-        <div class="due-section">
-          <div class="due-label">Due now</div>
-          ${todayItems.map(renderDueRow).join('')}
-        </div>
-      ` : ''}
-
-      ${upcomingItems.length ? `
-        <div class="due-section">
-          <div class="due-label">Coming up</div>
-          ${upcomingItems.map(renderDueRow).join('')}
-        </div>
-      ` : ''}
-
-      ${!todayItems.length && !upcomingItems.length ? `
-        <div class="empty-state">
-          <div class="empty-icon">✅</div>
-          <div class="empty-title">All caught up</div>
-          <div class="empty-sub">No pending checks for ${state.activeClient}.</div>
-        </div>
-      ` : ''}
-    </div>
-  `;
+    <div style="animation:fadeUp 0.25s ease both">
+      <div class="uh">Upcoming <em>checks</em></div>
+      <div class="usub">Posts waiting for their next data pull — run /track-post in Claude Code</div>
+      ${todayItems.length?`<div style="margin-bottom:22px"><div class="dl">Due now</div>${todayItems.map(row).join('')}</div>`:''}
+      ${upcoming.length?`<div><div class="dl">Coming up</div>${upcoming.map(row).join('')}</div>`:''}
+      ${!todayItems.length&&!upcoming.length?`<div class="empty-state"><div class="ei">✅</div><div class="et">All caught up</div></div>`:''}
+    </div>`;
 }
 
-// ══════════════════════════════════════
-// INTERACTIONS
-// ══════════════════════════════════════
+function renderAdminUrls() {
+  const base = window.location.origin + window.location.pathname;
+  const entries = Object.entries(ACCESS_KEYS).filter(([,v])=>v!=='ADMIN');
+  const html = `<div id="urlSection" class="url-section">
+    <div class="url-sec-label">Client Share Links</div>
+    ${entries.map(([key,client])=>`
+      <div class="url-item">
+        <div><div class="url-cname">${client}</div><div class="url-str">${base}?key=${key}</div></div>
+        <button class="url-copy" onclick="copyUrl('${base}?key=${key}',this)">Copy</button>
+      </div>`).join('')}
+  </div>`;
+  document.getElementById('sidebarTop').insertAdjacentHTML('beforeend', html);
+}
+
+function copyUrl(url, btn) {
+  navigator.clipboard.writeText(url).then(()=>{ btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy',2000); });
+}
+
 function setClient(c) {
-  state.activeClient = c;
-  const posts = getFilteredPosts();
-  state.activePost = posts[0]?.id || null;
-  state.activeCheck = '7d';
+  S.activeClient = c;
+  const first = POSTS.find(p=>p.client===c);
+  S.activePost = first?.id||null;
+  S.activeCheck = first?(['7d','24h','30d'].find(k=>first.checks[k])||'24h'):'24h';
   renderAll();
 }
 
 function selectPost(id) {
-  state.activePost = id;
-  state.activeView = 'posts';
-  // pick best available check
-  const post = POSTS.find(p => p.id === id);
-  const preferred = ['7d','24h','30d'];
-  state.activeCheck = preferred.find(c => post?.checks[c]) || '24h';
-  renderPostList();
-  renderMain();
+  S.activePost = id;
+  S.activeView = 'posts';
+  const post = POSTS.find(p=>p.id===id);
+  S.activeCheck = ['7d','24h','30d'].find(c=>post?.checks[c])||'24h';
+  renderPostList(); renderMain();
   document.getElementById('btnPosts').classList.add('active');
   document.getElementById('btnUpcoming').classList.remove('active');
 }
 
-function setCheck(c) {
-  state.activeCheck = c;
-  renderMain();
-}
+function setCheck(c) { S.activeCheck = c; renderMain(); }
 
 function setView(v) {
-  state.activeView = v;
-  document.getElementById('btnPosts').classList.toggle('active', v === 'posts');
-  document.getElementById('btnUpcoming').classList.toggle('active', v === 'upcoming');
+  S.activeView = v;
+  document.getElementById('btnPosts').classList.toggle('active',v==='posts');
+  document.getElementById('btnUpcoming').classList.toggle('active',v==='upcoming');
   renderMain();
 }
 
 function filterPlat(plat, btn) {
-  state.platFilter = plat;
-  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+  S.platFilter = plat;
+  document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderPostList();
 }
+
+init();
 </script>
 </body>
 </html>
