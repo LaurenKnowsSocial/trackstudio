@@ -1805,6 +1805,7 @@ let S = { role:null, activeClient:null, activePost:null, activeCheck:'7d', activ
 // INIT — check URL key param first
 // ══════════════════════════════════════════════════════
 function init() {
+  console.log('init fired, readyState:', document.readyState);
   const params = new URLSearchParams(window.location.search);
   const k = params.get('key');
   if (k && ACCESS_KEYS[k]) startSession(ACCESS_KEYS[k]);
@@ -1821,6 +1822,7 @@ function login() {
 }
 
 function startSession(role) {
+  console.log('startSession fired, role:', role);
   S.role = role;
   const isAdmin = role === 'ADMIN';
   const clients = isAdmin ? Object.keys(CLIENTS) : [role];
