@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrackStudio</title>
+<title>The Receipts</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#0a0a0a;--surface:#131313;--surface2:#1a1a1a;--border:#252525;--border2:#2e2e2e;
-  --text:#ede8df;--text2:#9a9490;--muted:#555;
-  --accent:#c6f135;--accent-dim:rgba(198,241,53,0.08);
-  --warn:#f0a830;--warn-dim:rgba(240,168,48,0.08);
-  --danger:#e85050;--danger-dim:rgba(232,80,80,0.08);
-  --instagram:#e1306c;--tiktok:#5ecdd4;
+  --bg:#ffffff;--surface:#fafaf8;--surface2:#f4f2ee;--border:#e8e0d8;--border2:#ddd5cb;
+  --text:#1a1614;--text2:#7a7068;--muted:#b0a898;
+  --accent:#EB8201;--accent-dim:rgba(235,130,1,0.08);
+  --warn:#d4a000;--warn-dim:rgba(212,160,0,0.08);
+  --danger:#cc3333;--danger-dim:rgba(204,51,51,0.08);
+  --instagram:#e1306c;--tiktok:#0f9ea8;--orange:#EB8201;--cream:#FFF7CE;--repeat:#2a8a3e;--repeat-dim:rgba(42,138,62,0.08);--iterate:#c8a000;--iterate-dim:rgba(200,160,0,0.08);--drop:#cc3333;--drop-dim:rgba(204,51,51,0.08);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
@@ -39,21 +39,21 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 #appShell.visible{display:flex;}
 
 /* TOPBAR */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px;border-bottom:1px solid var(--border);flex-shrink:0;}
-.topbar-logo{font-family:'Fraunces',serif;font-size:17px;font-weight:300;letter-spacing:-0.3px;}
-.topbar-logo em{font-style:italic;color:var(--accent);}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--orange) !important;}
+.topbar-logo{font-family:'Fraunces',serif;font-size:17px;font-weight:300;letter-spacing:-0.3px;color:#fff;}
+.topbar-logo em{font-style:italic;color:var(--cream);}
 .topbar-center{display:flex;gap:3px;}
-.client-pill{padding:5px 13px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
-.client-pill.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:500;}
-.client-pill:hover:not(.active){color:var(--text);border-color:var(--text2);}
+.client-pill{padding:5px 13px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.3);background:transparent;color:rgba(255,255,255,0.7);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
+.client-pill.active{background:#fff;color:var(--orange);border-color:#fff;font-weight:500;}
+.client-pill:hover:not(.active){color:#fff;border-color:rgba(255,255,255,0.6);}
 .topbar-right{display:flex;align-items:center;gap:8px;}
 .sync-dot-wrap{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);}
-.sync-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 2.5s infinite;}
+.sync-dot{width:5px;height:5px;border-radius:50%;background:#fff;animation:pulse 2.5s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 .client-badge{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text2);padding:5px 12px;border:1px solid var(--border2);}
-.client-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
-.nav-btn{padding:5px 12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
-.nav-btn.active{color:var(--text);border-color:var(--text2);}
+.client-badge-dot{width:6px;height:6px;border-radius:50%;background:#fff;}
+.nav-btn{padding:5px 12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.3);background:transparent;color:rgba(255,255,255,0.7);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
+.nav-btn.active{color:#fff;border-color:#fff;}
 
 /* BODY */
 .body-layout{display:grid;grid-template-columns:258px 1fr;flex:1;overflow:hidden;}
@@ -104,7 +104,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .meta-row{display:flex;gap:14px;}
 .meta-chip{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);}
 .otag{padding:7px 16px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;align-self:flex-start;flex-shrink:0;}
-.otag.winner{background:var(--accent);color:var(--bg);}
+.otag.winner{background:var(--repeat);color:#fff;}
 .otag.learning{background:var(--warn);color:var(--bg);}
 .otag.underperformed{background:var(--danger);color:#fff;}
 .otag.testing{background:var(--surface2);color:var(--muted);border:1px solid var(--border2);}
@@ -131,7 +131,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .tc{background:var(--surface);border:1px solid var(--border);padding:13px;animation:fadeUp 0.3s ease both;}
 .tc-cat{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
 .tc-val{font-size:11px;font-weight:500;margin-bottom:3px;}
-.tc-val.g{color:var(--accent);}
+.tc-val.g{color:var(--repeat);}
 .tc-val.o{color:var(--warn);}
 .tc-val.r{color:var(--danger);}
 .tc-desc{font-size:10px;color:var(--muted);line-height:1.5;}
@@ -146,14 +146,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .rc-val.r{color:var(--danger);}
 .bt{height:2px;background:var(--border2);}
 .bf{height:100%;transition:width 0.7s cubic-bezier(0.16,1,0.3,1);}
-.bf.g{background:var(--accent);}
+.bf.g{background:var(--repeat);}
 .bf.o{background:var(--warn);}
 .bf.r{background:var(--danger);}
 .agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
 .ac{background:var(--surface);border:2px solid var(--border);padding:16px;}
-.ac.sel-repeat{border-color:var(--accent);background:var(--accent-dim);}
-.ac.sel-iterate{border-color:var(--warn);background:var(--warn-dim);}
-.ac.sel-drop{border-color:var(--danger);background:var(--danger-dim);}
+.ac.sel-repeat{border-color:var(--repeat);background:var(--repeat-dim);}
+.ac.sel-iterate{border-color:var(--iterate);background:var(--iterate-dim);}
+.ac.sel-drop{border-color:var(--drop);background:var(--drop-dim);}
 .ac-title{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
 .ac-title.g{color:var(--accent);}
 .ac-title.o{color:var(--warn);}
@@ -213,7 +213,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 <!-- APP -->
 <div id="appShell">
   <div class="topbar">
-    <div class="topbar-logo">track<em>studio</em></div>
+    <div class="topbar-logo">the <em>receipts</em></div>
     <div class="topbar-center" id="clientTabs"></div>
     <div class="topbar-right">
       <div class="sync-dot-wrap"><div class="sync-dot"></div><span>synced</span></div>
