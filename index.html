@@ -1905,7 +1905,6 @@ function renderMain() {
           <div class="meta-row">
             <div class="meta-chip"><div class="pdot ${post.platform}"></div>${post.platform==='ig'?'Instagram':'TikTok'}</div>
             <div class="meta-chip" style="color:var(--muted)">Posted ${post.date}</div>
-            <div class="meta-chip" style="color:var(--muted)">${post.duration}</div>
           </div>
         </div>
         ${outcome?`<div class="otag ${outcome.toLowerCase()}">${outcome}</div>`:''}
@@ -2032,7 +2031,11 @@ function filterPlat(plat, btn) {
   renderPostList();
 }
 
-window.addEventListener("DOMContentLoaded", init);
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
