@@ -18,7 +18,8 @@
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
 
 /* ── AUTH ── */
-#authScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+#authScreen{min-height:100vh;display:none;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+#authScreen.visible{display:flex;}
 #authScreen::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(198,241,53,0.05) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
 .auth-box{width:420px;padding:48px;border:1px solid var(--border2);background:var(--surface);animation:fadeUp 0.5s ease both;}
 .auth-logo{font-family:'Fraunces',serif;font-size:26px;font-weight:300;margin-bottom:4px;letter-spacing:-0.5px;}
@@ -1807,6 +1808,7 @@ function init() {
   const params = new URLSearchParams(window.location.search);
   const k = params.get('key');
   if (k && ACCESS_KEYS[k]) startSession(ACCESS_KEYS[k]);
+  else document.getElementById('authScreen').classList.add('visible');
 }
 
 function login() {
@@ -1826,7 +1828,7 @@ function startSession(role) {
   const first = POSTS.find(p => p.client === S.activeClient);
   S.activePost = first?.id || null;
   if (first) S.activeCheck = ['7d','24h','30d'].find(c => first.checks[c]) || '24h';
-  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('authScreen').classList.remove('visible');
   document.getElementById('appShell').classList.add('visible');
   if (!isAdmin) {
     document.getElementById('clientBadge').style.display = 'flex';
