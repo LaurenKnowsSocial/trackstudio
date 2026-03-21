@@ -273,55 +273,139 @@ const POSTS = [
     id: 1,
     client: 'CEA',
     platform: 'ig',
-    title: 'College essays that got it right: Burglar',
-    date: 'Feb 26, 2026',
+    title: 'Why common app essay prompts don\'t matter',
+    date: 'Mar 19, 2026',
     checks: {
-      '24h': {
-        views: null,
-        uniqueViewers: null,
-        nonFollowerPct: null,
+      24h: {
+        views: 976,
+        uniqueViewers: 466,
+        nonFollowerPct: 30.0,
         watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: null,
-        shares: null
+        watchTimePct: null,
+        saves: 10,
+        shares: 1,
+        distribution: 'Weak - limited algo test'
       }
     },
     dueChecks: {
-      '7d': 'Mar 5, 2026',
-      '30d': 'Mar 28, 2026'
+      7d: 'Mar 26, 2026'
     }
   },
   {
     id: 2,
     client: 'CEA',
     platform: 'ig',
-    title: 'What juniors need to think about now',
-    date: 'Feb 23, 2026',
+    title: 'Quick tips to brainstorm topics',
+    date: 'Mar 17, 2026',
     checks: {
-      '24h': {
-        views: 1896,
-        uniqueViewers: 1673,
-        nonFollowerPct: 92.8,
-        watchTimeSec: 6,
-        watchTimePct: 12.8,
-        saves: 9,
+      24h: {
+        views: 662,
+        uniqueViewers: null,
+        nonFollowerPct: 83.4,
+        watchTimeSec: 3.0,
+        watchTimePct: 30.0,
+        saves: 20,
         shares: 9,
-        distribution: 'Promising - expanding test'
+        distribution: 'Neutral - testing'
       }
     },
     dueChecks: {
-      '7d': 'Mar 2, 2026',
-      '30d': 'Mar 25, 2026'
+      7d: 'Mar 24, 2026'
     }
   },
   {
     id: 3,
     client: 'CEA',
+    platform: 'ig',
+    title: 'Stacey + Becca Prompt 3 Podcast',
+    date: 'Mar 11, 2026',
+    checks: {
+      7d: {
+        views: 3359,
+        uniqueViewers: 3006,
+        nonFollowerPct: 92.9,
+        watchTimeSec: 4.0,
+        watchTimePct: 12.5,
+        saves: 8,
+        shares: 1,
+        comments: 12,
+        follows: 3,
+        saveRate: 0.24,
+        shareRate: 0.03,
+        engagementRate: 0.63,
+        followsPer1k: 0.89,
+        distribution: 'Above baseline — expanded reach',
+        outcome: 'Testing',
+        engagementQuality: 'Neutral',
+        businessSignal: 'Neutral',
+        nextAction: 'Repeat'
+      }
+    },
+    dueChecks: {
+      24h: 'Mar 12, 2026'
+    }
+  },
+  {
+    id: 4,
+    client: 'CEA',
+    platform: 'ig',
+    title: 'College essays that got it right: Burglar',
+    date: 'Feb 26, 2026',
+    checks: {
+      24h: {
+        views: null,
+        uniqueViewers: null,
+        nonFollowerPct: null,
+        watchTimeSec: null,
+        watchTimePct: null,
+        saves: null,
+        shares: null,
+        notes: 'No 24h data recorded.'
+      }
+    },
+    dueChecks: {
+      7d: 'Mar 5, 2026'
+    }
+  },
+  {
+    id: 5,
+    client: 'CEA',
+    platform: 'ig',
+    title: 'What juniors need to think about now',
+    date: 'Feb 23, 2026',
+    checks: {
+      24h: {
+        views: 1896,
+        uniqueViewers: 1673,
+        nonFollowerPct: 92.8,
+        watchTimeSec: 6.0,
+        watchTimePct: 12.8,
+        saves: 9,
+        shares: 9,
+        distribution: 'Promising - expanding test'
+      },
+      30d: {
+        views: 5125,
+        saves: 14,
+        shares: 10,
+        follows: 6,
+        longTailViews: null,
+        longTailPct: null,
+        distributionType: 'Evergreen'
+      }
+    },
+    dueChecks: {
+      7d: 'Mar 2, 2026'
+    }
+  },
+  {
+    id: 6,
+    client: 'CEA',
     platform: 'tt',
     title: 'What juniors need to think about now',
     date: 'Feb 23, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 730,
         uniqueViewers: 120,
         nonFollowerPct: 97.8,
@@ -333,18 +417,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '7d': 'Mar 2, 2026',
-      '30d': 'Mar 25, 2026'
+      7d: 'Mar 2, 2026'
     }
   },
   {
-    id: 4,
+    id: 7,
     client: 'CEA',
     platform: 'ig',
     title: 'It\'s too soon',
     date: 'Feb 19, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 577,
         uniqueViewers: null,
         nonFollowerPct: 1.5,
@@ -353,35 +436,43 @@ const POSTS = [
         saves: 2,
         shares: 5,
         distribution: 'Weak - limited algo test'
+      },
+      30d: {
+        views: 955,
+        saves: 6,
+        shares: 7,
+        follows: 1,
+        longTailViews: null,
+        longTailPct: null,
+        distributionType: 'Evergreen'
       }
     },
     dueChecks: {
-      '7d': 'Feb 26, 2026',
-      '30d': 'Mar 21, 2026'
+      7d: 'Feb 26, 2026'
     }
   },
   {
-    id: 5,
+    id: 8,
     client: 'CEA',
     platform: 'ig',
     title: 'Stacey Tip: How to write a summer program app essay',
     date: 'Feb 13, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 1067,
         uniqueViewers: 934,
         nonFollowerPct: 90.7,
-        watchTimeSec: 2,
+        watchTimeSec: 2.0,
         watchTimePct: 2.4,
         saves: 1,
         shares: 0,
         distribution: 'Neutral - avg distro'
       },
-      '7d': {
+      7d: {
         views: 1677,
         uniqueViewers: 1495,
         nonFollowerPct: 91.1,
-        watchTimeSec: 2,
+        watchTimeSec: 2.0,
         watchTimePct: 2.4,
         saves: 1,
         shares: 1,
@@ -390,7 +481,7 @@ const POSTS = [
         saveRate: 0.06,
         shareRate: 0.06,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'At baseline — typical reach',
         outcome: 'Learning',
         engagementQuality: 'Neutral',
@@ -399,31 +490,31 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '30d': 'Mar 15, 2026'
+      30d: 'Mar 15, 2026'
     }
   },
   {
-    id: 6,
+    id: 9,
     client: 'CEA',
     platform: 'ig',
     title: 'Transfer essay text reel',
     date: 'Feb 10, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 848,
         uniqueViewers: 669,
         nonFollowerPct: 80.6,
-        watchTimeSec: 2,
+        watchTimeSec: 2.0,
         watchTimePct: 25.0,
         saves: 1,
         shares: 0,
         distribution: 'Neutral - avg distro'
       },
-      '7d': {
+      7d: {
         views: 1086,
         uniqueViewers: 889,
         nonFollowerPct: 82.1,
-        watchTimeSec: 3,
+        watchTimeSec: 3.0,
         watchTimePct: 37.5,
         saves: 1,
         shares: 0,
@@ -432,7 +523,7 @@ const POSTS = [
         saveRate: 0.09,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'Below baseline — limited reach',
         outcome: 'Underperformed',
         engagementQuality: 'Weak',
@@ -441,17 +532,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '30d': 'Mar 12, 2026'
+      30d: 'Mar 12, 2026'
     }
   },
   {
-    id: 7,
+    id: 10,
     client: 'CEA',
     platform: 'ig',
     title: 'Summer program apps',
     date: 'Feb 9, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 280,
         uniqueViewers: null,
         nonFollowerPct: 0.0,
@@ -461,7 +552,7 @@ const POSTS = [
         shares: 0,
         distribution: 'Weak - limited algo test'
       },
-      '7d': {
+      7d: {
         views: 545,
         uniqueViewers: 208,
         nonFollowerPct: 0.0,
@@ -474,7 +565,7 @@ const POSTS = [
         saveRate: 0.92,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'Below baseline — limited reach',
         outcome: 'Underperformed',
         engagementQuality: 'Neutral',
@@ -483,31 +574,31 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '30d': 'Mar 11, 2026'
+      30d: 'Mar 11, 2026'
     }
   },
   {
-    id: 8,
+    id: 11,
     client: 'CEA',
     platform: 'ig',
     title: 'College Essays that got it right: What makes a woman',
     date: 'Feb 3, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 323,
         uniqueViewers: null,
         nonFollowerPct: 81.0,
-        watchTimeSec: 2,
+        watchTimeSec: 2.0,
         watchTimePct: 18.2,
         saves: 3,
         shares: 0,
         distribution: 'Weak - limited algo test'
       },
-      '7d': {
+      7d: {
         views: 1725,
         uniqueViewers: 1480,
         nonFollowerPct: 92.4,
-        watchTimeSec: 2,
+        watchTimeSec: 2.0,
         watchTimePct: 18.2,
         saves: 4,
         shares: 0,
@@ -516,7 +607,7 @@ const POSTS = [
         saveRate: 0.23,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'At baseline — typical reach',
         outcome: 'Learning',
         engagementQuality: 'Neutral',
@@ -525,17 +616,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '30d': 'Mar 5, 2026'
+      30d: 'Mar 5, 2026'
     }
   },
   {
-    id: 9,
+    id: 12,
     client: 'CEA',
     platform: 'ig',
     title: 'How to not be cliche when writing about sports',
     date: 'Jan 28, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 516,
         uniqueViewers: null,
         nonFollowerPct: 4.0,
@@ -545,7 +636,7 @@ const POSTS = [
         shares: 1,
         distribution: 'Weak - limited algo test'
       },
-      '7d': {
+      7d: {
         views: 819,
         uniqueViewers: 353,
         nonFollowerPct: 4.4,
@@ -558,7 +649,7 @@ const POSTS = [
         saveRate: 0.12,
         shareRate: 0.12,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'Below baseline — limited reach',
         outcome: 'Underperformed',
         engagementQuality: 'Weak',
@@ -567,31 +658,31 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '30d': 'Feb 27, 2026'
+      30d: 'Feb 27, 2026'
     }
   },
   {
-    id: 10,
+    id: 13,
     client: 'CEA',
     platform: 'ig',
     title: 'When will admissions get back to you?',
     date: 'Jan 22, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 1361,
         uniqueViewers: 957,
         nonFollowerPct: 71.9,
-        watchTimeSec: 6,
+        watchTimeSec: 6.0,
         watchTimePct: 25.0,
         saves: 2,
         shares: 0,
         distribution: 'Neutral - avg distro'
       },
-      '7d': {
+      7d: {
         views: 1918,
         uniqueViewers: 1406,
         nonFollowerPct: 73.9,
-        watchTimeSec: 6,
+        watchTimeSec: 6.0,
         watchTimePct: 25.0,
         saves: 3,
         shares: 0,
@@ -600,7 +691,7 @@ const POSTS = [
         saveRate: 0.16,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'At baseline — typical reach',
         outcome: 'Learning',
         engagementQuality: 'Neutral',
@@ -609,17 +700,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '30d': 'Feb 21, 2026'
+      30d: 'Feb 21, 2026'
     }
   },
   {
-    id: 11,
+    id: 14,
     client: 'CEA',
     platform: 'tt',
     title: 'How to Approach the College Transfer Objective Statement Edit',
     date: 'Jan 20, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 984,
         uniqueViewers: 822,
         nonFollowerPct: 97.2,
@@ -631,32 +722,31 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '7d': 'Jan 27, 2026',
-      '30d': 'Feb 19, 2026'
+      7d: 'Jan 27, 2026'
     }
   },
   {
-    id: 12,
+    id: 15,
     client: 'CEA',
     platform: 'ig',
     title: 'How to Approach the College Transfer Objective Statement Edit',
     date: 'Jan 19, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 868,
         uniqueViewers: 700,
         nonFollowerPct: 75.6,
-        watchTimeSec: 9,
+        watchTimeSec: 9.0,
         watchTimePct: 10.2,
         saves: 4,
         shares: 1,
         distribution: 'Neutral - avg distro'
       },
-      '7d': {
+      7d: {
         views: 1656,
         uniqueViewers: 1392,
         nonFollowerPct: 81.1,
-        watchTimeSec: 8,
+        watchTimeSec: 8.0,
         watchTimePct: 9.1,
         saves: 5,
         shares: 2,
@@ -672,7 +762,7 @@ const POSTS = [
         businessSignal: 'Weak',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 2049,
         saves: 6,
         shares: 3,
@@ -687,27 +777,27 @@ const POSTS = [
     }
   },
   {
-    id: 13,
+    id: 16,
     client: 'CEA',
     platform: 'ig',
     title: 'College Essays that got it right ex 4',
     date: 'Jan 14, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 1321,
         uniqueViewers: 945,
         nonFollowerPct: 86.5,
-        watchTimeSec: 3,
+        watchTimeSec: 3.0,
         watchTimePct: 37.5,
         saves: 16,
         shares: 0,
         distribution: 'Neutral - avg distro'
       },
-      '7d': {
+      7d: {
         views: 2211,
         uniqueViewers: 1666,
         nonFollowerPct: 88.1,
-        watchTimeSec: 3,
+        watchTimeSec: 3.0,
         watchTimePct: 37.5,
         saves: 22,
         shares: 3,
@@ -723,7 +813,7 @@ const POSTS = [
         businessSignal: 'Neutral',
         nextAction: 'Repeat'
       },
-      '30d': {
+      30d: {
         views: 2906,
         saves: 24,
         shares: 3,
@@ -738,27 +828,27 @@ const POSTS = [
     }
   },
   {
-    id: 14,
+    id: 17,
     client: 'CEA',
     platform: 'ig',
     title: 'How to write an amazing application essay closing line',
     date: 'Jan 8, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 649,
         uniqueViewers: 418,
         nonFollowerPct: 68.2,
-        watchTimeSec: 5,
+        watchTimeSec: 5.0,
         watchTimePct: 50.0,
         saves: 10,
         shares: 0,
         distribution: 'Weak - limited algo test'
       },
-      '7d': {
+      7d: {
         views: 1307,
         uniqueViewers: 864,
         nonFollowerPct: 72.7,
-        watchTimeSec: 6,
+        watchTimeSec: 6.0,
         watchTimePct: 60.0,
         saves: 21,
         shares: 4,
@@ -767,14 +857,14 @@ const POSTS = [
         saveRate: 1.61,
         shareRate: 0.31,
         engagementRate: 1.3,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'Below baseline — limited reach',
         outcome: 'Learning',
         engagementQuality: 'Strong',
         businessSignal: 'Weak',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 1925,
         saves: 23,
         shares: 4,
@@ -789,13 +879,13 @@ const POSTS = [
     }
   },
   {
-    id: 15,
+    id: 18,
     client: 'CEA',
     platform: 'ig',
     title: 'How to write U of M supplemental essays',
     date: 'Jan 6, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 628,
         uniqueViewers: 269,
         nonFollowerPct: 5.9,
@@ -805,7 +895,7 @@ const POSTS = [
         shares: 5,
         distribution: 'Weak - limited algo test'
       },
-      '7d': {
+      7d: {
         views: 930,
         uniqueViewers: 412,
         nonFollowerPct: 8.8,
@@ -818,15 +908,15 @@ const POSTS = [
         saveRate: 1.72,
         shareRate: 0.75,
         engagementRate: 2.3,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'Below baseline — limited reach',
         outcome: 'Underperformed',
         engagementQuality: 'Neutral',
         businessSignal: 'Weak',
         nextAction: 'Iterate',
-        notes: 'Content appealed to a very specific audience, which limited algorithmic expansion. Hook was likely too institution-specific for broad testing. The algorithm treated it as niche content.'
+        notes: 'Content appealed to a very specific audience, which limited algorithmic expansion. Hook was likely too institution-specific for broad testing.'
       },
-      '30d': {
+      30d: {
         views: 1174,
         saves: 22,
         shares: 9,
@@ -841,13 +931,13 @@ const POSTS = [
     }
   },
   {
-    id: 16,
+    id: 19,
     client: 'CEA',
     platform: 'tt',
     title: 'How to write U of M supplemental essays',
     date: 'Jan 6, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 817,
         uniqueViewers: 233,
         nonFollowerPct: 99.0,
@@ -857,7 +947,7 @@ const POSTS = [
         shares: 0,
         distribution: 'Weak - limited algo test'
       },
-      '7d': {
+      7d: {
         views: 1273,
         uniqueViewers: 1200,
         nonFollowerPct: 96.2,
@@ -870,7 +960,7 @@ const POSTS = [
         saveRate: 2.91,
         shareRate: 0.16,
         engagementRate: 2.2,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         outcome: 'Learning',
         engagementQuality: 'Strong',
         businessSignal: 'Neutral',
@@ -878,31 +968,31 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '30d': 'Feb 5, 2026'
+      30d: 'Feb 5, 2026'
     }
   },
   {
-    id: 17,
+    id: 20,
     client: 'CEA',
     platform: 'ig',
     title: 'College essays that got it right: example 3',
     date: 'Jan 5, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 1030,
         uniqueViewers: 726,
         nonFollowerPct: 81.6,
-        watchTimeSec: 5,
+        watchTimeSec: 5.0,
         watchTimePct: 45.5,
         saves: 21,
         shares: 5,
         distribution: 'Neutral - avg distro'
       },
-      '7d': {
+      7d: {
         views: 2750,
         uniqueViewers: 1982,
         nonFollowerPct: 87.1,
-        watchTimeSec: 4,
+        watchTimeSec: 4.0,
         watchTimePct: 36.4,
         saves: 31,
         shares: 7,
@@ -917,9 +1007,9 @@ const POSTS = [
         engagementQuality: 'Strong',
         businessSignal: 'Strong',
         nextAction: 'Repeat',
-        notes: 'Concrete example and value immediately clear. Short video length and high relevance to active applicants helped drive completion and sustained engagement. Leading with a real example created immediate credibility and curiosity.'
+        notes: 'Concrete example and value immediately clear. Short video length and high relevance to active applicants helped drive completion and sustained engagement.'
       },
-      '30d': {
+      30d: {
         views: 3590,
         saves: 35,
         shares: 8,
@@ -934,35 +1024,35 @@ const POSTS = [
     }
   },
   {
-    id: 18,
+    id: 21,
     client: 'CEA',
     platform: 'tt',
     title: 'How to write an amazing application essay closing line',
     date: 'Jan 5, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 1418,
         uniqueViewers: null,
         nonFollowerPct: null,
         watchTimeSec: null,
         watchTimePct: 0.0,
         saves: null,
-        shares: null
+        shares: null,
+        notes: 'No detailed 24h metrics recorded.'
       }
     },
     dueChecks: {
-      '7d': 'Jan 12, 2026',
-      '30d': 'Feb 4, 2026'
+      7d: 'Jan 12, 2026'
     }
   },
   {
-    id: 19,
+    id: 22,
     client: 'CEA',
     platform: 'ig',
     title: 'College Essay predictions for 2026',
     date: 'Jan 2, 2026',
     checks: {
-      '24h': {
+      24h: {
         views: 3297,
         uniqueViewers: 1626,
         nonFollowerPct: 14.9,
@@ -972,7 +1062,7 @@ const POSTS = [
         shares: 45,
         distribution: 'Promising - expanding test'
       },
-      '7d': {
+      7d: {
         views: 4895,
         uniqueViewers: 2437,
         nonFollowerPct: 29.5,
@@ -991,9 +1081,9 @@ const POSTS = [
         engagementQuality: 'Strong',
         businessSignal: 'Neutral',
         nextAction: 'Repeat',
-        notes: 'This post benefited from a timely angle that positioned CEA as an authority. The topic invited curiosity and speculation, which encouraged saves and shares and signaled strong interest to the algo. Hook worked because it framed uncertainty ("what\'s coming next") in a way that felt insider-driven and credible.'
+        notes: 'This post benefited from a timely angle that positioned CEA as an authority. The topic invited curiosity and speculation, which encouraged saves and shares and signaled strong interest to the algo. Hook worked because it framed uncertainty in a way that felt insider-driven and credible.'
       },
-      '30d': {
+      30d: {
         views: 10558,
         saves: 274,
         shares: 263,
@@ -1008,13 +1098,13 @@ const POSTS = [
     }
   },
   {
-    id: 20,
+    id: 23,
     client: 'CEA',
     platform: 'tt',
     title: 'Common App Prompt 1',
     date: 'Dec 30, 2025',
     checks: {
-      '24h': {
+      24h: {
         views: 148,
         uniqueViewers: 91,
         nonFollowerPct: 95.0,
@@ -1024,7 +1114,7 @@ const POSTS = [
         shares: 0,
         distribution: 'Weak - limited algo test'
       },
-      '7d': {
+      7d: {
         views: 169,
         uniqueViewers: 147,
         nonFollowerPct: 88.7,
@@ -1037,7 +1127,7 @@ const POSTS = [
         saveRate: 0.0,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         distribution: 'Below baseline — limited reach',
         outcome: 'Underperformed',
         engagementQuality: 'Weak',
@@ -1046,17 +1136,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '30d': 'Jan 29, 2026'
+      30d: 'Jan 29, 2026'
     }
   },
   {
-    id: 21,
+    id: 24,
     client: 'CEA',
     platform: 'tt',
     title: 'Did AI kill the college essay?',
     date: 'Dec 22, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1175,
         uniqueViewers: 1100,
         nonFollowerPct: 96.0,
@@ -1075,7 +1165,7 @@ const POSTS = [
         businessSignal: 'Strong',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 1228,
         saves: 2,
         shares: 2,
@@ -1086,17 +1176,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Dec 23, 2025'
+      24h: 'Dec 23, 2025'
     }
   },
   {
-    id: 22,
+    id: 25,
     client: 'CEA',
     platform: 'tt',
     title: 'ED rejection isn\'t personal',
     date: 'Dec 18, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: null,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1109,10 +1199,10 @@ const POSTS = [
         saveRate: 0.0,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         notes: 'Partial data only — views not recorded.'
       },
-      '30d': {
+      30d: {
         views: 1001,
         saves: 2,
         shares: 0,
@@ -1122,17 +1212,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Dec 19, 2025'
+      24h: 'Dec 19, 2025'
     }
   },
   {
-    id: 23,
+    id: 26,
     client: 'CEA',
     platform: 'tt',
     title: 'Webinar teaser',
     date: 'Dec 12, 2025',
     checks: {
-      '30d': {
+      30d: {
         views: 1603,
         saves: 3,
         shares: 1,
@@ -1142,18 +1232,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Dec 13, 2025',
-      '7d': 'Dec 19, 2025'
+      24h: 'Dec 13, 2025'
     }
   },
   {
-    id: 24,
+    id: 27,
     client: 'CEA',
     platform: 'tt',
     title: '3 Things',
     date: 'Dec 10, 2025',
     checks: {
-      '30d': {
+      30d: {
         views: 1460,
         saves: 18,
         shares: 1,
@@ -1163,39 +1252,38 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Dec 11, 2025',
-      '7d': 'Dec 17, 2025'
+      24h: 'Dec 11, 2025'
     }
   },
   {
-    id: 25,
+    id: 28,
     client: 'CEA',
     platform: 'tt',
     title: 'How to write a better activity essay than your friends',
     date: 'Dec 8, 2025',
     checks: {
-      '30d': {
+      30d: {
         views: 1579,
         saves: 47,
         shares: 2,
         follows: 4,
         longTailViews: 0,
-        longTailPct: 0.0
+        longTailPct: 0.0,
+        notes: 'High save count (47) stands out — strong utility signal.'
       }
     },
     dueChecks: {
-      '24h': 'Dec 9, 2025',
-      '7d': 'Dec 15, 2025'
+      24h: 'Dec 9, 2025'
     }
   },
   {
-    id: 26,
+    id: 29,
     client: 'CEA',
     platform: 'tt',
     title: 'Dos & Donts of why this college essay',
     date: 'Dec 6, 2025',
     checks: {
-      '30d': {
+      30d: {
         views: 1218,
         saves: 19,
         shares: 3,
@@ -1205,18 +1293,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Dec 7, 2025',
-      '7d': 'Dec 13, 2025'
+      24h: 'Dec 7, 2025'
     }
   },
   {
-    id: 27,
+    id: 30,
     client: 'CEA',
     platform: 'tt',
     title: 'Stop it stitch',
     date: 'Dec 3, 2025',
     checks: {
-      '30d': {
+      30d: {
         views: 1198,
         saves: 3,
         shares: 0,
@@ -1226,18 +1313,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Dec 4, 2025',
-      '7d': 'Dec 10, 2025'
+      24h: 'Dec 4, 2025'
     }
   },
   {
-    id: 28,
+    id: 31,
     client: 'CEA',
     platform: 'tt',
     title: 'The impact essay',
     date: 'Nov 24, 2025',
     checks: {
-      '30d': {
+      30d: {
         views: 1675,
         saves: 10,
         shares: 1,
@@ -1247,18 +1333,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Nov 25, 2025',
-      '7d': 'Dec 1, 2025'
+      24h: 'Nov 25, 2025'
     }
   },
   {
-    id: 29,
+    id: 32,
     client: 'CEA',
     platform: 'tt',
     title: 'Essays that got it right ep 2',
     date: 'Nov 20, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 236,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1271,13 +1356,13 @@ const POSTS = [
         saveRate: 0.85,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         outcome: 'Underperformed',
         engagementQuality: 'Weak',
         businessSignal: 'Weak',
         nextAction: 'Drop'
       },
-      '30d': {
+      30d: {
         views: 479,
         saves: 3,
         shares: 0,
@@ -1287,17 +1372,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Nov 21, 2025'
+      24h: 'Nov 21, 2025'
     }
   },
   {
-    id: 30,
+    id: 33,
     client: 'CEA',
     platform: 'tt',
     title: 'I love me',
     date: 'Nov 17, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1104,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1315,7 +1400,7 @@ const POSTS = [
         businessSignal: 'Strong',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 1512,
         saves: 6,
         shares: 1,
@@ -1325,17 +1410,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Nov 18, 2025'
+      24h: 'Nov 18, 2025'
     }
   },
   {
-    id: 31,
+    id: 34,
     client: 'CEA',
     platform: 'tt',
     title: 'Cliche topics that turned out to be unforgettable',
     date: 'Nov 12, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1405,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1354,7 +1439,7 @@ const POSTS = [
         nextAction: 'Iterate',
         notes: 'Very high watch time % (66%) — content held attention well.'
       },
-      '30d': {
+      30d: {
         views: 1879,
         saves: 9,
         shares: 2,
@@ -1364,17 +1449,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Nov 13, 2025'
+      24h: 'Nov 13, 2025'
     }
   },
   {
-    id: 32,
+    id: 35,
     client: 'CEA',
     platform: 'tt',
     title: 'Horoscopes 3',
     date: 'Nov 5, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1088,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1387,12 +1472,12 @@ const POSTS = [
         saveRate: 0.55,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         engagementQuality: 'Neutral',
         businessSignal: 'Weak',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 1311,
         saves: 6,
         shares: 1,
@@ -1402,17 +1487,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Nov 6, 2025'
+      24h: 'Nov 6, 2025'
     }
   },
   {
-    id: 33,
+    id: 36,
     client: 'CEA',
     platform: 'tt',
     title: 'Meh Checklist',
     date: 'Nov 3, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1515,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1425,13 +1510,13 @@ const POSTS = [
         saveRate: 0.13,
         shareRate: 0.0,
         engagementRate: 0.0,
-        followsPer1k: 0,
+        followsPer1k: 0.0,
         engagementQuality: 'Neutral',
         businessSignal: 'Weak',
         nextAction: 'Iterate',
         notes: 'High watch time % (58%) — content held attention well despite low saves.'
       },
-      '30d': {
+      30d: {
         views: 1739,
         saves: 1,
         shares: 0,
@@ -1441,17 +1526,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Nov 4, 2025'
+      24h: 'Nov 4, 2025'
     }
   },
   {
-    id: 34,
+    id: 37,
     client: 'CEA',
     platform: 'tt',
     title: 'Do you need to be afraid of AI detector',
     date: 'Oct 30, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 940,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1469,7 +1554,7 @@ const POSTS = [
         businessSignal: 'Neutral',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 1199,
         saves: 1,
         shares: 0,
@@ -1479,17 +1564,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Oct 31, 2025'
+      24h: 'Oct 31, 2025'
     }
   },
   {
-    id: 35,
+    id: 38,
     client: 'CEA',
     platform: 'tt',
     title: 'Essays that got it right ep 1',
     date: 'Oct 28, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 825,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1508,7 +1593,7 @@ const POSTS = [
         nextAction: 'Repeat',
         notes: 'Strong follows per 1K (3.62) — best business signal in the dataset.'
       },
-      '30d': {
+      30d: {
         views: 1105,
         saves: 11,
         shares: 1,
@@ -1518,17 +1603,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Oct 29, 2025'
+      24h: 'Oct 29, 2025'
     }
   },
   {
-    id: 36,
+    id: 39,
     client: 'CEA',
     platform: 'tt',
     title: 'I cannot right now',
     date: 'Oct 27, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1204,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1547,7 +1632,7 @@ const POSTS = [
         nextAction: 'Iterate',
         notes: 'Watch time % over 100% indicates strong replays.'
       },
-      '30d': {
+      30d: {
         views: 1463,
         saves: 4,
         shares: 1,
@@ -1557,17 +1642,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Oct 28, 2025'
+      24h: 'Oct 28, 2025'
     }
   },
   {
-    id: 37,
+    id: 40,
     client: 'CEA',
     platform: 'tt',
     title: 'End with a reflection not a bow',
     date: 'Oct 24, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 644,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1585,28 +1670,29 @@ const POSTS = [
         businessSignal: 'Strong',
         nextAction: 'Repeat'
       },
-      '30d': {
+      30d: {
         views: 1589,
         saves: 15,
         shares: 1,
         follows: 8,
         longTailViews: 945,
         longTailPct: 59.5,
-        distributionType: 'Evergreen'
+        distributionType: 'Evergreen',
+        notes: 'Strong long-tail — 59.5% of views came after day 7. Clear evergreen content.'
       }
     },
     dueChecks: {
-      '24h': 'Oct 25, 2025'
+      24h: 'Oct 25, 2025'
     }
   },
   {
-    id: 38,
+    id: 41,
     client: 'CEA',
     platform: 'tt',
     title: 'San Fran Chronicle',
     date: 'Oct 23, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1050,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1624,7 +1710,7 @@ const POSTS = [
         businessSignal: 'Neutral',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 1618,
         saves: 1,
         shares: 0,
@@ -1634,17 +1720,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Oct 24, 2025'
+      24h: 'Oct 24, 2025'
     }
   },
   {
-    id: 39,
+    id: 42,
     client: 'CEA',
     platform: 'tt',
     title: 'Essay topics are about details',
     date: 'Oct 22, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 385,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1663,7 +1749,7 @@ const POSTS = [
         businessSignal: 'Neutral',
         nextAction: 'Drop'
       },
-      '30d': {
+      30d: {
         views: 918,
         saves: 2,
         shares: 1,
@@ -1674,17 +1760,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Oct 23, 2025'
+      24h: 'Oct 23, 2025'
     }
   },
   {
-    id: 40,
+    id: 43,
     client: 'CEA',
     platform: 'tt',
     title: 'Group 7 Essay',
     date: 'Oct 21, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 392,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1703,7 +1789,7 @@ const POSTS = [
         businessSignal: 'Neutral',
         nextAction: 'Drop'
       },
-      '30d': {
+      30d: {
         views: 975,
         saves: 0,
         shares: 0,
@@ -1714,17 +1800,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Oct 22, 2025'
+      24h: 'Oct 22, 2025'
     }
   },
   {
-    id: 41,
+    id: 44,
     client: 'CEA',
     platform: 'tt',
     title: 'Halloween Candy Essay',
     date: 'Oct 21, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1268,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1742,7 +1828,7 @@ const POSTS = [
         businessSignal: 'Neutral',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 2071,
         saves: 5,
         shares: 1,
@@ -1752,17 +1838,17 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Oct 22, 2025'
+      24h: 'Oct 22, 2025'
     }
   },
   {
-    id: 42,
+    id: 45,
     client: 'CEA',
     platform: 'tt',
     title: 'Covid comment response',
     date: 'Oct 20, 2025',
     checks: {
-      '7d': {
+      7d: {
         views: 1715,
         uniqueViewers: null,
         nonFollowerPct: null,
@@ -1780,7 +1866,7 @@ const POSTS = [
         businessSignal: 'Neutral',
         nextAction: 'Iterate'
       },
-      '30d': {
+      30d: {
         views: 2888,
         saves: 4,
         shares: 0,
@@ -1790,7 +1876,7 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': 'Oct 21, 2025'
+      24h: 'Oct 21, 2025'
     }
   }
 ];
