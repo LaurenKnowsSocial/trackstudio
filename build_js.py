@@ -172,7 +172,7 @@ def parse_file(filepath, default_platform):
         client, platform_str, title = parts[0].strip(), parts[1].strip(), parts[2].strip()
         platform = {'Instagram': 'ig', 'TikTok': 'tt'}.get(platform_str, default_platform)
 
-        check_type = post_date = None
+        check_type = post_date = explicit_type = None
         for line in lines[header_idx + 1:]:
             ls = line.strip()
             if ls.startswith('Check:'):
@@ -180,6 +180,10 @@ def parse_file(filepath, default_platform):
                 check_type = '24h' if '24h' in cs else '7d' if '7d' in cs else '30d' if '30d' in cs else None
             elif ls.startswith('Post date:'):
                 post_date = parse_date(ls[10:].strip())
+            elif ls.startswith('Type:'):
+                v = ls[5:].strip()
+                if v and v != '—':
+                    explicit_type = v
 
         if not check_type or not post_date:
             continue
@@ -191,6 +195,7 @@ def parse_file(filepath, default_platform):
             'title': title,
             'post_date': post_date,
             'check_type': check_type,
+            'explicit_type': explicit_type,
             'data': data,
         })
 
@@ -239,12 +244,15 @@ def main():
         key = (e['client'], e['platform'], e['title'], e['post_date'].date())
         if key not in groups:
             groups[key] = {
-                'client':    e['client'],
-                'platform':  e['platform'],
-                'title':     e['title'],
-                'post_date': e['post_date'],
-                'checks':    {},
+                'client':        e['client'],
+                'platform':      e['platform'],
+                'title':         e['title'],
+                'post_date':     e['post_date'],
+                'explicit_type': e['explicit_type'],
+                'checks':        {},
             }
+        elif e['explicit_type'] and not groups[key]['explicit_type']:
+            groups[key]['explicit_type'] = e['explicit_type']
         groups[key]['checks'][e['check_type']] = e['data']
 
     # Step 3: Build post objects
@@ -266,7 +274,7 @@ def main():
             'client':    group['client'],
             'platform':  group['platform'],
             'title':     group['title'],
-            'type':      infer_type(group['title']),   # ← new
+            'type':      group['explicit_type'] or infer_type(group['title']),
             'date':      iso_date(post_date),           # ← ISO 8601
             'checks':    checks,
             'dueChecks': due,
