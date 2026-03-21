@@ -18,18 +18,17 @@
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
 
 /* ── AUTH ── */
-#authScreen{min-height:100vh;display:none;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-#authScreen.visible{display:flex;}
+#authScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 #authScreen::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(198,241,53,0.05) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
 .auth-box{width:420px;padding:48px;border:1px solid var(--border2);background:var(--surface);animation:fadeUp 0.5s ease both;}
 .auth-logo{font-family:'Fraunces',serif;font-size:26px;font-weight:300;margin-bottom:4px;letter-spacing:-0.5px;}
-.auth-logo em{font-style:italic;color:var(--accent);}
+.auth-logo em{font-style:italic;color:var(--orange);}
 .auth-tagline{font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:32px;}
 .auth-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
 .auth-input{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:11px 14px;outline:none;transition:border-color 0.15s;margin-bottom:14px;}
 .auth-input:focus{border-color:var(--accent);}
 .auth-input::placeholder{color:var(--muted);}
-.auth-btn{width:100%;padding:12px;background:var(--accent);color:var(--bg);border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:opacity 0.15s;}
+.auth-btn{width:100%;padding:12px;background:var(--orange);color:#fff;border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:opacity 0.15s;}
 .auth-btn:hover{opacity:0.88;}
 .auth-error{font-size:11px;color:var(--danger);margin-top:10px;display:none;}
 .auth-note{font-size:10px;color:var(--muted);margin-top:18px;line-height:1.7;text-align:center;}
@@ -57,7 +56,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 
 /* BODY */
 .body-layout{display:grid;grid-template-columns:258px 1fr;flex:1;overflow:hidden;}
-.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--surface);}
+.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--surface2);}
 .sidebar-top{padding:18px 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;}
 .baseline-header{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
 .bl-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);}
@@ -83,7 +82,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .prow-date{font-size:10px;color:var(--muted);}
 .cdots{display:flex;gap:3px;}
 .cdot{width:15px;height:15px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--muted);}
-.cdot.done{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);}
+.cdot.done{border-color:var(--orange);color:var(--orange);background:var(--accent-dim);}
 .cdot.due{border-color:var(--warn);color:var(--warn);background:var(--warn-dim);animation:glow 2s infinite;}
 @keyframes glow{0%,100%{box-shadow:none;}50%{box-shadow:0 0 5px rgba(240,168,48,0.35);}}
 
@@ -92,7 +91,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .pf-btn{padding:3px 9px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.1s;}
 .pf-btn.active.ig{border-color:var(--instagram);color:var(--instagram);}
 .pf-btn.active.tt{border-color:var(--tiktok);color:var(--tiktok);}
-.pf-btn.active.all{border-color:var(--text2);color:var(--text2);}
+.pf-btn.active.all{border-color:var(--orange);color:var(--orange);}
 
 /* MAIN */
 .main-content{overflow-y:auto;padding:26px 30px;background:var(--bg);}
@@ -110,7 +109,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .otag.testing{background:var(--surface2);color:var(--muted);border:1px solid var(--border2);}
 .ctabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:22px;}
 .ctab{padding:8px 16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.12s;}
-.ctab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.ctab.active{color:var(--orange);border-bottom-color:var(--orange);}
 .ctab:hover:not(.active):not(.locked){color:var(--text2);}
 .ctab.locked{color:var(--border2);cursor:default;}
 .ctab.due{color:var(--warn);}
@@ -155,11 +154,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .ac.sel-iterate{border-color:var(--iterate);background:var(--iterate-dim);}
 .ac.sel-drop{border-color:var(--drop);background:var(--drop-dim);}
 .ac-title{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
-.ac-title.g{color:var(--accent);}
-.ac-title.o{color:var(--warn);}
-.ac-title.r{color:var(--danger);}
+.ac-title.g{color:var(--repeat);}
+.ac-title.o{color:var(--iterate);}
+.ac-title.r{color:var(--drop);}
 .cl{font-size:10px;line-height:2;}
-.cm{color:var(--accent);}
+.cm{color:var(--repeat);}
 .cu{color:var(--border2);}
 .nb{background:var(--surface);border:1px solid var(--border);padding:14px;margin-bottom:18px;}
 .nb textarea{width:100%;background:transparent;border:none;color:var(--text2);font-family:'DM Mono',monospace;font-size:12px;resize:none;outline:none;line-height:1.7;min-height:65px;}
@@ -193,6 +192,80 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 .mc:nth-child(1){animation-delay:.04s;}.mc:nth-child(2){animation-delay:.08s;}.mc:nth-child(3){animation-delay:.12s;}.mc:nth-child(4){animation-delay:.16s;}
+
+/* INSIGHTS */
+
+.filter-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:20px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);}
+.filter-group{display:flex;align-items:center;gap:6px;}
+.filter-group-label{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);flex-shrink:0;}
+.filter-sep{width:1px;height:20px;background:var(--border2);}
+.ins-best-post{background:var(--surface);border:2px solid var(--orange);padding:20px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;}
+.ins-best-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.ins-best-title{font-family:'Fraunces',serif;font-size:20px;font-weight:300;font-style:italic;margin-bottom:8px;color:var(--text);}
+.ins-best-meta{font-size:10px;color:var(--muted);}
+.ins-best-stats{display:flex;gap:20px;}
+.ins-best-stat{text-align:center;}
+.ins-best-stat-val{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--orange);}
+.ins-best-stat-label{font-size:9px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
+.ins-health{display:flex;align-items:center;gap:12px;padding:14px 18px;margin-bottom:24px;border:1px solid var(--border);}
+.ins-health-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.ins-health-dot.green{background:var(--repeat);}
+.ins-health-dot.orange{background:var(--orange);}
+.ins-health-dot.red{background:var(--drop);}
+.ins-health-text{font-size:12px;color:var(--text);}
+.ins-health-sub{font-size:10px;color:var(--muted);}
+.ins-format-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+.ins-format-card{background:var(--surface);border:1px solid var(--border);padding:14px;}
+.ins-format-name{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.ins-format-val{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.ins-format-sub{font-size:10px;color:var(--muted);}
+.ins-format-bar{height:3px;margin-top:10px;background:var(--border2);border-radius:2px;overflow:hidden;}
+.ins-format-bar-fill{height:100%;border-radius:2px;background:var(--orange);}
+.ins-evergreen-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;}
+.ins-evergreen-row:last-child{border-bottom:none;}
+.ins-evergreen-title{color:var(--text);flex:1;margin-right:12px;}
+.ins-evergreen-views{color:var(--repeat);font-weight:500;white-space:nowrap;}
+.tf-row{display:flex;gap:3px;margin-bottom:0;}
+.tf-btn{padding:4px 10px;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.1s;}
+.tf-btn.active{background:var(--orange);color:#fff;border-color:var(--orange);}
+.tf-btn:hover:not(.active){color:var(--text);border-color:var(--text2);}
+
+.ins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.ins-card{background:var(--surface);border:1px solid var(--border);padding:18px;animation:fadeUp 0.3s ease both;}
+.ins-card-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.ins-card-val{font-family:'Fraunces',serif;font-size:36px;font-weight:600;line-height:1;margin-bottom:4px;}
+.ins-card-sub{font-size:10px;color:var(--muted);}
+.ins-card-val.orange{color:var(--orange);}
+.ins-card-val.green{color:var(--repeat);}
+.ins-card-val.red{color:var(--drop);}
+.ins-section{margin-bottom:28px;}
+.ins-section-title{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.ins-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.ins-bar-label{font-size:11px;color:var(--text);width:260px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ins-bar-track{flex:1;height:6px;background:var(--border2);border-radius:3px;overflow:hidden;}
+.ins-bar-fill{height:100%;border-radius:3px;transition:width 0.7s cubic-bezier(0.16,1,0.3,1);}
+.ins-bar-fill.orange{background:var(--orange);}
+.ins-bar-fill.green{background:var(--repeat);}
+.ins-bar-fill.red{background:var(--drop);}
+.ins-bar-num{font-size:11px;color:var(--text2);width:60px;text-align:right;flex-shrink:0;}
+.ins-two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.ins-panel{background:var(--surface);border:1px solid var(--border);padding:18px;}
+.ins-panel-title{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.outcome-pill{display:inline-block;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;margin-right:4px;margin-bottom:4px;font-weight:500;}
+.outcome-pill.winner{background:var(--repeat-dim);color:var(--repeat);border:1px solid var(--repeat);}
+.outcome-pill.learning{background:var(--warn-dim);color:var(--warn);border:1px solid var(--warn);}
+.outcome-pill.underperformed{background:var(--danger-dim);color:var(--danger);border:1px solid var(--danger);}
+.outcome-pill.testing{background:var(--surface2);color:var(--muted);border:1px solid var(--border2);}
+.ins-insight-row{padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--text2);line-height:1.6;}
+.ins-insight-row:last-child{border-bottom:none;}
+.ins-insight-row strong{color:var(--text);font-weight:500;}
+.ins-donut-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.ins-donut-swatch{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ins-donut-name{font-size:11px;color:var(--text2);flex:1;}
+.ins-donut-pct{font-size:11px;color:var(--text);font-weight:500;}
+.ins-highlight{background:var(--accent-dim);border:1px solid var(--orange);padding:14px;margin-bottom:10px;}
+.ins-highlight-title{font-size:10px;color:var(--orange);font-weight:500;margin-bottom:4px;}
+.ins-highlight-body{font-size:11px;color:var(--text2);line-height:1.6;}
 </style>
 </head>
 <body>
@@ -200,7 +273,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 <!-- AUTH -->
 <div id="authScreen">
   <div class="auth-box">
-    <div class="auth-logo">track<em>studio</em></div>
+    <div class="auth-logo">the <em>receipts</em></div>
     <div class="auth-tagline">Social Analytics</div>
     <div class="auth-label">Access key</div>
     <input class="auth-input" id="keyInput" type="password" placeholder="Enter your access key…" onkeydown="if(event.key==='Enter')login()"/>
@@ -220,6 +293,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
       <div id="clientBadge" class="client-badge" style="display:none"><div class="client-badge-dot"></div><span id="clientBadgeLabel"></span></div>
       <button class="nav-btn active" id="btnPosts" onclick="setView('posts')">Posts</button>
       <button class="nav-btn" id="btnUpcoming" onclick="setView('upcoming')">Upcoming</button>
+      <button class="nav-btn" id="btnInsights" onclick="setView('insights')">Insights</button>
     </div>
   </div>
   <div class="body-layout">
@@ -269,1633 +343,45 @@ const CLIENTS = {
 // ══════════════════════════════════════════════════════
 // DATA_START
 const POSTS = [
-  {
-    id: 1,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'Why common app essay prompts don\'t matter',
-    date: 'Mar 19, 2026',
-    checks: {
-      24h: {
-        views: 976,
-        uniqueViewers: 466,
-        nonFollowerPct: 30.0,
-        watchTimeSec: null,
-        watchTimePct: null,
-        saves: 10,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      }
-    },
-    dueChecks: {
-      7d: 'Mar 26, 2026'
-    }
-  },
-  {
-    id: 2,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'Quick tips to brainstorm topics',
-    date: 'Mar 17, 2026',
-    checks: {
-      24h: {
-        views: 662,
-        uniqueViewers: null,
-        nonFollowerPct: 83.4,
-        watchTimeSec: 3.0,
-        watchTimePct: 30.0,
-        saves: 20,
-        shares: 9,
-        distribution: 'Neutral - testing'
-      }
-    },
-    dueChecks: {
-      7d: 'Mar 24, 2026'
-    }
-  },
-  {
-    id: 3,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'Stacey + Becca Prompt 3 Podcast',
-    date: 'Mar 11, 2026',
-    checks: {
-      7d: {
-        views: 3359,
-        uniqueViewers: 3006,
-        nonFollowerPct: 92.9,
-        watchTimeSec: 4.0,
-        watchTimePct: 12.5,
-        saves: 8,
-        shares: 1,
-        comments: 12,
-        follows: 3,
-        saveRate: 0.24,
-        shareRate: 0.03,
-        engagementRate: 0.63,
-        followsPer1k: 0.89,
-        distribution: 'Above baseline — expanded reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Repeat'
-      }
-    },
-    dueChecks: {
-      24h: 'Mar 12, 2026'
-    }
-  },
-  {
-    id: 4,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'College essays that got it right: Burglar',
-    date: 'Feb 26, 2026',
-    checks: {
-      24h: {
-        views: null,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: null,
-        watchTimePct: null,
-        saves: null,
-        shares: null,
-        notes: 'No 24h data recorded.'
-      }
-    },
-    dueChecks: {
-      7d: 'Mar 5, 2026'
-    }
-  },
-  {
-    id: 5,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'What juniors need to think about now',
-    date: 'Feb 23, 2026',
-    checks: {
-      24h: {
-        views: 1896,
-        uniqueViewers: 1673,
-        nonFollowerPct: 92.8,
-        watchTimeSec: 6.0,
-        watchTimePct: 12.8,
-        saves: 9,
-        shares: 9,
-        distribution: 'Promising - expanding test'
-      },
-      30d: {
-        views: 5125,
-        saves: 14,
-        shares: 10,
-        follows: 6,
-        longTailViews: null,
-        longTailPct: null,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-      7d: 'Mar 2, 2026'
-    }
-  },
-  {
-    id: 6,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'What juniors need to think about now',
-    date: 'Feb 23, 2026',
-    checks: {
-      24h: {
-        views: 730,
-        uniqueViewers: 120,
-        nonFollowerPct: 97.8,
-        watchTimeSec: 6.7,
-        watchTimePct: 14.5,
-        saves: 3,
-        shares: 1,
-        distribution: 'Promising - expanding test'
-      }
-    },
-    dueChecks: {
-      7d: 'Mar 2, 2026'
-    }
-  },
-  {
-    id: 7,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'It\'s too soon',
-    date: 'Feb 19, 2026',
-    checks: {
-      24h: {
-        views: 577,
-        uniqueViewers: null,
-        nonFollowerPct: 1.5,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 2,
-        shares: 5,
-        distribution: 'Weak - limited algo test'
-      },
-      30d: {
-        views: 955,
-        saves: 6,
-        shares: 7,
-        follows: 1,
-        longTailViews: null,
-        longTailPct: null,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-      7d: 'Feb 26, 2026'
-    }
-  },
-  {
-    id: 8,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'Stacey Tip: How to write a summer program app essay',
-    date: 'Feb 13, 2026',
-    checks: {
-      24h: {
-        views: 1067,
-        uniqueViewers: 934,
-        nonFollowerPct: 90.7,
-        watchTimeSec: 2.0,
-        watchTimePct: 2.4,
-        saves: 1,
-        shares: 0,
-        distribution: 'Neutral - avg distro'
-      },
-      7d: {
-        views: 1677,
-        uniqueViewers: 1495,
-        nonFollowerPct: 91.1,
-        watchTimeSec: 2.0,
-        watchTimePct: 2.4,
-        saves: 1,
-        shares: 1,
-        comments: 0,
-        follows: 1,
-        saveRate: 0.06,
-        shareRate: 0.06,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        distribution: 'At baseline — typical reach',
-        outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Iterate'
-      }
-    },
-    dueChecks: {
-      30d: 'Mar 15, 2026'
-    }
-  },
-  {
-    id: 9,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'Transfer essay text reel',
-    date: 'Feb 10, 2026',
-    checks: {
-      24h: {
-        views: 848,
-        uniqueViewers: 669,
-        nonFollowerPct: 80.6,
-        watchTimeSec: 2.0,
-        watchTimePct: 25.0,
-        saves: 1,
-        shares: 0,
-        distribution: 'Neutral - avg distro'
-      },
-      7d: {
-        views: 1086,
-        uniqueViewers: 889,
-        nonFollowerPct: 82.1,
-        watchTimeSec: 3.0,
-        watchTimePct: 37.5,
-        saves: 1,
-        shares: 0,
-        comments: 0,
-        follows: 0,
-        saveRate: 0.09,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        distribution: 'Below baseline — limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
-      }
-    },
-    dueChecks: {
-      30d: 'Mar 12, 2026'
-    }
-  },
-  {
-    id: 10,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'Summer program apps',
-    date: 'Feb 9, 2026',
-    checks: {
-      24h: {
-        views: 280,
-        uniqueViewers: null,
-        nonFollowerPct: 0.0,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 5,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
-      7d: {
-        views: 545,
-        uniqueViewers: 208,
-        nonFollowerPct: 0.0,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 5,
-        shares: 0,
-        comments: 0,
-        follows: 0,
-        saveRate: 0.92,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        distribution: 'Below baseline — limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
-      }
-    },
-    dueChecks: {
-      30d: 'Mar 11, 2026'
-    }
-  },
-  {
-    id: 11,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'College Essays that got it right: What makes a woman',
-    date: 'Feb 3, 2026',
-    checks: {
-      24h: {
-        views: 323,
-        uniqueViewers: null,
-        nonFollowerPct: 81.0,
-        watchTimeSec: 2.0,
-        watchTimePct: 18.2,
-        saves: 3,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
-      7d: {
-        views: 1725,
-        uniqueViewers: 1480,
-        nonFollowerPct: 92.4,
-        watchTimeSec: 2.0,
-        watchTimePct: 18.2,
-        saves: 4,
-        shares: 0,
-        comments: 0,
-        follows: 1,
-        saveRate: 0.23,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        distribution: 'At baseline — typical reach',
-        outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Iterate'
-      }
-    },
-    dueChecks: {
-      30d: 'Mar 5, 2026'
-    }
-  },
-  {
-    id: 12,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'How to not be cliche when writing about sports',
-    date: 'Jan 28, 2026',
-    checks: {
-      24h: {
-        views: 516,
-        uniqueViewers: null,
-        nonFollowerPct: 4.0,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 1,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      },
-      7d: {
-        views: 819,
-        uniqueViewers: 353,
-        nonFollowerPct: 4.4,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 1,
-        shares: 1,
-        comments: 0,
-        follows: 0,
-        saveRate: 0.12,
-        shareRate: 0.12,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        distribution: 'Below baseline — limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
-      }
-    },
-    dueChecks: {
-      30d: 'Feb 27, 2026'
-    }
-  },
-  {
-    id: 13,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'When will admissions get back to you?',
-    date: 'Jan 22, 2026',
-    checks: {
-      24h: {
-        views: 1361,
-        uniqueViewers: 957,
-        nonFollowerPct: 71.9,
-        watchTimeSec: 6.0,
-        watchTimePct: 25.0,
-        saves: 2,
-        shares: 0,
-        distribution: 'Neutral - avg distro'
-      },
-      7d: {
-        views: 1918,
-        uniqueViewers: 1406,
-        nonFollowerPct: 73.9,
-        watchTimeSec: 6.0,
-        watchTimePct: 25.0,
-        saves: 3,
-        shares: 0,
-        comments: 0,
-        follows: 0,
-        saveRate: 0.16,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        distribution: 'At baseline — typical reach',
-        outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Iterate'
-      }
-    },
-    dueChecks: {
-      30d: 'Feb 21, 2026'
-    }
-  },
-  {
-    id: 14,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'How to Approach the College Transfer Objective Statement Edit',
-    date: 'Jan 20, 2026',
-    checks: {
-      24h: {
-        views: 984,
-        uniqueViewers: 822,
-        nonFollowerPct: 97.2,
-        watchTimeSec: 12.2,
-        watchTimePct: 21.1,
-        saves: 8,
-        shares: 0,
-        distribution: 'Promising - expanding test'
-      }
-    },
-    dueChecks: {
-      7d: 'Jan 27, 2026'
-    }
-  },
-  {
-    id: 15,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'How to Approach the College Transfer Objective Statement Edit',
-    date: 'Jan 19, 2026',
-    checks: {
-      24h: {
-        views: 868,
-        uniqueViewers: 700,
-        nonFollowerPct: 75.6,
-        watchTimeSec: 9.0,
-        watchTimePct: 10.2,
-        saves: 4,
-        shares: 1,
-        distribution: 'Neutral - avg distro'
-      },
-      7d: {
-        views: 1656,
-        uniqueViewers: 1392,
-        nonFollowerPct: 81.1,
-        watchTimeSec: 8.0,
-        watchTimePct: 9.1,
-        saves: 5,
-        shares: 2,
-        comments: 0,
-        follows: 1,
-        saveRate: 0.3,
-        shareRate: 0.12,
-        engagementRate: 0.34,
-        followsPer1k: 0.49,
-        distribution: 'At baseline — typical reach',
-        outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 2049,
-        saves: 6,
-        shares: 3,
-        follows: 1,
-        longTailViews: 393,
-        longTailPct: 19.2,
-        distributionType: 'Plateau'
-      }
-    },
-    dueChecks: {
-
-    }
-  },
-  {
-    id: 16,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'College Essays that got it right ex 4',
-    date: 'Jan 14, 2026',
-    checks: {
-      24h: {
-        views: 1321,
-        uniqueViewers: 945,
-        nonFollowerPct: 86.5,
-        watchTimeSec: 3.0,
-        watchTimePct: 37.5,
-        saves: 16,
-        shares: 0,
-        distribution: 'Neutral - avg distro'
-      },
-      7d: {
-        views: 2211,
-        uniqueViewers: 1666,
-        nonFollowerPct: 88.1,
-        watchTimeSec: 3.0,
-        watchTimePct: 37.5,
-        saves: 22,
-        shares: 3,
-        comments: 0,
-        follows: 3,
-        saveRate: 1.0,
-        shareRate: 0.14,
-        engagementRate: 0.86,
-        followsPer1k: 1.03,
-        distribution: 'Above baseline — expanded reach',
-        outcome: 'Winner',
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
-        nextAction: 'Repeat'
-      },
-      30d: {
-        views: 2906,
-        saves: 24,
-        shares: 3,
-        follows: 5,
-        longTailViews: 695,
-        longTailPct: 23.9,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-
-    }
-  },
-  {
-    id: 17,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'How to write an amazing application essay closing line',
-    date: 'Jan 8, 2026',
-    checks: {
-      24h: {
-        views: 649,
-        uniqueViewers: 418,
-        nonFollowerPct: 68.2,
-        watchTimeSec: 5.0,
-        watchTimePct: 50.0,
-        saves: 10,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
-      7d: {
-        views: 1307,
-        uniqueViewers: 864,
-        nonFollowerPct: 72.7,
-        watchTimeSec: 6.0,
-        watchTimePct: 60.0,
-        saves: 21,
-        shares: 4,
-        comments: 0,
-        follows: 0,
-        saveRate: 1.61,
-        shareRate: 0.31,
-        engagementRate: 1.3,
-        followsPer1k: 0.0,
-        distribution: 'Below baseline — limited reach',
-        outcome: 'Learning',
-        engagementQuality: 'Strong',
-        businessSignal: 'Weak',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 1925,
-        saves: 23,
-        shares: 4,
-        follows: 1,
-        longTailViews: 618,
-        longTailPct: 32.1,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-
-    }
-  },
-  {
-    id: 18,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'How to write U of M supplemental essays',
-    date: 'Jan 6, 2026',
-    checks: {
-      24h: {
-        views: 628,
-        uniqueViewers: 269,
-        nonFollowerPct: 5.9,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 12,
-        shares: 5,
-        distribution: 'Weak - limited algo test'
-      },
-      7d: {
-        views: 930,
-        uniqueViewers: 412,
-        nonFollowerPct: 8.8,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 16,
-        shares: 7,
-        comments: 4,
-        follows: 0,
-        saveRate: 1.72,
-        shareRate: 0.75,
-        engagementRate: 2.3,
-        followsPer1k: 0.0,
-        distribution: 'Below baseline — limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Iterate',
-        notes: 'Content appealed to a very specific audience, which limited algorithmic expansion. Hook was likely too institution-specific for broad testing.'
-      },
-      30d: {
-        views: 1174,
-        saves: 22,
-        shares: 9,
-        follows: 3,
-        longTailViews: 244,
-        longTailPct: 20.8,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-
-    }
-  },
-  {
-    id: 19,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'How to write U of M supplemental essays',
-    date: 'Jan 6, 2026',
-    checks: {
-      24h: {
-        views: 817,
-        uniqueViewers: 233,
-        nonFollowerPct: 99.0,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 15,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
-      7d: {
-        views: 1273,
-        uniqueViewers: 1200,
-        nonFollowerPct: 96.2,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 37,
-        shares: 2,
-        comments: 0,
-        follows: 3,
-        saveRate: 2.91,
-        shareRate: 0.16,
-        engagementRate: 2.2,
-        followsPer1k: 0.0,
-        outcome: 'Learning',
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
-        nextAction: 'Iterate'
-      }
-    },
-    dueChecks: {
-      30d: 'Feb 5, 2026'
-    }
-  },
-  {
-    id: 20,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'College essays that got it right: example 3',
-    date: 'Jan 5, 2026',
-    checks: {
-      24h: {
-        views: 1030,
-        uniqueViewers: 726,
-        nonFollowerPct: 81.6,
-        watchTimeSec: 5.0,
-        watchTimePct: 45.5,
-        saves: 21,
-        shares: 5,
-        distribution: 'Neutral - avg distro'
-      },
-      7d: {
-        views: 2750,
-        uniqueViewers: 1982,
-        nonFollowerPct: 87.1,
-        watchTimeSec: 4.0,
-        watchTimePct: 36.4,
-        saves: 31,
-        shares: 7,
-        comments: 0,
-        follows: 7,
-        saveRate: 1.13,
-        shareRate: 0.25,
-        engagementRate: 1.06,
-        followsPer1k: 1.95,
-        distribution: 'Above baseline — expanded reach',
-        outcome: 'Winner',
-        engagementQuality: 'Strong',
-        businessSignal: 'Strong',
-        nextAction: 'Repeat',
-        notes: 'Concrete example and value immediately clear. Short video length and high relevance to active applicants helped drive completion and sustained engagement.'
-      },
-      30d: {
-        views: 3590,
-        saves: 35,
-        shares: 8,
-        follows: 7,
-        longTailViews: 840,
-        longTailPct: 23.4,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-
-    }
-  },
-  {
-    id: 21,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'How to write an amazing application essay closing line',
-    date: 'Jan 5, 2026',
-    checks: {
-      24h: {
-        views: 1418,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: null,
-        shares: null,
-        notes: 'No detailed 24h metrics recorded.'
-      }
-    },
-    dueChecks: {
-      7d: 'Jan 12, 2026'
-    }
-  },
-  {
-    id: 22,
-    client: 'CEA',
-    platform: 'ig',
-    title: 'College Essay predictions for 2026',
-    date: 'Jan 2, 2026',
-    checks: {
-      24h: {
-        views: 3297,
-        uniqueViewers: 1626,
-        nonFollowerPct: 14.9,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 82,
-        shares: 45,
-        distribution: 'Promising - expanding test'
-      },
-      7d: {
-        views: 4895,
-        uniqueViewers: 2437,
-        nonFollowerPct: 29.5,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 118,
-        shares: 73,
-        comments: 0,
-        follows: 8,
-        saveRate: 2.41,
-        shareRate: 1.49,
-        engagementRate: 1.81,
-        followsPer1k: 0.76,
-        distribution: 'Above baseline — expanded reach',
-        outcome: 'Winner',
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
-        nextAction: 'Repeat',
-        notes: 'This post benefited from a timely angle that positioned CEA as an authority. The topic invited curiosity and speculation, which encouraged saves and shares and signaled strong interest to the algo. Hook worked because it framed uncertainty in a way that felt insider-driven and credible.'
-      },
-      30d: {
-        views: 10558,
-        saves: 274,
-        shares: 263,
-        follows: 69,
-        longTailViews: 5663,
-        longTailPct: 53.6,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-
-    }
-  },
-  {
-    id: 23,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Common App Prompt 1',
-    date: 'Dec 30, 2025',
-    checks: {
-      24h: {
-        views: 148,
-        uniqueViewers: 91,
-        nonFollowerPct: 95.0,
-        watchTimeSec: 1.9,
-        watchTimePct: 2.2,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
-      7d: {
-        views: 169,
-        uniqueViewers: 147,
-        nonFollowerPct: 88.7,
-        watchTimeSec: 2.1,
-        watchTimePct: 2.4,
-        saves: 0,
-        shares: 0,
-        comments: 1,
-        follows: 0,
-        saveRate: 0.0,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        distribution: 'Below baseline — limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
-      }
-    },
-    dueChecks: {
-      30d: 'Jan 29, 2026'
-    }
-  },
-  {
-    id: 24,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Did AI kill the college essay?',
-    date: 'Dec 22, 2025',
-    checks: {
-      7d: {
-        views: 1175,
-        uniqueViewers: 1100,
-        nonFollowerPct: 96.0,
-        watchTimeSec: 12.5,
-        watchTimePct: 17.1,
-        saves: 2,
-        shares: 2,
-        comments: 7,
-        follows: 3,
-        saveRate: 0.17,
-        shareRate: 0.17,
-        engagementRate: 0.0,
-        followsPer1k: 2.44,
-        outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Strong',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 1228,
-        saves: 2,
-        shares: 2,
-        follows: 3,
-        longTailViews: 53,
-        longTailPct: 4.3,
-        distributionType: 'Spike'
-      }
-    },
-    dueChecks: {
-      24h: 'Dec 23, 2025'
-    }
-  },
-  {
-    id: 25,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'ED rejection isn\'t personal',
-    date: 'Dec 18, 2025',
-    checks: {
-      7d: {
-        views: null,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 7.3,
-        watchTimePct: 15.4,
-        saves: null,
-        shares: null,
-        comments: null,
-        follows: null,
-        saveRate: 0.0,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        notes: 'Partial data only — views not recorded.'
-      },
-      30d: {
-        views: 1001,
-        saves: 2,
-        shares: 0,
-        follows: 0,
-        longTailViews: 0,
-        longTailPct: 0.0
-      }
-    },
-    dueChecks: {
-      24h: 'Dec 19, 2025'
-    }
-  },
-  {
-    id: 26,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Webinar teaser',
-    date: 'Dec 12, 2025',
-    checks: {
-      30d: {
-        views: 1603,
-        saves: 3,
-        shares: 1,
-        follows: 3,
-        longTailViews: 0,
-        longTailPct: 0.0
-      }
-    },
-    dueChecks: {
-      24h: 'Dec 13, 2025'
-    }
-  },
-  {
-    id: 27,
-    client: 'CEA',
-    platform: 'tt',
-    title: '3 Things',
-    date: 'Dec 10, 2025',
-    checks: {
-      30d: {
-        views: 1460,
-        saves: 18,
-        shares: 1,
-        follows: 1,
-        longTailViews: 0,
-        longTailPct: 0.0
-      }
-    },
-    dueChecks: {
-      24h: 'Dec 11, 2025'
-    }
-  },
-  {
-    id: 28,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'How to write a better activity essay than your friends',
-    date: 'Dec 8, 2025',
-    checks: {
-      30d: {
-        views: 1579,
-        saves: 47,
-        shares: 2,
-        follows: 4,
-        longTailViews: 0,
-        longTailPct: 0.0,
-        notes: 'High save count (47) stands out — strong utility signal.'
-      }
-    },
-    dueChecks: {
-      24h: 'Dec 9, 2025'
-    }
-  },
-  {
-    id: 29,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Dos & Donts of why this college essay',
-    date: 'Dec 6, 2025',
-    checks: {
-      30d: {
-        views: 1218,
-        saves: 19,
-        shares: 3,
-        follows: 2,
-        longTailViews: 0,
-        longTailPct: 0.0
-      }
-    },
-    dueChecks: {
-      24h: 'Dec 7, 2025'
-    }
-  },
-  {
-    id: 30,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Stop it stitch',
-    date: 'Dec 3, 2025',
-    checks: {
-      30d: {
-        views: 1198,
-        saves: 3,
-        shares: 0,
-        follows: null,
-        longTailViews: 0,
-        longTailPct: 0.0
-      }
-    },
-    dueChecks: {
-      24h: 'Dec 4, 2025'
-    }
-  },
-  {
-    id: 31,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'The impact essay',
-    date: 'Nov 24, 2025',
-    checks: {
-      30d: {
-        views: 1675,
-        saves: 10,
-        shares: 1,
-        follows: 1,
-        longTailViews: 0,
-        longTailPct: 0.0
-      }
-    },
-    dueChecks: {
-      24h: 'Nov 25, 2025'
-    }
-  },
-  {
-    id: 32,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Essays that got it right ep 2',
-    date: 'Nov 20, 2025',
-    checks: {
-      7d: {
-        views: 236,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 2.4,
-        watchTimePct: 23.8,
-        saves: 2,
-        shares: 0,
-        comments: 0,
-        follows: 0,
-        saveRate: 0.85,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
-      },
-      30d: {
-        views: 479,
-        saves: 3,
-        shares: 0,
-        follows: 0,
-        longTailViews: 243,
-        longTailPct: 50.7
-      }
-    },
-    dueChecks: {
-      24h: 'Nov 21, 2025'
-    }
-  },
-  {
-    id: 33,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'I love me',
-    date: 'Nov 17, 2025',
-    checks: {
-      7d: {
-        views: 1104,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 7.1,
-        watchTimePct: 18.2,
-        saves: 6,
-        shares: null,
-        comments: 4,
-        follows: 3,
-        saveRate: 0.54,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 1.98,
-        engagementQuality: 'Neutral',
-        businessSignal: 'Strong',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 1512,
-        saves: 6,
-        shares: 1,
-        follows: 5,
-        longTailViews: 408,
-        longTailPct: 27.0
-      }
-    },
-    dueChecks: {
-      24h: 'Nov 18, 2025'
-    }
-  },
-  {
-    id: 34,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Cliche topics that turned out to be unforgettable',
-    date: 'Nov 12, 2025',
-    checks: {
-      7d: {
-        views: 1405,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 5.3,
-        watchTimePct: 66.3,
-        saves: 6,
-        shares: null,
-        comments: 0,
-        follows: 1,
-        saveRate: 0.43,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.53,
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
-        nextAction: 'Iterate',
-        notes: 'Very high watch time % (66%) — content held attention well.'
-      },
-      30d: {
-        views: 1879,
-        saves: 9,
-        shares: 2,
-        follows: 1,
-        longTailViews: 474,
-        longTailPct: 25.2
-      }
-    },
-    dueChecks: {
-      24h: 'Nov 13, 2025'
-    }
-  },
-  {
-    id: 35,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Horoscopes 3',
-    date: 'Nov 5, 2025',
-    checks: {
-      7d: {
-        views: 1088,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: null,
-        watchTimePct: 0.0,
-        saves: 6,
-        shares: null,
-        comments: 0,
-        follows: 0,
-        saveRate: 0.55,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 1311,
-        saves: 6,
-        shares: 1,
-        follows: 0,
-        longTailViews: 223,
-        longTailPct: 17.0
-      }
-    },
-    dueChecks: {
-      24h: 'Nov 6, 2025'
-    }
-  },
-  {
-    id: 36,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Meh Checklist',
-    date: 'Nov 3, 2025',
-    checks: {
-      7d: {
-        views: 1515,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 4.3,
-        watchTimePct: 58.1,
-        saves: 2,
-        shares: null,
-        comments: 0,
-        follows: 0,
-        saveRate: 0.13,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.0,
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Iterate',
-        notes: 'High watch time % (58%) — content held attention well despite low saves.'
-      },
-      30d: {
-        views: 1739,
-        saves: 1,
-        shares: 0,
-        follows: 0,
-        longTailViews: 224,
-        longTailPct: 12.9
-      }
-    },
-    dueChecks: {
-      24h: 'Nov 4, 2025'
-    }
-  },
-  {
-    id: 37,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Do you need to be afraid of AI detector',
-    date: 'Oct 30, 2025',
-    checks: {
-      7d: {
-        views: 940,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 13.3,
-        watchTimePct: 25.9,
-        saves: 1,
-        shares: null,
-        comments: 0,
-        follows: 1,
-        saveRate: 0.11,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.83,
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 1199,
-        saves: 1,
-        shares: 0,
-        follows: 2,
-        longTailViews: 259,
-        longTailPct: 21.6
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 31, 2025'
-    }
-  },
-  {
-    id: 38,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Essays that got it right ep 1',
-    date: 'Oct 28, 2025',
-    checks: {
-      7d: {
-        views: 825,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 3.6,
-        watchTimePct: 35.6,
-        saves: 10,
-        shares: null,
-        comments: 0,
-        follows: 4,
-        saveRate: 1.21,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 3.62,
-        engagementQuality: 'Strong',
-        businessSignal: 'Strong',
-        nextAction: 'Repeat',
-        notes: 'Strong follows per 1K (3.62) — best business signal in the dataset.'
-      },
-      30d: {
-        views: 1105,
-        saves: 11,
-        shares: 1,
-        follows: 4,
-        longTailViews: 280,
-        longTailPct: 25.3
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 29, 2025'
-    }
-  },
-  {
-    id: 39,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'I cannot right now',
-    date: 'Oct 27, 2025',
-    checks: {
-      7d: {
-        views: 1204,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 11.6,
-        watchTimePct: 145.0,
-        saves: 5,
-        shares: null,
-        comments: 3,
-        follows: 1,
-        saveRate: 0.42,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.68,
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
-        nextAction: 'Iterate',
-        notes: 'Watch time % over 100% indicates strong replays.'
-      },
-      30d: {
-        views: 1463,
-        saves: 4,
-        shares: 1,
-        follows: 2,
-        longTailViews: 259,
-        longTailPct: 17.7
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 28, 2025'
-    }
-  },
-  {
-    id: 40,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'End with a reflection not a bow',
-    date: 'Oct 24, 2025',
-    checks: {
-      7d: {
-        views: 644,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 7.4,
-        watchTimePct: 35.2,
-        saves: 9,
-        shares: null,
-        comments: 0,
-        follows: 3,
-        saveRate: 1.4,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 1.89,
-        engagementQuality: 'Strong',
-        businessSignal: 'Strong',
-        nextAction: 'Repeat'
-      },
-      30d: {
-        views: 1589,
-        saves: 15,
-        shares: 1,
-        follows: 8,
-        longTailViews: 945,
-        longTailPct: 59.5,
-        distributionType: 'Evergreen',
-        notes: 'Strong long-tail — 59.5% of views came after day 7. Clear evergreen content.'
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 25, 2025'
-    }
-  },
-  {
-    id: 41,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'San Fran Chronicle',
-    date: 'Oct 23, 2025',
-    checks: {
-      7d: {
-        views: 1050,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 4.3,
-        watchTimePct: 52.2,
-        saves: 0,
-        shares: null,
-        comments: 0,
-        follows: 1,
-        saveRate: 0.0,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.62,
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 1618,
-        saves: 1,
-        shares: 0,
-        follows: 2,
-        longTailViews: 568,
-        longTailPct: 35.1
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 24, 2025'
-    }
-  },
-  {
-    id: 42,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Essay topics are about details',
-    date: 'Oct 22, 2025',
-    checks: {
-      7d: {
-        views: 385,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 10.4,
-        watchTimePct: 21.7,
-        saves: 0,
-        shares: null,
-        comments: 1,
-        follows: 1,
-        saveRate: 0.0,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 1.09,
-        outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Neutral',
-        nextAction: 'Drop'
-      },
-      30d: {
-        views: 918,
-        saves: 2,
-        shares: 1,
-        follows: 2,
-        longTailViews: 533,
-        longTailPct: 58.1,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 23, 2025'
-    }
-  },
-  {
-    id: 43,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Group 7 Essay',
-    date: 'Oct 21, 2025',
-    checks: {
-      7d: {
-        views: 392,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 15.8,
-        watchTimePct: 19.8,
-        saves: 0,
-        shares: null,
-        comments: 0,
-        follows: 1,
-        saveRate: 0.0,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 1.03,
-        outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Neutral',
-        nextAction: 'Drop'
-      },
-      30d: {
-        views: 975,
-        saves: 0,
-        shares: 0,
-        follows: 2,
-        longTailViews: 583,
-        longTailPct: 59.8,
-        distributionType: 'Evergreen'
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 22, 2025'
-    }
-  },
-  {
-    id: 44,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Halloween Candy Essay',
-    date: 'Oct 21, 2025',
-    checks: {
-      7d: {
-        views: 1268,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 8.4,
-        watchTimePct: 29.7,
-        saves: 4,
-        shares: null,
-        comments: 1,
-        follows: 2,
-        saveRate: 0.32,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.97,
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 2071,
-        saves: 5,
-        shares: 1,
-        follows: 2,
-        longTailViews: 803,
-        longTailPct: 38.8
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 22, 2025'
-    }
-  },
-  {
-    id: 45,
-    client: 'CEA',
-    platform: 'tt',
-    title: 'Covid comment response',
-    date: 'Oct 20, 2025',
-    checks: {
-      7d: {
-        views: 1715,
-        uniqueViewers: null,
-        nonFollowerPct: null,
-        watchTimeSec: 13.8,
-        watchTimePct: 34.5,
-        saves: 4,
-        shares: null,
-        comments: 6,
-        follows: 1,
-        saveRate: 0.23,
-        shareRate: 0.0,
-        engagementRate: 0.0,
-        followsPer1k: 0.35,
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Iterate'
-      },
-      30d: {
-        views: 2888,
-        saves: 4,
-        shares: 0,
-        follows: 1,
-        longTailViews: 1173,
-        longTailPct: 40.6
-      }
-    },
-    dueChecks: {
-      24h: 'Oct 21, 2025'
-    }
-  }
+  { id:1, client:'CEA', platform:'ig', title:'Regina George founder energy', date:'Mar 4, 2026', duration:'0:47',
+    checks:{
+      '24h':{ views:812, uniqueViewers:740, nonFollowerPct:71, watchTimeSec:19, watchTimePct:40, saves:28, shares:9, distribution:'Promising - algo pushing' },
+      '7d':{ views:4280, uniqueViewers:3910, nonFollowerPct:68, watchTimeSec:19, watchTimePct:41, saves:90, shares:60, comments:34, follows:12, saveRate:2.1, shareRate:1.4, engagementRate:4.8, followsPer1k:0.8, distribution:'Above baseline — expanded reach', engagementQuality:'Strong', businessSignal:'Neutral', outcome:'Winner', nextAction:'Repeat', notes:'Hook: "possessed by Regina George" — strong identity hook. Burn book framing was fresh. Consider follow-up using same character voice.' }
+    }, dueChecks:{ '30d':'Mar 31, 2026' } },
+  { id:2, client:'CEA', platform:'tt', title:"The algo doesn't owe you anything", date:'Feb 27, 2026', duration:'1:02',
+    checks:{
+      '24h':{ views:430, uniqueViewers:395, nonFollowerPct:88, watchTimeSec:22, watchTimePct:35, saves:18, shares:4, distribution:'Neutral - testing' }
+    }, dueChecks:{ '7d':'Mar 6, 2026', '30d':'Mar 29, 2026' } },
+  { id:3, client:'RDC', platform:'ig', title:'Content strategy for service businesses', date:'Feb 3, 2026', duration:'1:15',
+    checks:{
+      '24h':{ views:180, uniqueViewers:165, nonFollowerPct:42, watchTimeSec:18, watchTimePct:24, saves:4, shares:1, distribution:'Weak - limited algo test' },
+      '7d':{ views:620, uniqueViewers:580, nonFollowerPct:44, watchTimeSec:17, watchTimePct:23, saves:9, shares:2, comments:5, follows:1, saveRate:1.5, shareRate:0.3, engagementRate:2.6, followsPer1k:1.6, distribution:'Below baseline — limited reach', engagementQuality:'Neutral', businessSignal:'Neutral', outcome:'Learning', nextAction:'Iterate', notes:'Watch time dropped at midpoint. Hook was strong but delivery slowed. Try tighter edit.' }
+    }, dueChecks:{ '30d':'Mar 5, 2026' } },
+  { id:4, client:'RDC', platform:'tt', title:'3 things founders never post', date:'Mar 4, 2026', duration:'0:55',
+    checks:{}, dueChecks:{ '24h':'Mar 5, 2026', '7d':'Mar 11, 2026', '30d':'Apr 3, 2026' } },
+  { id:5, client:'LKS', platform:'ig', title:'Why your content feels generic', date:'Mar 3, 2026', duration:'0:52',
+    checks:{
+      '24h':{ views:620, uniqueViewers:570, nonFollowerPct:74, watchTimeSec:21, watchTimePct:40, saves:22, shares:6, distribution:'Promising - algo pushing' }
+    }, dueChecks:{ '7d':'Mar 10, 2026', '30d':'Apr 2, 2026' } },
+  { id:6, client:'LKS', platform:'tt', title:'The content strategy nobody teaches', date:'Feb 28, 2026', duration:'0:44',
+    checks:{
+      '24h':{ views:390, uniqueViewers:350, nonFollowerPct:65, watchTimeSec:16, watchTimePct:36, saves:14, shares:3, distribution:'Neutral - testing' }
+    }, dueChecks:{ '7d':'Mar 7, 2026', '30d':'Mar 30, 2026' } }
 ];
 // DATA_END
 
 // ══════════════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════════════
-let S = { role:null, activeClient:null, activePost:null, activeCheck:'7d', activeView:'posts', platFilter:'all' };
+let S = { role:null, activeClient:null, activePost:null, activeCheck:'7d', activeView:'posts', platFilter:'all', timeframe:'all', postType:'all', outcomeFilter:'all' };
 
 // ══════════════════════════════════════════════════════
 // INIT — check URL key param first
 // ══════════════════════════════════════════════════════
 function init() {
-  console.log('init fired, readyState:', document.readyState);
   const params = new URLSearchParams(window.location.search);
   const k = params.get('key');
   if (k && ACCESS_KEYS[k]) startSession(ACCESS_KEYS[k]);
-  else document.getElementById('authScreen').classList.add('visible');
 }
 
 function login() {
@@ -1908,7 +394,6 @@ function login() {
 }
 
 function startSession(role) {
-  console.log('startSession fired, role:', role);
   S.role = role;
   const isAdmin = role === 'ADMIN';
   const clients = isAdmin ? Object.keys(CLIENTS) : [role];
@@ -1916,7 +401,7 @@ function startSession(role) {
   const first = POSTS.find(p => p.client === S.activeClient);
   S.activePost = first?.id || null;
   if (first) S.activeCheck = ['7d','24h','30d'].find(c => first.checks[c]) || '24h';
-  document.getElementById('authScreen').classList.remove('visible');
+  document.getElementById('authScreen').style.display = 'none';
   document.getElementById('appShell').classList.add('visible');
   if (!isAdmin) {
     document.getElementById('clientBadge').style.display = 'flex';
@@ -1975,6 +460,7 @@ function renderPostList() {
 
 function renderMain() {
   if (S.activeView==='upcoming') { renderUpcoming(); return; }
+  if (S.activeView==='insights') { renderInsights(); return; }
   const post = POSTS.find(p => p.id===S.activePost);
   if (!post) { document.getElementById('mainContent').innerHTML = `<div class="empty-state"><div class="ei">📊</div><div class="et">Select a post</div></div>`; return; }
   const check = post.checks[S.activeCheck];
@@ -1993,6 +479,7 @@ function renderMain() {
           <div class="meta-row">
             <div class="meta-chip"><div class="pdot ${post.platform}"></div>${post.platform==='ig'?'Instagram':'TikTok'}</div>
             <div class="meta-chip" style="color:var(--muted)">Posted ${post.date}</div>
+            <div class="meta-chip" style="color:var(--muted)">${post.duration}</div>
           </div>
         </div>
         ${outcome?`<div class="otag ${outcome.toLowerCase()}">${outcome}</div>`:''}
@@ -2109,7 +596,305 @@ function setView(v) {
   S.activeView = v;
   document.getElementById('btnPosts').classList.toggle('active',v==='posts');
   document.getElementById('btnUpcoming').classList.toggle('active',v==='upcoming');
+  document.getElementById('btnInsights').classList.toggle('active',v==='insights');
   renderMain();
+}
+
+
+
+function filterByTimeframe(posts) {
+  if (S.timeframe === 'all') return posts;
+  const now = new Date();
+  const days = { '7d': 7, '30d': 30, '6m': 183, '1y': 365 }[S.timeframe] || 9999;
+  const cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+  return posts.filter(p => {
+    const d = new Date(p.date);
+    return !isNaN(d.getTime()) && d >= cutoff;
+  });
+}
+
+function renderInsights() {
+  let posts = POSTS.filter(p => p.client === S.activeClient);
+  posts = filterByTimeframe(posts);
+  if (S.platFilter !== 'all') posts = posts.filter(p => p.platform === S.platFilter);
+  if (S.postType !== 'all') posts = posts.filter(p => (p.type||'').toLowerCase() === S.postType.toLowerCase());
+
+  const baseline = CLIENTS[S.activeClient].baselines[S.platFilter === 'tt' ? 'tt' : 'ig'];
+  const posts7d = posts.filter(p => p.checks && p.checks['7d']);
+  const winners = posts7d.filter(p => p.checks['7d'].outcome === 'Winner');
+  const learnings = posts7d.filter(p => p.checks['7d'].outcome === 'Learning');
+  const underperformed = posts7d.filter(p => p.checks['7d'].outcome === 'Underperformed');
+  const testing = posts7d.filter(p => p.checks['7d'].outcome === 'Testing');
+
+  // Apply outcome filter
+  let filteredPosts7d = posts7d;
+  if (S.outcomeFilter !== 'all') filteredPosts7d = posts7d.filter(p => (p.checks['7d'].outcome||'').toLowerCase() === S.outcomeFilter);
+
+  const winRate = posts7d.length ? Math.round((winners.length / posts7d.length) * 100) : 0;
+  const avgViews = posts7d.length ? Math.round(posts7d.reduce((s,p) => s + (p.checks['7d'].views||0), 0) / posts7d.length) : 0;
+  const totalReach = posts.reduce((s,p) => s + (p.checks?.['7d']?.uniqueViewers||0), 0);
+  const totalFollows = posts7d.reduce((s,p) => s + (p.checks['7d'].follows||0), 0);
+  const totalSaves = posts7d.reduce((s,p) => s + (p.checks['7d'].saves||0), 0);
+
+  // Best post
+  const bestPost = [...posts7d].sort((a,b) => (b.checks['7d'].views||0) - (a.checks['7d'].views||0))[0];
+
+  // Format breakdown
+  const formats = ['Video','Carousel','Static'];
+  const fmtData = formats.map(fmt => {
+    const fp = posts7d.filter(p => (p.type||'Video') === fmt);
+    const avgV = fp.length ? Math.round(fp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/fp.length) : 0;
+    const avgSR = fp.length ? (fp.reduce((s,p)=>s+(p.checks['7d'].saveRate||0),0)/fp.length).toFixed(2) : 0;
+    const avgNF = fp.length ? Math.round(fp.reduce((s,p)=>s+(p.checks['7d'].nonFollowerPct||0),0)/fp.length) : 0;
+    const winR = fp.length ? Math.round(fp.filter(p=>p.checks['7d'].outcome==='Winner').length/fp.length*100) : 0;
+    return { fmt, count: fp.length, avgV, avgSR, avgNF, winR };
+  }).filter(f => f.count > 0);
+  const maxFmtV = Math.max(...fmtData.map(f=>f.avgV), 1);
+
+  // Evergreen posts
+  const evergreen = posts.filter(p => {
+    const c30 = p.checks?.['30d'];
+    return c30 && (c30.distributionType === 'Evergreen' || c30['30dDistributionType'] === 'Evergreen');
+  });
+
+  // Top by views
+  const topPosts = [...filteredPosts7d].sort((a,b)=>(b.checks['7d'].views||0)-(a.checks['7d'].views||0)).slice(0,5);
+  // Best save rates
+  const bestSave = [...filteredPosts7d].filter(p=>p.checks['7d'].saveRate).sort((a,b)=>b.checks['7d'].saveRate-a.checks['7d'].saveRate).slice(0,5);
+  // Best non-follower reach
+  const bestNF = [...filteredPosts7d].filter(p=>p.checks['7d'].nonFollowerPct).sort((a,b)=>b.checks['7d'].nonFollowerPct-a.checks['7d'].nonFollowerPct).slice(0,5);
+
+  const maxV = topPosts.length ? topPosts[0].checks['7d'].views : 1;
+  const maxSR = bestSave.length ? bestSave[0].checks['7d'].saveRate : 1;
+  const maxNF = bestNF.length ? bestNF[0].checks['7d'].nonFollowerPct : 1;
+
+  // Account health
+  let healthColor = 'green', healthText = 'Healthy', healthSub = 'Win rate above 40% and avg views at or above baseline.';
+  if (winRate < 20 || avgViews < baseline * 0.7) { healthColor='red'; healthText='Needs attention'; healthSub='Win rate below 20% or avg views significantly below baseline.'; }
+  else if (winRate < 40 || avgViews < baseline) { healthColor='orange'; healthText='Building momentum'; healthSub='Some posts are hitting, others still finding their footing.'; }
+
+  // Insights text
+  const insights = [];
+  if (winners.length > 0) insights.push(`<strong>${winners.length} winner${winners.length>1?'s':''}</strong> in this period. ${winners.slice(0,2).map(p=>`"${p.title}"`).join(' and ')} beat baseline with strong engagement.`);
+  if (evergreen.length > 0) insights.push(`<strong>${evergreen.length} evergreen post${evergreen.length>1?'s':''}</strong> — still getting views after 30 days. These topics have lasting relevance.`);
+  if (fmtData.length > 1) {
+    const best = [...fmtData].sort((a,b)=>b.avgV-a.avgV)[0];
+    insights.push(`<strong>${best.fmt} is your best-performing format</strong> with an avg of ${best.avgV.toLocaleString()} views. Win rate: ${best.winR}%.`);
+  }
+  const highSave = posts7d.filter(p=>(p.checks['7d'].saveRate||0)>1);
+  if (highSave.length > 0) insights.push(`<strong>${highSave.length} post${highSave.length>1?'s':''}</strong> had a save rate above 1% — content people found worth keeping. Repeat these hooks.`);
+  if (totalFollows > 0) insights.push(`Content drove <strong>${totalFollows} follows</strong> this period. That's real audience growth attributed directly to your posts.`);
+
+  const tfLabel = {'7d':'Last 7 days','30d':'Last 30 days','6m':'Last 6 months','1y':'Last year','all':'All time'}[S.timeframe];
+
+  document.getElementById('mainContent').innerHTML = `
+    <div style="animation:fadeUp 0.25s ease both">
+      <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;">
+        <div>
+          <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:300;margin-bottom:4px;">Account <em style="font-style:italic;color:var(--orange);">insights</em></div>
+          <div style="font-size:10px;color:var(--muted);">${S.activeClient} · ${tfLabel} · ${posts7d.length} posts with 7d data</div>
+        </div>
+      </div>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <span class="filter-group-label">Time</span>
+          ${['7d','30d','6m','1y','all'].map(t=>`<button class="tf-btn ${S.timeframe===t?'active':''}" onclick="setTimeframe('${t}')">${t==='all'?'All':t==='6m'?'6mo':t==='1y'?'1yr':t}</button>`).join('')}
+        </div>
+        <div class="filter-sep"></div>
+        <div class="filter-group">
+          <span class="filter-group-label">Platform</span>
+          <button class="pf-btn ${S.platFilter==='all'?'active all':''}" onclick="filterPlatInsights('all',this)">All</button>
+          <button class="pf-btn ${S.platFilter==='ig'?'active ig':''}" onclick="filterPlatInsights('ig',this)">IG</button>
+          <button class="pf-btn ${S.platFilter==='tt'?'active tt':''}" onclick="filterPlatInsights('tt',this)">TT</button>
+        </div>
+        <div class="filter-sep"></div>
+        <div class="filter-group">
+          <span class="filter-group-label">Format</span>
+          ${['all','Video','Carousel','Static'].map(t=>`<button class="tf-btn ${S.postType===t?'active':''}" onclick="setPostType('${t}')">${t==='all'?'All':t}</button>`).join('')}
+        </div>
+        <div class="filter-sep"></div>
+        <div class="filter-group">
+          <span class="filter-group-label">Outcome</span>
+          ${['all','winner','learning','underperformed','testing'].map(t=>`<button class="tf-btn ${S.outcomeFilter===t?'active':''}" onclick="setOutcomeFilter('${t}')">${t==='all'?'All':t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}
+        </div>
+      </div>
+
+      <!-- ACCOUNT HEALTH -->
+      <div class="ins-health">
+        <div class="ins-health-dot ${healthColor}"></div>
+        <div>
+          <div class="ins-health-text">${healthText}</div>
+          <div class="ins-health-sub">${healthSub}</div>
+        </div>
+      </div>
+
+      <!-- BEST POST OF PERIOD -->
+      ${bestPost ? `
+      <div class="ins-best-post">
+        <div>
+          <div class="ins-best-label">⭐ Best post this period</div>
+          <div class="ins-best-title">"${bestPost.title}"</div>
+          <div class="ins-best-meta">${bestPost.platform==='ig'?'Instagram':'TikTok'} · Posted ${bestPost.date} · ${bestPost.checks['7d'].outcome||''}</div>
+        </div>
+        <div class="ins-best-stats">
+          <div class="ins-best-stat">
+            <div class="ins-best-stat-val">${(bestPost.checks['7d'].views||0).toLocaleString()}</div>
+            <div class="ins-best-stat-label">Views</div>
+          </div>
+          <div class="ins-best-stat">
+            <div class="ins-best-stat-val">${(bestPost.checks['7d'].saveRate||0).toFixed(1)}%</div>
+            <div class="ins-best-stat-label">Save Rate</div>
+          </div>
+          <div class="ins-best-stat">
+            <div class="ins-best-stat-val">${bestPost.checks['7d'].follows||0}</div>
+            <div class="ins-best-stat-label">Follows</div>
+          </div>
+        </div>
+      </div>` : ''}
+
+      <!-- SUMMARY CARDS -->
+      <div class="ins-grid">
+        <div class="ins-card">
+          <div class="ins-card-label">Win Rate</div>
+          <div class="ins-card-val ${winRate>=50?'green':winRate>=30?'orange':'red'}">${winRate}%</div>
+          <div class="ins-card-sub">${winners.length} of ${posts7d.length} posts beat baseline</div>
+        </div>
+        <div class="ins-card">
+          <div class="ins-card-label">Avg 7d Views</div>
+          <div class="ins-card-val ${avgViews>=baseline?'green':avgViews>=baseline*0.8?'orange':'red'}">${avgViews.toLocaleString()}</div>
+          <div class="ins-card-sub">Baseline: ${baseline.toLocaleString()}</div>
+        </div>
+        <div class="ins-card">
+          <div class="ins-card-label">Total Saves</div>
+          <div class="ins-card-val orange">${totalSaves.toLocaleString()}</div>
+          <div class="ins-card-sub">Content people bookmarked</div>
+        </div>
+        <div class="ins-card">
+          <div class="ins-card-label">Follows from Content</div>
+          <div class="ins-card-val green">${totalFollows}</div>
+          <div class="ins-card-sub">Attributed to tracked posts</div>
+        </div>
+      </div>
+
+      <!-- FORMAT BREAKDOWN -->
+      ${fmtData.length > 0 ? `
+      <div class="ins-section">
+        <div class="ins-section-title">Performance by format</div>
+        <div class="ins-format-grid">
+          ${fmtData.map(f=>`
+            <div class="ins-format-card">
+              <div class="ins-format-name">${f.fmt} · ${f.count} post${f.count!==1?'s':''}</div>
+              <div class="ins-format-val">${f.avgV.toLocaleString()}</div>
+              <div class="ins-format-sub">avg 7d views · Win rate ${f.winR}%</div>
+              <div class="ins-format-bar"><div class="ins-format-bar-fill" style="width:${Math.round(f.avgV/maxFmtV*100)}%"></div></div>
+              <div style="margin-top:10px;font-size:10px;color:var(--muted);">Save rate avg: ${f.avgSR}% · Non-follower reach avg: ${f.avgNF}%</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>` : ''}
+
+      <!-- TWO COL: Outcome + Insights -->
+      <div class="ins-two-col">
+        <div class="ins-panel">
+          <div class="ins-panel-title">Outcome breakdown</div>
+          ${[['Winner',winners.length,'#2a8a3e'],['Learning',learnings.length,'#c8a000'],['Testing',testing.length,'#b0a898'],['Underperformed',underperformed.length,'#cc3333']].map(([label,count,color])=>`
+            <div class="ins-donut-row">
+              <div class="ins-donut-swatch" style="background:${color}"></div>
+              <div class="ins-donut-name">${label}</div>
+              <div class="ins-donut-pct">${count} post${count!==1?'s':''} ${posts7d.length?'('+Math.round(count/posts7d.length*100)+'%)':''}</div>
+            </div>
+            <div style="height:4px;background:var(--border2);margin-bottom:10px;border-radius:2px;overflow:hidden;"><div style="width:${posts7d.length?Math.round(count/posts7d.length*100):0}%;height:100%;background:${color};border-radius:2px;"></div></div>
+          `).join('')}
+        </div>
+        <div class="ins-panel">
+          <div class="ins-panel-title">Key takeaways</div>
+          ${insights.map(i=>`<div class="ins-insight-row">${i}</div>`).join('')}
+          ${insights.length===0?'<div class="ins-insight-row">Add more 7d data to unlock insights.</div>':''}
+        </div>
+      </div>
+
+      <!-- TOP BY VIEWS -->
+      ${topPosts.length ? `
+      <div class="ins-section">
+        <div class="ins-section-title">Top posts by 7d views</div>
+        ${topPosts.map(p=>{
+          const v=p.checks['7d'].views||0;
+          const color=p.checks['7d'].outcome==='Winner'?'green':p.checks['7d'].outcome==='Underperformed'?'red':'orange';
+          return `<div class="ins-bar-row">
+            <div class="ins-bar-label" title="${p.title}">${p.title}</div>
+            <div class="ins-bar-track"><div class="ins-bar-fill ${color}" style="width:${Math.round(v/maxV*100)}%"></div></div>
+            <div class="ins-bar-num">${v.toLocaleString()}</div>
+          </div>`;
+        }).join('')}
+      </div>` : ''}
+
+      <!-- BEST SAVE RATES -->
+      ${bestSave.length ? `
+      <div class="ins-section">
+        <div class="ins-section-title">Most saved content (bookmarkable)</div>
+        ${bestSave.map(p=>{
+          const r=p.checks['7d'].saveRate||0;
+          return `<div class="ins-bar-row">
+            <div class="ins-bar-label" title="${p.title}">${p.title}</div>
+            <div class="ins-bar-track"><div class="ins-bar-fill green" style="width:${Math.round(r/maxSR*100)}%"></div></div>
+            <div class="ins-bar-num">${r.toFixed(2)}%</div>
+          </div>`;
+        }).join('')}
+        <div style="font-size:10px;color:var(--muted);margin-top:8px;">Save rate above 1% = content people found worth keeping. Repeat these hooks and formats.</div>
+      </div>` : ''}
+
+      <!-- BEST NON-FOLLOWER REACH -->
+      ${bestNF.length ? `
+      <div class="ins-section">
+        <div class="ins-section-title">Best new audience reach (non-followers)</div>
+        ${bestNF.map(p=>{
+          const r=p.checks['7d'].nonFollowerPct||0;
+          return `<div class="ins-bar-row">
+            <div class="ins-bar-label" title="${p.title}">${p.title}</div>
+            <div class="ins-bar-track"><div class="ins-bar-fill orange" style="width:${Math.round(r/maxNF*100)}%"></div></div>
+            <div class="ins-bar-num">${r}%</div>
+          </div>`;
+        }).join('')}
+        <div style="font-size:10px;color:var(--muted);margin-top:8px;">These posts found new audiences. The hook or topic had broad enough appeal to travel beyond your existing followers.</div>
+      </div>` : ''}
+
+      <!-- EVERGREEN CONTENT -->
+      ${evergreen.length ? `
+      <div class="ins-section">
+        <div class="ins-section-title">Evergreen content — still earning views at 30d</div>
+        ${evergreen.map(p=>`
+          <div class="ins-evergreen-row">
+            <div class="ins-evergreen-title">${p.title}</div>
+            <div class="ins-evergreen-views">${(p.checks['30d']?.views||0).toLocaleString()} total views</div>
+          </div>
+        `).join('')}
+        <div style="font-size:10px;color:var(--muted);margin-top:8px;">Evergreen posts keep working without new effort. These topics are worth revisiting and updating.</div>
+      </div>` : ''}
+
+      <!-- REPEAT HIGHLIGHTS -->
+      <div class="ins-section">
+        <div class="ins-section-title">Posts to repeat</div>
+        ${winners.length ? winners.map(p=>`
+          <div class="ins-highlight">
+            <div class="ins-highlight-title">✓ ${p.title}</div>
+            <div class="ins-highlight-body">${(p.checks['7d'].views||0).toLocaleString()} views · Save rate ${(p.checks['7d'].saveRate||0).toFixed(2)}% · ${p.checks['7d'].follows||0} follows · ${p.platform==='ig'?'Instagram':'TikTok'}</div>
+          </div>
+        `).join('') : '<div style="font-size:11px;color:var(--muted);">No winners yet in this filter — try expanding the timeframe.</div>'}
+      </div>
+
+    </div>`;
+}
+
+function setPostType(t) { S.postType = t; renderInsights(); }
+function setOutcomeFilter(t) { S.outcomeFilter = t; renderInsights(); }
+
+function filterPlatInsights(plat, btn) {
+  S.platFilter = plat;
+  document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderInsights();
 }
 
 function filterPlat(plat, btn) {
@@ -2119,11 +904,7 @@ function filterPlat(plat, btn) {
   renderPostList();
 }
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
+init();
 </script>
 </body>
 </html>
