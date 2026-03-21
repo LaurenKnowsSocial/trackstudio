@@ -229,6 +229,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .tf-btn{padding:4px 10px;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.1s;}
 .tf-btn.active{background:var(--orange);color:#fff;border-color:var(--orange);}
 .tf-btn:hover:not(.active){color:var(--text);border-color:var(--text2);}
+.date-input{font-family:'DM Mono',monospace;font-size:10px;border:1px solid var(--border2);background:var(--surface2);color:var(--text);padding:3px 7px;outline:none;cursor:pointer;}
+.date-input:focus{border-color:var(--orange);}
+.ins-pf-btn{padding:4px 10px;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.1s;}
+.ins-pf-btn.active{background:var(--orange);color:#fff;border-color:var(--orange);}
+.ins-pf-btn.active.ig{background:var(--instagram);border-color:var(--instagram);}
+.ins-pf-btn.active.tt{background:var(--tiktok);border-color:var(--tiktok);}
+.ins-pf-btn:hover:not(.active){color:var(--text);border-color:var(--text2);}
 
 .ins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
 .ins-card{background:var(--surface);border:1px solid var(--border);padding:18px;animation:fadeUp 0.3s ease both;}
@@ -2004,7 +2011,7 @@ const POSTS = [
 // ══════════════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════════════
-let S = { role:null, activeClient:null, activePost:null, activeCheck:'7d', activeView:'posts', platFilter:'all', timeframe:'all', postType:'all', outcomeFilter:'all' };
+let S = { role:null, activeClient:null, activePost:null, activeCheck:'7d', activeView:'posts', platFilter:'all', timeframe:'all', postType:'all', outcomeFilter:'all', dateFrom:'', dateTo:'' };
 
 // ══════════════════════════════════════════════════════
 // INIT — check URL key param first
@@ -2233,112 +2240,123 @@ function setView(v) {
 
 
 
-function filterByTimeframe(posts) {
-  if (S.timeframe === 'all') return posts;
-  const now = new Date();
-  const days = { '7d': 7, '30d': 30, '6m': 183, '1y': 365 }[S.timeframe] || 9999;
-  const cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+function filterByDateRange(posts) {
+  if (!S.dateFrom && !S.dateTo) return posts;
+  const from = S.dateFrom ? new Date(S.dateFrom) : null;
+  const to   = S.dateTo   ? new Date(S.dateTo)   : null;
   return posts.filter(p => {
     const d = new Date(p.date);
-    return !isNaN(d.getTime()) && d >= cutoff;
+    if (isNaN(d.getTime())) return true;
+    if (from && d < from) return false;
+    if (to   && d > to)   return false;
+    return true;
   });
 }
 
+function setDateRange(field, val) {
+  if (field === 'from') S.dateFrom = val;
+  else S.dateTo = val;
+  renderInsights();
+}
+
 function renderInsights() {
+  // ── 1. Filter pipeline (all four filters applied in sequence) ──────────────
   let posts = POSTS.filter(p => p.client === S.activeClient);
-  posts = filterByTimeframe(posts);
+  posts = filterByDateRange(posts);
   if (S.platFilter !== 'all') posts = posts.filter(p => p.platform === S.platFilter);
-  if (S.postType !== 'all') posts = posts.filter(p => (p.type||'').toLowerCase() === S.postType.toLowerCase());
+  if (S.postType !== 'all')   posts = posts.filter(p => (p.type||'Video') === S.postType);
+
+  // posts7d = posts that have a 7d check (used for outcome breakdown panel only)
+  const posts7d = posts.filter(p => p.checks && p.checks['7d']);
+
+  // filteredPosts7d = posts7d further narrowed by outcome filter (used for every other section)
+  const filteredPosts7d = S.outcomeFilter === 'all'
+    ? posts7d
+    : posts7d.filter(p => (p.checks['7d'].outcome||'').toLowerCase() === S.outcomeFilter);
 
   const baseline = CLIENTS[S.activeClient].baselines[S.platFilter === 'tt' ? 'tt' : 'ig'];
-  const posts7d = posts.filter(p => p.checks && p.checks['7d']);
-  const winners = posts7d.filter(p => p.checks['7d'].outcome === 'Winner');
-  const learnings = posts7d.filter(p => p.checks['7d'].outcome === 'Learning');
-  const underperformed = posts7d.filter(p => p.checks['7d'].outcome === 'Underperformed');
-  const testing = posts7d.filter(p => p.checks['7d'].outcome === 'Testing');
 
-  // Apply outcome filter
-  let filteredPosts7d = posts7d;
-  if (S.outcomeFilter !== 'all') filteredPosts7d = posts7d.filter(p => (p.checks['7d'].outcome||'').toLowerCase() === S.outcomeFilter);
+  // ── 2. Aggregate stats (all based on filteredPosts7d) ─────────────────────
+  const winners      = filteredPosts7d.filter(p => p.checks['7d'].outcome === 'Winner');
+  const learnings    = filteredPosts7d.filter(p => p.checks['7d'].outcome === 'Learning');
+  const underperformed = filteredPosts7d.filter(p => p.checks['7d'].outcome === 'Underperformed');
+  const testing      = filteredPosts7d.filter(p => p.checks['7d'].outcome === 'Testing');
 
-  const winRate = posts7d.length ? Math.round((winners.length / posts7d.length) * 100) : 0;
-  const avgViews = posts7d.length ? Math.round(posts7d.reduce((s,p) => s + (p.checks['7d'].views||0), 0) / posts7d.length) : 0;
-  const totalReach = posts.reduce((s,p) => s + (p.checks?.['7d']?.uniqueViewers||0), 0);
-  const totalFollows = posts7d.reduce((s,p) => s + (p.checks['7d'].follows||0), 0);
-  const totalSaves = posts7d.reduce((s,p) => s + (p.checks['7d'].saves||0), 0);
+  const winRate     = filteredPosts7d.length ? Math.round((winners.length / filteredPosts7d.length) * 100) : 0;
+  const avgViews    = filteredPosts7d.length ? Math.round(filteredPosts7d.reduce((s,p) => s + (p.checks['7d'].views||0), 0) / filteredPosts7d.length) : 0;
+  const totalFollows = filteredPosts7d.reduce((s,p) => s + (p.checks['7d'].follows||0), 0);
+  const totalSaves   = filteredPosts7d.reduce((s,p) => s + (p.checks['7d'].saves||0), 0);
 
-  // Best post
-  const bestPost = [...posts7d].sort((a,b) => (b.checks['7d'].views||0) - (a.checks['7d'].views||0))[0];
+  const bestPost = [...filteredPosts7d].sort((a,b) => (b.checks['7d'].views||0) - (a.checks['7d'].views||0))[0];
 
-  // Format breakdown
-  const formats = ['Video','Carousel','Static'];
-  const fmtData = formats.map(fmt => {
-    const fp = posts7d.filter(p => (p.type||'Video') === fmt);
-    const avgV = fp.length ? Math.round(fp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/fp.length) : 0;
-    const avgSR = fp.length ? (fp.reduce((s,p)=>s+(p.checks['7d'].saveRate||0),0)/fp.length).toFixed(2) : 0;
-    const avgNF = fp.length ? Math.round(fp.reduce((s,p)=>s+(p.checks['7d'].nonFollowerPct||0),0)/fp.length) : 0;
-    const winR = fp.length ? Math.round(fp.filter(p=>p.checks['7d'].outcome==='Winner').length/fp.length*100) : 0;
-    return { fmt, count: fp.length, avgV, avgSR, avgNF, winR };
-  }).filter(f => f.count > 0);
+  // ── 3. Format breakdown (based on filteredPosts7d) ────────────────────────
+  const fmtData = ['Video','Carousel','Static'].map(fmt => {
+    const fp = filteredPosts7d.filter(p => (p.type||'Video') === fmt);
+    if (!fp.length) return null;
+    return {
+      fmt, count: fp.length,
+      avgV:  Math.round(fp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/fp.length),
+      avgSR: (fp.reduce((s,p)=>s+(p.checks['7d'].saveRate||0),0)/fp.length).toFixed(2),
+      avgNF: Math.round(fp.reduce((s,p)=>s+(p.checks['7d'].nonFollowerPct||0),0)/fp.length),
+      winR:  Math.round(fp.filter(p=>p.checks['7d'].outcome==='Winner').length/fp.length*100),
+    };
+  }).filter(Boolean);
   const maxFmtV = Math.max(...fmtData.map(f=>f.avgV), 1);
 
-  // Evergreen posts
-  const evergreen = posts.filter(p => {
-    const c30 = p.checks?.['30d'];
-    return c30 && (c30.distributionType === 'Evergreen' || c30['30dDistributionType'] === 'Evergreen');
-  });
+  // ── 4. Evergreen (based on all date/plat/format filtered posts) ───────────
+  const evergreen = posts.filter(p => p.checks?.['30d']?.distributionType === 'Evergreen');
 
-  // Top by views
+  // ── 5. Ranked lists ───────────────────────────────────────────────────────
   const topPosts = [...filteredPosts7d].sort((a,b)=>(b.checks['7d'].views||0)-(a.checks['7d'].views||0)).slice(0,5);
-  // Best save rates
   const bestSave = [...filteredPosts7d].filter(p=>p.checks['7d'].saveRate).sort((a,b)=>b.checks['7d'].saveRate-a.checks['7d'].saveRate).slice(0,5);
-  // Best non-follower reach
-  const bestNF = [...filteredPosts7d].filter(p=>p.checks['7d'].nonFollowerPct).sort((a,b)=>b.checks['7d'].nonFollowerPct-a.checks['7d'].nonFollowerPct).slice(0,5);
-
-  const maxV = topPosts.length ? topPosts[0].checks['7d'].views : 1;
+  const bestNF   = [...filteredPosts7d].filter(p=>p.checks['7d'].nonFollowerPct).sort((a,b)=>b.checks['7d'].nonFollowerPct-a.checks['7d'].nonFollowerPct).slice(0,5);
+  const maxV  = topPosts.length ? topPosts[0].checks['7d'].views : 1;
   const maxSR = bestSave.length ? bestSave[0].checks['7d'].saveRate : 1;
-  const maxNF = bestNF.length ? bestNF[0].checks['7d'].nonFollowerPct : 1;
+  const maxNF = bestNF.length   ? bestNF[0].checks['7d'].nonFollowerPct : 1;
 
-  // Account health
+  // ── 6. Account health ─────────────────────────────────────────────────────
   let healthColor = 'green', healthText = 'Healthy', healthSub = 'Win rate above 40% and avg views at or above baseline.';
-  if (winRate < 20 || avgViews < baseline * 0.7) { healthColor='red'; healthText='Needs attention'; healthSub='Win rate below 20% or avg views significantly below baseline.'; }
-  else if (winRate < 40 || avgViews < baseline) { healthColor='orange'; healthText='Building momentum'; healthSub='Some posts are hitting, others still finding their footing.'; }
+  if (winRate < 20 || avgViews < baseline * 0.7)  { healthColor='red';    healthText='Needs attention';    healthSub='Win rate below 20% or avg views significantly below baseline.'; }
+  else if (winRate < 40 || avgViews < baseline)    { healthColor='orange'; healthText='Building momentum'; healthSub='Some posts are hitting, others still finding their footing.'; }
 
-  // Insights text
+  // ── 7. Insights text ──────────────────────────────────────────────────────
   const insights = [];
   if (winners.length > 0) insights.push(`<strong>${winners.length} winner${winners.length>1?'s':''}</strong> in this period. ${winners.slice(0,2).map(p=>`"${p.title}"`).join(' and ')} beat baseline with strong engagement.`);
   if (evergreen.length > 0) insights.push(`<strong>${evergreen.length} evergreen post${evergreen.length>1?'s':''}</strong> — still getting views after 30 days. These topics have lasting relevance.`);
-  if (fmtData.length > 1) {
-    const best = [...fmtData].sort((a,b)=>b.avgV-a.avgV)[0];
-    insights.push(`<strong>${best.fmt} is your best-performing format</strong> with an avg of ${best.avgV.toLocaleString()} views. Win rate: ${best.winR}%.`);
-  }
-  const highSave = posts7d.filter(p=>(p.checks['7d'].saveRate||0)>1);
+  if (fmtData.length > 1) { const best = [...fmtData].sort((a,b)=>b.avgV-a.avgV)[0]; insights.push(`<strong>${best.fmt} is your best-performing format</strong> with an avg of ${best.avgV.toLocaleString()} views. Win rate: ${best.winR}%.`); }
+  const highSave = filteredPosts7d.filter(p=>(p.checks['7d'].saveRate||0)>1);
   if (highSave.length > 0) insights.push(`<strong>${highSave.length} post${highSave.length>1?'s':''}</strong> had a save rate above 1% — content people found worth keeping. Repeat these hooks.`);
   if (totalFollows > 0) insights.push(`Content drove <strong>${totalFollows} follows</strong> this period. That's real audience growth attributed directly to your posts.`);
 
-  const tfLabel = {'7d':'Last 7 days','30d':'Last 30 days','6m':'Last 6 months','1y':'Last year','all':'All time'}[S.timeframe];
+  // ── 8. Header label ───────────────────────────────────────────────────────
+  const dateLabel = (S.dateFrom || S.dateTo)
+    ? [(S.dateFrom || '…'), (S.dateTo || 'today')].join(' → ')
+    : 'All time';
 
   document.getElementById('mainContent').innerHTML = `
     <div style="animation:fadeUp 0.25s ease both">
       <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;">
         <div>
           <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:300;margin-bottom:4px;">Account <em style="font-style:italic;color:var(--orange);">insights</em></div>
-          <div style="font-size:10px;color:var(--muted);">${S.activeClient} · ${tfLabel} · ${posts7d.length} posts with 7d data</div>
+          <div style="font-size:10px;color:var(--muted);">${S.activeClient} · ${dateLabel} · ${filteredPosts7d.length} posts with 7d data</div>
         </div>
       </div>
 
       <!-- FILTER BAR -->
       <div class="filter-bar">
         <div class="filter-group">
-          <span class="filter-group-label">Time</span>
-          ${['7d','30d','6m','1y','all'].map(t=>`<button class="tf-btn ${S.timeframe===t?'active':''}" onclick="setTimeframe('${t}')">${t==='all'?'All':t==='6m'?'6mo':t==='1y'?'1yr':t}</button>`).join('')}
+          <span class="filter-group-label">From</span>
+          <input type="date" class="date-input" value="${S.dateFrom}" onchange="setDateRange('from',this.value)">
+          <span class="filter-group-label" style="margin-left:6px;">To</span>
+          <input type="date" class="date-input" value="${S.dateTo}" onchange="setDateRange('to',this.value)">
+          ${(S.dateFrom||S.dateTo) ? `<button class="tf-btn" style="margin-left:4px;" onclick="clearDateRange()">Clear</button>` : ''}
         </div>
         <div class="filter-sep"></div>
         <div class="filter-group">
           <span class="filter-group-label">Platform</span>
-          <button class="pf-btn ${S.platFilter==='all'?'active all':''}" onclick="filterPlatInsights('all',this)">All</button>
-          <button class="pf-btn ${S.platFilter==='ig'?'active ig':''}" onclick="filterPlatInsights('ig',this)">IG</button>
-          <button class="pf-btn ${S.platFilter==='tt'?'active tt':''}" onclick="filterPlatInsights('tt',this)">TT</button>
+          <button class="ins-pf-btn ${S.platFilter==='all'?'active':''}" onclick="setInsightPlat('all')">All</button>
+          <button class="ins-pf-btn ${S.platFilter==='ig'?'active ig':''}" onclick="setInsightPlat('ig')">IG</button>
+          <button class="ins-pf-btn ${S.platFilter==='tt'?'active tt':''}" onclick="setInsightPlat('tt')">TT</button>
         </div>
         <div class="filter-sep"></div>
         <div class="filter-group">
@@ -2434,9 +2452,9 @@ function renderInsights() {
             <div class="ins-donut-row">
               <div class="ins-donut-swatch" style="background:${color}"></div>
               <div class="ins-donut-name">${label}</div>
-              <div class="ins-donut-pct">${count} post${count!==1?'s':''} ${posts7d.length?'('+Math.round(count/posts7d.length*100)+'%)':''}</div>
+              <div class="ins-donut-pct">${count} post${count!==1?'s':''} ${filteredPosts7d.length?'('+Math.round(count/filteredPosts7d.length*100)+'%)':''}</div>
             </div>
-            <div style="height:4px;background:var(--border2);margin-bottom:10px;border-radius:2px;overflow:hidden;"><div style="width:${posts7d.length?Math.round(count/posts7d.length*100):0}%;height:100%;background:${color};border-radius:2px;"></div></div>
+            <div style="height:4px;background:var(--border2);margin-bottom:10px;border-radius:2px;overflow:hidden;"><div style="width:${filteredPosts7d.length?Math.round(count/filteredPosts7d.length*100):0}%;height:100%;background:${color};border-radius:2px;"></div></div>
           `).join('')}
         </div>
         <div class="ins-panel">
@@ -2520,13 +2538,8 @@ function renderInsights() {
 
 function setPostType(t) { S.postType = t; renderInsights(); }
 function setOutcomeFilter(t) { S.outcomeFilter = t; renderInsights(); }
-
-function filterPlatInsights(plat, btn) {
-  S.platFilter = plat;
-  document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderInsights();
-}
+function setInsightPlat(plat) { S.platFilter = plat; renderInsights(); }
+function clearDateRange() { S.dateFrom = ''; S.dateTo = ''; renderInsights(); }
 
 function filterPlat(plat, btn) {
   S.platFilter = plat;
