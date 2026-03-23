@@ -358,10 +358,17 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-03-20',
     checks: {
-
+      '24h': {
+        views: 476,
+        uniqueViewers: 450,
+        nonFollowerPct: 0.0,
+        saves: 5,
+        shares: 2,
+        distribution: 'Weak - limited algo test'
+      }
     },
     dueChecks: {
-      '24h': '2026-03-21'
+      '7d': '2026-03-27'
     }
   },
   {
@@ -417,13 +424,13 @@ const POSTS = [
     date: '2026-03-17',
     checks: {
       '24h': {
-        views: 662,
-        nonFollowerPct: 83.4,
+        views: 521,
+        nonFollowerPct: 71.0,
         watchTimeSec: 3,
         watchTimePct: 30.0,
         saves: 20,
         shares: 9,
-        distribution: 'Neutral - testing'
+        distribution: 'Weak - limited algo test'
       },
       '7d': {
         views: 1571,
@@ -458,8 +465,13 @@ const POSTS = [
     type: 'Video',
     date: '2026-03-11',
     checks: {
+      '24h': {
+        views: 2752,
+        nonFollowerPct: 93.0,
+        distribution: 'Weak - limited algo test'
+      },
       '7d': {
-        views: 3359,
+        views: 3316,
         uniqueViewers: 3006,
         nonFollowerPct: 92.9,
         watchTimeSec: 4,
@@ -470,7 +482,7 @@ const POSTS = [
         shareRate: 0.03,
         comments: 12,
         follows: 3,
-        followsPer1k: 0.89,
+        followsPer1k: 0.9,
         engagementRate: 0.63,
         distribution: 'Above baseline - expanded reach',
         outcome: 'Testing',
@@ -480,7 +492,7 @@ const POSTS = [
       }
     },
     dueChecks: {
-      '24h': '2026-03-12'
+      '30d': '2026-04-10'
     }
   },
   {
@@ -492,14 +504,26 @@ const POSTS = [
     date: '2026-03-06',
     checks: {
       '24h': {
-        views: 2061,
+        views: 1048,
+        nonFollowerPct: 88.0,
         watchTimeSec: 6,
         watchTimePct: 8.5,
         distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 2213,
+        nonFollowerPct: 90.0,
+        watchTimeSec: 6,
+        watchTimePct: 8.5,
+        distribution: 'At baseline - typical reach',
+        outcome: 'Learning',
+        engagementQuality: 'Neutral',
+        businessSignal: 'Neutral',
+        nextAction: 'Drop'
       }
     },
     dueChecks: {
-      '7d': '2026-03-13'
+      '30d': '2026-04-05'
     }
   },
   {
@@ -537,10 +561,31 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-03-03',
     checks: {
-
+      '24h': {
+        views: 375,
+        nonFollowerPct: 0.0,
+        distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 748,
+        nonFollowerPct: 67.0,
+        saves: 13,
+        saveRate: 1.74,
+        shares: 10,
+        shareRate: 1.34,
+        comments: 6,
+        follows: 0,
+        followsPer1k: 0.0,
+        engagementRate: 3.88,
+        distribution: 'Below baseline - limited reach',
+        outcome: 'Testing',
+        engagementQuality: 'Strong',
+        businessSignal: 'Weak',
+        nextAction: 'Iterate'
+      }
     },
     dueChecks: {
-      '24h': '2026-03-04'
+      '30d': '2026-04-02'
     }
   },
   {
@@ -551,16 +596,44 @@ const POSTS = [
     type: 'Video',
     date: '2026-02-26',
     checks: {
+      '24h': {
+        views: 305,
+        nonFollowerPct: 78.0,
+        watchTimeSec: 2,
+        watchTimePct: 25.0,
+        distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 1296,
+        nonFollowerPct: 94.0,
+        watchTimeSec: 2,
+        watchTimePct: 25.0,
+        saves: 2,
+        saveRate: 0.15,
+        shares: 1,
+        shareRate: 0.08,
+        comments: 0,
+        follows: 0,
+        followsPer1k: 0.0,
+        engagementRate: 0.23,
+        distribution: 'Below baseline - limited reach',
+        outcome: 'Learning',
+        engagementQuality: 'Neutral',
+        businessSignal: 'Weak',
+        nextAction: 'Iterate'
+      },
       '30d': {
         views: 1576,
+        longTailViews: 280,
+        longTailPct: 17.8,
         saves: 2,
         shares: 1,
         follows: 0,
-        distributionType: 'Evergreen'
+        distributionType: 'Plateau'
       }
     },
     dueChecks: {
-      '24h': '2026-02-27'
+
     }
   },
   {
@@ -571,16 +644,44 @@ const POSTS = [
     type: 'Video',
     date: '2026-02-23',
     checks: {
+      '24h': {
+        views: 1005,
+        nonFollowerPct: 88.0,
+        watchTimeSec: 5,
+        watchTimePct: 10.6,
+        distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 4697,
+        nonFollowerPct: 95.0,
+        watchTimeSec: 5,
+        watchTimePct: 10.6,
+        saves: 13,
+        saveRate: 0.28,
+        shares: 8,
+        shareRate: 0.17,
+        comments: 0,
+        follows: 5,
+        followsPer1k: 1.06,
+        engagementRate: 0.45,
+        distribution: 'Above baseline - expanded reach',
+        outcome: 'Winner',
+        engagementQuality: 'Neutral',
+        businessSignal: 'Neutral',
+        nextAction: 'Repeat'
+      },
       '30d': {
         views: 5125,
+        longTailViews: 428,
+        longTailPct: 8.4,
         saves: 14,
         shares: 10,
         follows: 6,
-        distributionType: 'Evergreen'
+        distributionType: 'Plateau'
       }
     },
     dueChecks: {
-      '24h': '2026-02-24'
+
     }
   },
   {
@@ -627,16 +728,40 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-02-19',
     checks: {
+      '24h': {
+        views: 577,
+        nonFollowerPct: 69.0,
+        distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 840,
+        nonFollowerPct: 4.4,
+        saves: 5,
+        saveRate: 0.6,
+        shares: 6,
+        shareRate: 0.71,
+        comments: 0,
+        follows: 1,
+        followsPer1k: 1.19,
+        engagementRate: 1.31,
+        distribution: 'Below baseline - limited reach',
+        outcome: 'Testing',
+        engagementQuality: 'Neutral',
+        businessSignal: 'Neutral',
+        nextAction: 'Iterate'
+      },
       '30d': {
         views: 955,
+        longTailViews: 115,
+        longTailPct: 12.0,
         saves: 6,
         shares: 7,
         follows: 1,
-        distributionType: 'Evergreen'
+        distributionType: 'Plateau'
       }
     },
     dueChecks: {
-      '24h': '2026-02-20'
+
     }
   }
 ];
