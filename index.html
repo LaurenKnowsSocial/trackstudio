@@ -163,6 +163,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 .nb{background:var(--surface);border:1px solid var(--border);padding:14px;margin-bottom:18px;}
 .nb textarea{width:100%;background:transparent;border:none;color:var(--text2);font-family:'DM Mono',monospace;font-size:12px;resize:none;outline:none;line-height:1.7;min-height:65px;}
 .nb textarea::placeholder{color:var(--muted);}
+.nb-lbl{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.nb-text{font-size:12px;color:var(--text2);line-height:1.7;}
 .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;color:var(--muted);gap:8px;text-align:center;}
 .ei{font-size:30px;opacity:0.35;margin-bottom:4px;}
 .et{font-size:13px;color:var(--text2);}
@@ -1165,8 +1167,11 @@ function renderCheck(c, post, bl) {
     </div>
     ${c.distributionType?`<div class="shd">Distribution</div><div class="tgrid"><div class="tc"><div class="tc-cat">30d Distribution Type</div><div class="tc-val o">${c.distributionType}</div></div></div>`:''}
     `:''}
-    <div class="shd">Notes</div>
-    <div class="nb"><textarea placeholder="Hook effectiveness, topic angle, posting time, audio choice…">${c.notes||''}</textarea></div>`;
+    ${(post.whyItPerformed||post.hookInsight)?`<div class="shd">Notes</div>
+    ${post.whyItPerformed?`<div class="nb"><div class="nb-lbl">Why It Performed</div><div class="nb-text">${post.whyItPerformed}</div></div>`:''}
+    ${post.hookInsight?`<div class="nb"><div class="nb-lbl">Hook Insight</div><div class="nb-text">${post.hookInsight}</div></div>`:''}
+    `:''}
+`;
 }
 
 function renderUpcoming() {
