@@ -1115,7 +1115,7 @@ function renderCheck(c, post, bl) {
   const is7 = S.activeCheck==='7d';
   const bp = c.views ? Math.round((c.views/bl)*100) : 0;
   const dc = c.distribution?.includes('Above')||c.distribution?.includes('Promising')?'g':c.distribution?.includes('Below')||c.distribution?.includes('Weak')?'r':'o';
-  const mc = (lbl,val,cls,sub,bar) => `<div class="mc ${bar}"><div class="mc-lbl">${lbl}</div><div class="mc-val ${cls}">${val}</div><div class="mc-sub">${sub}</div></div>`;
+  const mc = (lbl,val,cls,sub,bar) => (val == null || val === 'undefined' || (typeof val === 'number' && isNaN(val))) ? '' : `<div class="mc ${bar}"><div class="mc-lbl">${lbl}</div><div class="mc-val ${cls}">${val}</div><div class="mc-sub">${sub}</div></div>`;
   const rc = (n,v,cl,pct) => `<div class="rc"><div class="rc-top"><span class="rc-name">${n}</span><span class="rc-val ${cl}">${v}</span></div><div class="bt"><div class="bf ${cl}" style="width:${pct}%"></div></div></div>`;
   const ac = (t,col,sel,crit) => {
     const rows = crit.map(([met,lbl])=>`<div class="${met?'cm':'cu'}">${met?'✓':'—'} ${lbl}</div>`).join('');
@@ -1125,8 +1125,8 @@ function renderCheck(c, post, bl) {
     <div class="mgrid">
       ${mc('Views',c.views?.toLocaleString(),bp>120?'g':bp<80?'r':'o',`${bp}% of baseline`,bp>120?'pos':bp<80?'neg':'neu')}
       ${mc('Unique Viewers',c.uniqueViewers?.toLocaleString(),'n',`${Math.round((c.uniqueViewers/c.views)*100)}% unique`,'')}
-      ${mc('Non-Follower %',c.nonFollowerPct+'%',c.nonFollowerPct>60?'g':'o',c.nonFollowerPct>60?'algo pushing':'mostly followers',c.nonFollowerPct>60?'pos':'')}
-      ${mc('Watch Time %',c.watchTimePct+'%',c.watchTimePct>35?'g':c.watchTimePct<20?'r':'o',c.watchTimeSec+'s avg',c.watchTimePct>35?'pos':c.watchTimePct<20?'neg':'neu')}
+      ${mc('Non-Follower %',c.nonFollowerPct != null ? c.nonFollowerPct+'%' : null,c.nonFollowerPct>60?'g':'o',c.nonFollowerPct>60?'algo pushing':'mostly followers',c.nonFollowerPct>60?'pos':'')}
+      ${mc('Watch Time %',c.watchTimePct != null ? c.watchTimePct+'%' : null,c.watchTimePct>35?'g':c.watchTimePct<20?'r':'o',c.watchTimeSec != null ? c.watchTimeSec+'s avg' : '',c.watchTimePct>35?'pos':c.watchTimePct<20?'neg':'neu')}
     </div>
     ${is7?`
     <div class="tgrid">
