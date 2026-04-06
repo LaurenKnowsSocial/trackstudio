@@ -1101,7 +1101,7 @@ function renderMain() {
           <div class="meta-row">
             <div class="meta-chip"><div class="pdot ${post.platform}"></div>${post.platform==='ig'?'Instagram':'TikTok'}</div>
             <div class="meta-chip" style="color:var(--muted)">Posted ${post.date}</div>
-            <div class="meta-chip" style="color:var(--muted)">${post.duration}</div>
+            <div class="meta-chip" style="color:var(--muted)">${post.type}</div>
           </div>
         </div>
         ${outcome?`<div class="otag ${outcome.toLowerCase()}">${outcome}</div>`:''}
@@ -1112,7 +1112,8 @@ function renderMain() {
 }
 
 function renderCheck(c, post, bl) {
-  const is7 = S.activeCheck==='7d';
+  const is7  = S.activeCheck==='7d';
+  const is30 = S.activeCheck==='30d';
   const bp = c.views ? Math.round((c.views/bl)*100) : 0;
   const dc = c.distribution?.includes('Above')||c.distribution?.includes('Promising')?'g':c.distribution?.includes('Below')||c.distribution?.includes('Weak')?'r':'o';
   const mc = (lbl,val,cls,sub,bar) => (val == null || val === 'undefined' || (typeof val === 'number' && isNaN(val))) ? '' : `<div class="mc ${bar}"><div class="mc-lbl">${lbl}</div><div class="mc-val ${cls}">${val}</div><div class="mc-sub">${sub}</div></div>`;
@@ -1148,6 +1149,17 @@ function renderCheck(c, post, bl) {
       ${ac('Iterate','o',c.nextAction==='Iterate',[[c.watchTimePct>35&&c.views<bl,'Good watch time + low views'],[c.views>bl&&c.watchTimePct<25,'High views + low watch time'],[c.saves>10&&!c.follows,'Good saves + no follows'],[c.distribution?.includes('Typical')||c.distribution?.includes('baseline'),'Distribution = Typical'],[false,'Strong topic, weak execution']])}
       ${ac('Drop','r',c.nextAction==='Drop',[[c.views<bl*0.8,'Below baseline views'],[c.watchTimePct<15,'Watch time <15%'],[c.saves===0&&c.shares===0,'Zero saves + zero shares'],[c.distribution?.includes('Limited')||c.distribution?.includes('Weak'),'Distribution = Limited'],[c.outcome==='Underperformed','Outcome = Underperformed']])}
     </div>`:''}
+    ${is30?`
+    <div class="shd">Long-Tail Performance</div>
+    <div class="mgrid">
+      ${mc('Long-Tail Views',c.longTailViews?.toLocaleString(),'n',c.longTailPct != null ? c.longTailPct+'% of total' : '','')}
+      ${mc('Long-Tail %',c.longTailPct != null ? c.longTailPct+'%' : null,c.longTailPct>15?'g':'o','views after day 7',c.longTailPct>15?'pos':'')}
+      ${mc('Saves',c.saves?.toLocaleString(),'n','','')  }
+      ${mc('Shares',c.shares?.toLocaleString(),'n','','')}
+      ${mc('Follows',c.follows != null ? String(c.follows) : null,c.follows>0?'g':'o','attributed',c.follows>0?'pos':'')}
+    </div>
+    ${c.distributionType?`<div class="shd">Distribution</div><div class="tgrid"><div class="tc"><div class="tc-cat">30d Distribution Type</div><div class="tc-val o">${c.distributionType}</div></div></div>`:''}
+    `:''}
     <div class="shd">Notes</div>
     <div class="nb"><textarea placeholder="Hook effectiveness, topic angle, posting time, audio choice…">${c.notes||''}</textarea></div>`;
 }
