@@ -356,6 +356,29 @@ const POSTS = [
     id: 1,
     client: 'CEA',
     platform: 'ig',
+    title: 'Why banning AI tools for students is futile',
+    type: 'Video',
+    date: '2026-04-27',
+    checks: {
+      '24h': {
+        views: 573,
+        uniqueViewers: 256,
+        nonFollowerPct: 74.2,
+        watchTimeSec: 4,
+        watchTimePct: 20.0,
+        saves: 0,
+        shares: 0,
+        distribution: 'Weak - limited algo test'
+      }
+    },
+    dueChecks: {
+      '7d': '2026-05-04'
+    }
+  },
+  {
+    id: 2,
+    client: 'CEA',
+    platform: 'ig',
     title: '3 things we dont want to see in your essay',
     type: 'Video',
     date: '2026-04-23',
@@ -376,7 +399,7 @@ const POSTS = [
     }
   },
   {
-    id: 2,
+    id: 3,
     client: 'CEA',
     platform: 'ig',
     title: 'College essays that got it right: Nature painter',
@@ -419,7 +442,7 @@ const POSTS = [
     }
   },
   {
-    id: 3,
+    id: 4,
     client: 'CEA',
     platform: 'ig',
     title: 'Dos + Donts Common App Prompt 5',
@@ -462,7 +485,7 @@ const POSTS = [
     }
   },
   {
-    id: 4,
+    id: 5,
     client: 'CEA',
     platform: 'ig',
     title: 'Parent Webinar Segment - Common app prompt doesnt matter',
@@ -505,7 +528,7 @@ const POSTS = [
     }
   },
   {
-    id: 5,
+    id: 6,
     client: 'CEA',
     platform: 'tt',
     title: 'Parent Webinar Clip: Common App Prompt Doesn\'t Matter',
@@ -547,7 +570,7 @@ const POSTS = [
     }
   },
   {
-    id: 6,
+    id: 7,
     client: 'CEA',
     platform: 'ig',
     title: 'Stacey + Becca Prompt 4 Podcast',
@@ -595,7 +618,7 @@ const POSTS = [
     }
   },
   {
-    id: 7,
+    id: 8,
     client: 'CEA',
     platform: 'ig',
     title: 'How much is too much to reveal',
@@ -641,10 +664,12 @@ const POSTS = [
     },
     dueChecks: {
 
-    }
+    },
+    whyItPerformed: 'Hook metrics were above average (skip rate 64.4% vs 76.2% typical; avg watch time 8.9s above average) but every engagement metric was below: like rate 0.34%, save rate 0.17%, share rate 0.08%, 0 comments, 0 follows, 0 profile visits. Views came in -55.6% below account average. The pattern is a classic hook-body mismatch: the scroll-stop worked, but the 1:18 talking-head format dropped 50%+ of viewers within the first 10-15 seconds before delivering value. Without watch-through signals, the algorithm kept distribution Feed-heavy (36.9%) with minimal Explore push (5.9%). 82.2% non-follower reach with zero conversion confirms the content found a cold audience but gave them no reason to act.',
+    hookInsight: 'Hook: \'This isn\'t a dear diary entry. So if this essay is feeling too confessional, you might be on the wrong track.\' Data confirms the scroll-stop was real — skip rate 11.8pts below account average and avg watch time above average. Negative framing + specific vocabulary (\'confessional\') triggers immediate self-recognition in students who over-corrected on \'be authentic\' advice. The hook is strong; the delivery format is the problem. Cold open is a talking head saying \'I WANT TO ADDRESS\' with no text overlay or visual proof — viewers gave the hook 8.9 seconds then left. Keep this hook verbatim. Restructure: deliver the core insight (what confessional looks like + the fix) in the first 20 seconds, then go deeper. Or cut to under 30s and end on a CTA save.'
   },
   {
-    id: 8,
+    id: 9,
     client: 'CEA',
     platform: 'ig',
     title: 'Parent Webinar Promo',
@@ -692,7 +717,7 @@ const POSTS = [
     }
   },
   {
-    id: 9,
+    id: 10,
     client: 'CEA',
     platform: 'tt',
     title: 'Stacey + Becca Prompt 3 Podcast',
@@ -744,7 +769,7 @@ const POSTS = [
     }
   },
   {
-    id: 10,
+    id: 11,
     client: 'CEA',
     platform: 'ig',
     title: 'Why common app essay prompts don\'t matter',
@@ -791,7 +816,7 @@ const POSTS = [
     }
   },
   {
-    id: 11,
+    id: 12,
     client: 'CEA',
     platform: 'ig',
     title: 'Quick tips to brainstorm topics',
@@ -844,7 +869,7 @@ const POSTS = [
     hookInsight: 'Opens with the title "Quick tips to brainstorm essay topics" in bold white text over b-roll of someone writing. Bold claim hook: names the problem and promises a quick fix. Skip rate of 74% beats the account average of 77.4%, so the hook is actually stopping people at an above-average rate. The retention problem kicks in after the stop: people average 3 seconds on a 10-second video and don\'t make it through all 5 tips. The colorful tip boxes are visible enough to trigger a save without watching through, which is why saves are strong while watch time is low.'
   },
   {
-    id: 12,
+    id: 13,
     client: 'CEA',
     platform: 'ig',
     title: 'Stacey + Becca Prompt 3 Podcast',
@@ -893,7 +918,7 @@ const POSTS = [
     hookInsight: 'Opens mid-reaction before any setup or title card. Leads with the viewer\'s own confusion about Prompt 3, which earns trust before any advice lands. Works as a curiosity hook even for people who haven\'t seen the prompt yet.'
   },
   {
-    id: 13,
+    id: 14,
     client: 'CEA',
     platform: 'ig',
     title: 'How to write a better essay than your friends 2',
@@ -935,7 +960,7 @@ const POSTS = [
     hookInsight: 'Skip rate was 77.4% vs an 81.1% account average, so the hook actually stopped people better than usual. Stacey\'s face and energy in the first frame is doing the work before any text registers. But the retention curve drops steeply to under 10% within the first few seconds and keeps declining through the full 71 seconds. People stopped and then left: at 71 seconds with no clear upfront promise of a payoff, most don\'t commit. The interesting claim, "YOU\'RE NOT PROVING A POINT," lands mid-video, too late for someone who hasn\'t already decided to watch.'
   },
   {
-    id: 14,
+    id: 15,
     client: 'CEA',
     platform: 'tt',
     title: 'How to write a better essay than your friends 2',
@@ -971,7 +996,7 @@ const POSTS = [
     }
   },
   {
-    id: 15,
+    id: 16,
     client: 'CEA',
     platform: 'ig',
     title: 'How to write common app prompt 2',
@@ -1017,7 +1042,7 @@ const POSTS = [
     hookInsight: 'Slide 1 opens with a notebook cover naming the exact prompt in bold teal. Direct address, specific topic. Slide 3 (the actual prompt text plus "What They\'re Really Asking") got the most likes after the cover, which means people found the reframe valuable. The "What works..." transition slide (slide 4) got zero likes and likely caused some drop-off before the 20/80 Rule. The hook logic is right, but it\'s reaching parents in their feed, not students discovering it through Reels.'
   },
   {
-    id: 16,
+    id: 17,
     client: 'CEA',
     platform: 'ig',
     title: 'College essays that got it right: Burglar',
@@ -1067,7 +1092,7 @@ const POSTS = [
     hookInsight: 'The skip rate was 81.3%, nearly identical to the account average of 80.7%, so the first frame wasn\'t losing people faster than usual. But the retention curve drops steeply in the first 2 seconds before flattening out. People stopped scrolling and then left immediately. The format asks too much too fast: stop, read small text, parse annotations, with no audio, no face, and no motion to reward the pause. The hook stops people at a normal rate but the content doesn\'t give them a reason to stay.'
   },
   {
-    id: 17,
+    id: 18,
     client: 'CEA',
     platform: 'ig',
     title: 'What juniors need to think about now',
@@ -1117,7 +1142,7 @@ const POSTS = [
     hookInsight: 'Stacey opens with "IF YOU\'RE A JUNIOR" on screen with the word JUNIOR highlighted in teal, a targeting hook that filters in the right audience from the first frame. The below-average skip rate (73.6% vs 80.8% typical) confirms it landed. A secondary "HERE IS THE SECRET" text overlay mid-video gave people a reason to keep watching past the initial drop, which shows in the flattened retention curve after second 5.'
   },
   {
-    id: 18,
+    id: 19,
     client: 'CEA',
     platform: 'tt',
     title: 'What juniors need to think about now',
@@ -1153,7 +1178,7 @@ const POSTS = [
     }
   },
   {
-    id: 19,
+    id: 20,
     client: 'CEA',
     platform: 'ig',
     title: 'It\'s too soon',
