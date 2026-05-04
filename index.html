@@ -383,10 +383,19 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-30',
     checks: {
-
+      '24h': {
+        views: 577,
+        uniqueViewers: 394,
+        nonFollowerPct: 86.0,
+        watchTimeSec: 12.1,
+        watchTimePct: 32.6,
+        saves: 11,
+        shares: 14,
+        distribution: 'Neutral - testing'
+      }
     },
     dueChecks: {
-      '24h': '2026-05-01'
+      '7d': '2026-05-07'
     }
   },
   {
@@ -429,10 +438,30 @@ const POSTS = [
         saves: 0,
         shares: 0,
         distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 692,
+        uniqueViewers: 335,
+        nonFollowerPct: 70.5,
+        watchTimeSec: 5,
+        watchTimePct: 25.0,
+        saves: 0,
+        saveRate: 0.0,
+        shares: 1,
+        shareRate: 0.14,
+        comments: 0,
+        follows: 1,
+        followsPer1k: 1.45,
+        engagementRate: 0.14,
+        distribution: 'Below baseline - limited reach',
+        outcome: 'Learning',
+        engagementQuality: 'Neutral',
+        businessSignal: 'Neutral',
+        nextAction: 'Iterate'
       }
     },
     dueChecks: {
-      '7d': '2026-05-04'
+      '30d': '2026-05-27'
     }
   },
   {
