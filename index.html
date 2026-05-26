@@ -360,10 +360,19 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-19',
     checks: {
-
+      '24h': {
+        views: 893,
+        uniqueViewers: 555,
+        nonFollowerPct: 70.3,
+        watchTimeSec: 4.9,
+        watchTimePct: 70.0,
+        saves: 21,
+        shares: 10,
+        distribution: 'Weak - limited algo test'
+      }
     },
     dueChecks: {
-      '24h': '2026-05-20'
+      '7d': '2026-05-26'
     }
   },
   {
@@ -397,10 +406,30 @@ const POSTS = [
         saves: 1,
         shares: 0,
         distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 729,
+        uniqueViewers: 441,
+        nonFollowerPct: 71.1,
+        watchTimeSec: 5.5,
+        watchTimePct: 6.5,
+        saves: 2,
+        saveRate: 0.27,
+        shares: 0,
+        shareRate: 0.0,
+        comments: 0,
+        follows: 0,
+        followsPer1k: 0.0,
+        engagementRate: 0.27,
+        distribution: 'Below baseline - limited reach',
+        outcome: 'Underperformed',
+        engagementQuality: 'Weak',
+        businessSignal: 'Weak',
+        nextAction: 'Drop'
       }
     },
     dueChecks: {
-      '7d': '2026-05-25'
+      '30d': '2026-06-17'
     }
   },
   {
@@ -420,10 +449,30 @@ const POSTS = [
         saves: 4,
         shares: 3,
         distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 840,
+        uniqueViewers: 608,
+        nonFollowerPct: 73.0,
+        watchTimeSec: 10.8,
+        watchTimePct: 15.7,
+        saves: 4,
+        saveRate: 0.48,
+        shares: 3,
+        shareRate: 0.36,
+        comments: 2,
+        follows: 0,
+        followsPer1k: 0.0,
+        engagementRate: 1.07,
+        distribution: 'Below baseline - limited reach',
+        outcome: 'Underperformed',
+        engagementQuality: 'Neutral',
+        businessSignal: 'Weak',
+        nextAction: 'Iterate'
       }
     },
     dueChecks: {
-      '7d': '2026-05-21'
+      '30d': '2026-06-13'
     }
   },
   {
@@ -457,10 +506,37 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-13',
     checks: {
-
+      '24h': {
+        views: 351,
+        watchTimeSec: 8,
+        watchTimePct: 7.8,
+        saves: 0,
+        shares: 0,
+        distribution: 'Weak - limited algo test'
+      },
+      '7d': {
+        views: 739,
+        uniqueViewers: 455,
+        nonFollowerPct: 68.2,
+        watchTimeSec: 8.1,
+        watchTimePct: 7.9,
+        saves: 0,
+        saveRate: 0.0,
+        shares: 0,
+        shareRate: 0.0,
+        comments: 0,
+        follows: 0,
+        followsPer1k: 0.0,
+        engagementRate: 0.0,
+        distribution: 'Below baseline - limited reach',
+        outcome: 'Underperformed',
+        engagementQuality: 'Weak',
+        businessSignal: 'Weak',
+        nextAction: 'Drop'
+      }
     },
     dueChecks: {
-      '24h': '2026-05-14'
+      '30d': '2026-06-12'
     }
   },
   {
@@ -879,11 +955,22 @@ const POSTS = [
         engagementQuality: 'Strong',
         businessSignal: 'Neutral',
         nextAction: 'Repeat'
+      },
+      '30d': {
+        views: 4552,
+        longTailViews: 290,
+        longTailPct: 6.4,
+        saves: 63,
+        shares: 20,
+        follows: 4,
+        distributionType: 'Plateau'
       }
     },
     dueChecks: {
-      '30d': '2026-05-23'
-    }
+
+    },
+    whyItPerformed: 'Lowskip rate, 63 saves, 20 shares means people are passing this on. Rewatch behavior confirmed by 9.4s avg watch on a 9s video. Every engagement rate is above account average.',
+    hookInsight: 'The negative hook ("DON\'T") created urgency that carried through to profile visits and follow decisions.'
   },
   {
     id: 17,
@@ -935,7 +1022,9 @@ const POSTS = [
     },
     dueChecks: {
 
-    }
+    },
+    whyItPerformed: 'All engagement rates are above average. But the retention curve drops steeply in the first 2s before leveling. Watch time labeled "lower." This is a split verdict: warm response from the audience it reached, but too few reached. The people who gave it a real watch found it worth saving and sharing. This is a "bad first impression" verdict. The topic (showing real essay examples) has proven demand, just needs a better entry point.',
+    hookInsight: 'Every engagement rate except skip rate is above average. Translation: the ~24% of people who didn\'t skip found it genuinely valuable. The content itself has merit but it\'s failing at the moment of first impression.'
   },
   {
     id: 18,
@@ -987,7 +1076,9 @@ const POSTS = [
     },
     dueChecks: {
 
-    }
+    },
+    whyItPerformed: 'A 57.5% skip rate labeled "Lower" than average means fewer people swiped past this than your typical post. Text-first hooks that promise a clear, specific payoff (Common App Prompt 5 specifically) outperform vague talking-head openers for this audience. People save when they want to come back to something. Common App Prompt 5 is a specific, high-stakes task students are actively working through ...this became a resource. The 3.47% save rate well above account average confirms the topic had genuine utility. This is the content type your audience bookmarks. The algorithm barely tested this outside current followers. This is a reach problem, not a content quality problem. 1 follow on 43 saves reveals a specific disconnect: people trusted the information but didn\'t feel compelled to follow. This often happens when content is reference-forward ("here\'s what to do") without being creator-forward ("here\'s why I\'m the person to follow for more of this"). There\'s no urgency or personality hook pulling them to the profile.',
+    hookInsight: '"Do\'s & Don\'ts" is a durable framework audience responds to. What\'s missing is a creator-identity layer... something that makes the viewer associate this expert knowledge with this specific person, not just the topic. Consider opening with a POV line before the list, or closing with a specific reason to follow rather than just delivering the information cleanly.'
   },
   {
     id: 19,
