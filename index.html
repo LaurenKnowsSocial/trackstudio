@@ -347,6 +347,14 @@ const CLIENTS = {
   LKS: { name:'LKS', baselines:{ ig:500, tt:400 } }
 };
 
+// Content pillars (CEA) — ids match the Pillar column in the Sheet
+const PILLAR_NAMES = {
+  P1: 'P1 · Demystify',
+  P2: 'P2 · Kill the Myth',
+  P3: 'P3 · Validate and Move',
+  P4: 'P4 · Ethical AI'
+};
+
 // ══════════════════════════════════════════════════════
 // POSTS — Claude's /update-dashboard rewrites this block
 // ══════════════════════════════════════════════════════
@@ -2037,7 +2045,7 @@ function startSession(role) {
   S.activeClient = clients[0];
   const first = POSTS.find(p => p.client === S.activeClient);
   S.activePost = first?.id || null;
-  if (first) S.activeCheck = ['7d','24h','30d'].find(c => first.checks[c]) || '24h';
+  if (first) S.activeCheck = ['7d','24h','30d'].find(c => first.checks[c]) || '7d';
   document.getElementById('authScreen').style.display = 'none';
   document.getElementById('appShell').classList.add('visible');
   if (!isAdmin) {
@@ -2084,7 +2092,8 @@ function renderPostList() {
   const el = document.getElementById('postList');
   if (!posts.length) { el.innerHTML = '<div style="padding:10px 8px;font-size:10px;color:var(--muted)">No posts found</div>'; return; }
   el.innerHTML = posts.map(p => {
-    const dots = ['24h','7d','30d'].map(k => {
+    // v2 posts (lean schema) never have a 24h check — hide its dot for them
+    const dots = ['24h','7d','30d'].filter(k => k!=='24h' || p.checks[k] || p.dueChecks?.[k]).map(k => {
       const done = !!p.checks[k], due = !done && p.dueChecks?.[k];
       return `<div class="cdot ${done?'done':due?'due':''}">${k.replace('d','')}</div>`;
     }).join('');
@@ -2103,7 +2112,7 @@ function renderMain() {
   const check = post.checks[S.activeCheck];
   const baseline = CLIENTS[S.activeClient].baselines[post.platform];
   const outcome = check?.outcome;
-  const tabs = ['24h','7d','30d'].map(k => {
+  const tabs = ['24h','7d','30d'].filter(k => k!=='24h' || post.checks[k] || post.dueChecks?.[k]).map(k => {
     const done=!!post.checks[k], due=post.dueChecks?.[k];
     const cls = k===S.activeCheck?'active':(!done&&!due?'locked':due&&!done?'due':'');
     return `<button class="ctab ${cls}" ${(done||due)?`onclick="setCheck('${k}')"`:''}>${k}${due&&!done?` — due ${due}`:''}</button>`;
@@ -2117,6 +2126,9 @@ function renderMain() {
             <div class="meta-chip"><div class="pdot ${post.platform}"></div>${post.platform==='ig'?'Instagram':'TikTok'}</div>
             <div class="meta-chip" style="color:var(--muted)">Posted ${post.date}</div>
             <div class="meta-chip" style="color:var(--muted)">${post.type}</div>
+            ${post.pillar?`<div class="meta-chip" style="color:var(--orange)">${PILLAR_NAMES[post.pillar]||post.pillar}</div>`:''}
+            ${post.format?`<div class="meta-chip" style="color:var(--muted)">${post.format}</div>`:''}
+            ${post.hookType?`<div class="meta-chip" style="color:var(--muted)">Hook: ${post.hookType}</div>`:''}
           </div>
         </div>
         ${outcome?`<div class="otag ${outcome.toLowerCase()}">${outcome}</div>`:''}
@@ -2143,26 +2155,36 @@ function renderCheck(c, post, bl) {
       ${mc('Unique Viewers',c.uniqueViewers?.toLocaleString(),'n',`${Math.round((c.uniqueViewers/c.views)*100)}% unique`,'')}
       ${mc('Non-Follower %',c.nonFollowerPct != null ? c.nonFollowerPct+'%' : null,c.nonFollowerPct>60?'g':'o',c.nonFollowerPct>60?'algo pushing':'mostly followers',c.nonFollowerPct>60?'pos':'')}
       ${mc('Watch Time %',c.watchTimePct != null ? c.watchTimePct+'%' : null,c.watchTimePct>35?'g':c.watchTimePct<20?'r':'o',c.watchTimeSec != null ? c.watchTimeSec+'s avg' : '',c.watchTimePct>35?'pos':c.watchTimePct<20?'neg':'neu')}
+      ${mc('Revisit Ratio',c.revisitRatio != null ? c.revisitRatio+'×' : null,c.revisitRatio>=1.3?'g':c.revisitRatio<1.1?'r':'o','views per person (carousel)',c.revisitRatio>=1.3?'pos':c.revisitRatio<1.1?'neg':'neu')}
+      ${mc('Profile Visits',c.profileVisits?.toLocaleString(),'n','from this post','')}
+      ${mc('Link Taps',c.linkTaps?.toLocaleString(),c.linkTaps>0?'g':'n','external link',c.linkTaps>0?'pos':'')}
     </div>
     ${is7?`
     <div class="tgrid">
-      <div class="tc"><div class="tc-cat">Distribution</div><div class="tc-val ${dc}">${c.distribution}</div><div class="tc-desc">${c.views?.toLocaleString()} vs ${bl?.toLocaleString()} baseline</div></div>
-      <div class="tc"><div class="tc-cat">Engagement Quality</div><div class="tc-val ${c.engagementQuality==='Strong'?'g':c.engagementQuality==='Weak'?'r':'o'}">${c.engagementQuality}</div><div class="tc-desc">Save rate ${c.saveRate}% · ${c.shares} shares · ${c.comments} comments</div></div>
-      <div class="tc"><div class="tc-cat">Business Signal</div><div class="tc-val ${c.businessSignal==='Strong'?'g':c.businessSignal==='Weak'?'r':'o'}">${c.businessSignal}</div><div class="tc-desc">${c.follows} follows · ${c.followsPer1k} per 1K</div></div>
-      <div class="tc"><div class="tc-cat">Outcome</div><div class="tc-val ${c.outcome==='Winner'?'g':c.outcome==='Underperformed'?'r':'o'}">${c.outcome}</div><div class="tc-desc">Distribution + engagement criteria</div></div>
+      ${c.distribution?`<div class="tc"><div class="tc-cat">Distribution</div><div class="tc-val ${dc}">${c.distribution}</div><div class="tc-desc">${c.views?.toLocaleString()} vs ${bl?.toLocaleString()} baseline</div></div>`
+        :`<div class="tc"><div class="tc-cat">Views vs Baseline</div><div class="tc-val ${bp>120?'g':bp<80?'r':'o'}">${bp}%</div><div class="tc-desc">${c.views?.toLocaleString()} vs ${bl?.toLocaleString()} baseline</div></div>`}
+      ${c.engagementQuality?`<div class="tc"><div class="tc-cat">Engagement Quality</div><div class="tc-val ${c.engagementQuality==='Strong'?'g':c.engagementQuality==='Weak'?'r':'o'}">${c.engagementQuality}</div><div class="tc-desc">Save rate ${c.saveRate}% · ${c.shares} shares · ${c.comments} comments</div></div>`:''}
+      ${c.businessSignal?`<div class="tc"><div class="tc-cat">Business Signal</div><div class="tc-val ${c.businessSignal==='Strong'?'g':c.businessSignal==='Weak'?'r':'o'}">${c.businessSignal}</div><div class="tc-desc">${c.follows} follows · ${c.followsPer1k} per 1K</div></div>`:''}
+      ${c.outcome?`<div class="tc"><div class="tc-cat">Outcome</div><div class="tc-val ${c.outcome==='Winner'?'g':c.outcome==='Underperformed'?'r':'o'}">${c.outcome}</div><div class="tc-desc">Reach + retention + saves criteria</div></div>`:''}
     </div>
     <div class="shd">Calculated Rates</div>
     <div class="rgrid">
-      ${rc('Save Rate',c.saveRate+'%',c.saveRate>1?'g':c.saveRate>0.5?'o':'r',Math.min(c.saveRate*33,100))}
-      ${rc('Share Rate',c.shareRate+'%',c.shareRate>1?'g':'o',Math.min(c.shareRate*25,100))}
-      ${rc('Engagement Rate',c.engagementRate+'%',c.engagementRate>3?'g':c.engagementRate>1.5?'o':'r',Math.min(c.engagementRate*10,100))}
-      ${rc('Follows / 1K',c.followsPer1k,c.followsPer1k>2?'g':'o',Math.min(c.followsPer1k*20,100))}
+      ${c.saveRate != null?rc('Save Rate',c.saveRate+'%',c.saveRate>1?'g':c.saveRate>0.5?'o':'r',Math.min(c.saveRate*33,100)):''}
+      ${c.shareRate != null?rc('Share Rate',c.shareRate+'%',c.shareRate>1?'g':'o',Math.min(c.shareRate*25,100)):''}
+      ${c.engagementRate != null?rc('Engagement Rate',c.engagementRate+'%',c.engagementRate>3?'g':c.engagementRate>1.5?'o':'r',Math.min(c.engagementRate*10,100)):''}
+      ${c.followsPer1k != null?rc('Follows / 1K',c.followsPer1k,c.followsPer1k>2?'g':'o',Math.min(c.followsPer1k*20,100)):''}
     </div>
     <div class="shd">Next Action</div>
     <div class="agrid">
+      ${c.distribution?`
       ${ac('Repeat','g',c.nextAction==='Repeat',[[c.views>bl*1.2,'Above baseline views'],[c.watchTimePct>35,'Watch time >35%'],[c.saves>10||c.saveRate>1,'Saves >10 or save rate >1%'],[c.follows>0,'Follows attributed'],[c.distribution?.includes('Above'),'Distribution = Expanded']])}
       ${ac('Iterate','o',c.nextAction==='Iterate',[[c.watchTimePct>35&&c.views<bl,'Good watch time + low views'],[c.views>bl&&c.watchTimePct<25,'High views + low watch time'],[c.saves>10&&!c.follows,'Good saves + no follows'],[c.distribution?.includes('Typical')||c.distribution?.includes('baseline'),'Distribution = Typical'],[false,'Strong topic, weak execution']])}
       ${ac('Drop','r',c.nextAction==='Drop',[[c.views<bl*0.8,'Below baseline views'],[c.watchTimePct<15,'Watch time <15%'],[c.saves===0&&c.shares===0,'Zero saves + zero shares'],[c.distribution?.includes('Limited')||c.distribution?.includes('Weak'),'Distribution = Limited'],[c.outcome==='Underperformed','Outcome = Underperformed']])}
+      `:`
+      ${ac('Repeat','g',c.nextAction==='Repeat',[[c.views>bl*1.2,'Above baseline views (>120%)'],[post.type==='Carousel'?c.revisitRatio>=1.3:c.watchTimePct>=30,post.type==='Carousel'?'Revisit ratio ≥1.3×':'Watch time ≥30%'],[c.saveRate>=1,'Save rate ≥1%'],[c.follows>0||c.linkTaps>0,'Follows or link taps attributed']])}
+      ${ac('Iterate','o',c.nextAction==='Iterate',[[c.outcome==='Learning','Outcome = Learning'],[(post.type==='Carousel'?c.revisitRatio>=1.3:c.watchTimePct>=30)&&c.views<bl,'Good retention + low reach'],[c.views>bl&&c.saveRate<0.5,'Good reach + weak saves'],[false,'Strong topic, weak execution']])}
+      ${ac('Drop','r',c.nextAction==='Drop',[[c.views<bl*0.8,'Below baseline views (<80%)'],[post.type==='Carousel'?c.revisitRatio<1.1:c.watchTimePct<20,post.type==='Carousel'?'Revisit ratio <1.1×':'Watch time <20%'],[c.saves===0&&c.shares===0,'Zero saves + zero shares'],[c.outcome==='Underperformed','Outcome = Underperformed']])}
+      `}
     </div>`:''}
     ${is30?`
     <div class="shd">Long-Tail Performance</div>
@@ -2228,7 +2250,7 @@ function setClient(c) {
   S.activeClient = c;
   const first = POSTS.find(p=>p.client===c);
   S.activePost = first?.id||null;
-  S.activeCheck = first?(['7d','24h','30d'].find(k=>first.checks[k])||'24h'):'24h';
+  S.activeCheck = first?(['7d','24h','30d'].find(k=>first.checks[k])||'7d'):'7d';
   renderAll();
 }
 
@@ -2236,7 +2258,7 @@ function selectPost(id) {
   S.activePost = id;
   S.activeView = 'posts';
   const post = POSTS.find(p=>p.id===id);
-  S.activeCheck = ['7d','24h','30d'].find(c=>post?.checks[c])||'24h';
+  S.activeCheck = ['7d','24h','30d'].find(c=>post?.checks[c])||'7d';
   renderPostList(); renderMain();
   document.getElementById('btnPosts').classList.add('active');
   document.getElementById('btnUpcoming').classList.remove('active');
@@ -2318,7 +2340,22 @@ function renderInsights() {
   const maxFmtV = Math.max(...fmtData.map(f=>f.avgV), 1);
 
   // ── 4. Evergreen (based on all date/plat/format filtered posts) ───────────
-  const evergreen = posts.filter(p => p.checks?.['30d']?.distributionType === 'Evergreen');
+  // v1 posts carry a distributionType tag; v2 posts qualify on long-tail % >20
+  const evergreen = posts.filter(p => p.checks?.['30d']?.distributionType === 'Evergreen'
+    || (p.checks?.['30d']?.distributionType == null && (p.checks?.['30d']?.longTailPct||0) > 20));
+
+  // ── 4b. Pillar breakdown (v2 posts with a pillar assigned) ────────────────
+  const pillarData = Object.keys(PILLAR_NAMES).map(pid => {
+    const pp = filteredPosts7d.filter(p => p.pillar === pid);
+    if (!pp.length) return null;
+    return {
+      pid, name: PILLAR_NAMES[pid], count: pp.length,
+      avgV:  Math.round(pp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/pp.length),
+      avgSR: (pp.reduce((s,p)=>s+(p.checks['7d'].saveRate||0),0)/pp.length).toFixed(2),
+      winR:  Math.round(pp.filter(p=>p.checks['7d'].outcome==='Winner').length/pp.length*100),
+    };
+  }).filter(Boolean);
+  const maxPillarV = Math.max(...pillarData.map(f=>f.avgV), 1);
 
   // ── 5. Ranked lists ───────────────────────────────────────────────────────
   const topPosts = [...filteredPosts7d].sort((a,b)=>(b.checks['7d'].views||0)-(a.checks['7d'].views||0)).slice(0,5);
@@ -2453,6 +2490,23 @@ function renderInsights() {
               <div class="ins-format-sub">avg 7d views · Win rate ${f.winR}%</div>
               <div class="ins-format-bar"><div class="ins-format-bar-fill" style="width:${Math.round(f.avgV/maxFmtV*100)}%"></div></div>
               <div style="margin-top:10px;font-size:10px;color:var(--muted);">Save rate avg: ${f.avgSR}% · Non-follower reach avg: ${f.avgNF}%</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>` : ''}
+
+      <!-- PILLAR BREAKDOWN -->
+      ${pillarData.length > 0 ? `
+      <div class="ins-section">
+        <div class="ins-section-title">Performance by pillar</div>
+        <div class="ins-format-grid">
+          ${pillarData.map(f=>`
+            <div class="ins-format-card">
+              <div class="ins-format-name">${f.name} · ${f.count} post${f.count!==1?'s':''}</div>
+              <div class="ins-format-val">${f.avgV.toLocaleString()}</div>
+              <div class="ins-format-sub">avg 7d views · Win rate ${f.winR}%</div>
+              <div class="ins-format-bar"><div class="ins-format-bar-fill" style="width:${Math.round(f.avgV/maxPillarV*100)}%"></div></div>
+              <div style="margin-top:10px;font-size:10px;color:var(--muted);">Save rate avg: ${f.avgSR}%</div>
             </div>
           `).join('')}
         </div>
