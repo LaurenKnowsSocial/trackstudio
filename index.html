@@ -363,8 +363,9 @@ const POSTS = [
 
     },
     dueChecks: {
-      '24h': '2026-07-20'
-    }
+      '7d': '2026-07-26'
+    },
+    pillar: 'P1'
   },
   {
     id: 2,
@@ -377,8 +378,9 @@ const POSTS = [
 
     },
     dueChecks: {
-      '24h': '2026-07-17'
-    }
+      '7d': '2026-07-23'
+    },
+    pillar: 'P1'
   },
   {
     id: 3,
@@ -391,8 +393,9 @@ const POSTS = [
 
     },
     dueChecks: {
-      '24h': '2026-07-15'
-    }
+      '7d': '2026-07-21'
+    },
+    pillar: 'P1'
   },
   {
     id: 4,
@@ -405,8 +408,9 @@ const POSTS = [
 
     },
     dueChecks: {
-      '24h': '2026-07-13'
-    }
+      '7d': '2026-07-19'
+    },
+    pillar: 'P1'
   },
   {
     id: 5,
@@ -416,20 +420,12 @@ const POSTS = [
     type: 'Video',
     date: '2026-07-08',
     checks: {
-      '24h': {
-        views: 20061,
-        uniqueViewers: 15115,
-        nonFollowerPct: 96.8,
-        watchTimeSec: 29,
-        watchTimePct: 40.3,
-        saves: 328,
-        shares: 386,
-        distribution: 'Promising - algo pushing'
-      }
+
     },
     dueChecks: {
       '7d': '2026-07-15'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 6,
@@ -439,20 +435,12 @@ const POSTS = [
     type: 'Video',
     date: '2026-07-07',
     checks: {
-      '24h': {
-        views: 1622,
-        uniqueViewers: 1223,
-        nonFollowerPct: 82.2,
-        watchTimeSec: 12,
-        watchTimePct: 18.5,
-        saves: 4,
-        shares: 6,
-        distribution: 'Weak - limited algo test'
-      }
+
     },
     dueChecks: {
       '7d': '2026-07-14'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 7,
@@ -464,9 +452,7 @@ const POSTS = [
     checks: {
       '7d': {
         views: 2408,
-        uniqueViewers: 1700,
         nonFollowerPct: 77.1,
-        watchTimeSec: 6,
         watchTimePct: 60.0,
         saves: 25,
         saveRate: 1.04,
@@ -474,18 +460,14 @@ const POSTS = [
         shareRate: 1.0,
         comments: 12,
         follows: 3,
-        followsPer1k: 1.25,
-        engagementRate: 2.53,
-        distribution: 'Above baseline - expanded reach',
         outcome: 'Winner',
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
         nextAction: 'Repeat'
       }
     },
     dueChecks: {
-      '24h': '2026-06-30'
-    }
+      '30d': '2026-07-29'
+    },
+    pillar: 'P1'
   },
   {
     id: 8,
@@ -497,9 +479,7 @@ const POSTS = [
     checks: {
       '7d': {
         views: 989,
-        uniqueViewers: 597,
         nonFollowerPct: 71.7,
-        watchTimeSec: 8,
         watchTimePct: 8.7,
         saves: 3,
         saveRate: 0.3,
@@ -507,18 +487,14 @@ const POSTS = [
         shareRate: 0.1,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.4,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
+        nextAction: 'Iterate'
       }
     },
     dueChecks: {
-      '24h': '2026-06-26'
-    }
+      '30d': '2026-07-25'
+    },
+    pillar: 'P3'
   },
   {
     id: 9,
@@ -528,22 +504,25 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-06-23',
     checks: {
-      '24h': {
-        views: 634
-      },
       '7d': {
         views: 1319,
         uniqueViewers: 583,
         nonFollowerPct: 11.9,
+        revisitRatio: 2.26,
         saves: 18,
+        saveRate: 1.36,
         shares: 10,
+        shareRate: 0.76,
         comments: 0,
-        follows: 0
+        follows: 0,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-07-23'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 10,
@@ -553,21 +532,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-18',
     checks: {
-      '24h': {
-        views: 882,
-        uniqueViewers: 557,
-        nonFollowerPct: 66.4,
-        watchTimeSec: 12,
-        watchTimePct: 12.6,
-        saves: 2,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1012,
-        uniqueViewers: 656,
         nonFollowerPct: 66.8,
-        watchTimeSec: 12,
         watchTimePct: 12.6,
         saves: 2,
         saveRate: 0.2,
@@ -575,18 +542,14 @@ const POSTS = [
         shareRate: 0.1,
         comments: 12,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 1.48,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
+        nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-07-18'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 11,
@@ -596,21 +559,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-16',
     checks: {
-      '24h': {
-        views: 846,
-        uniqueViewers: 547,
-        nonFollowerPct: 75.9,
-        watchTimeSec: 7,
-        watchTimePct: 29.2,
-        saves: 17,
-        shares: 2,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1064,
-        uniqueViewers: 693,
         nonFollowerPct: 74.4,
-        watchTimeSec: 6,
         watchTimePct: 25.0,
         saves: 19,
         saveRate: 1.79,
@@ -618,18 +569,14 @@ const POSTS = [
         shareRate: 0.38,
         comments: 4,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 2.54,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
         nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-07-16'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 12,
@@ -639,20 +586,12 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-16',
     checks: {
-      '24h': {
-        views: 155,
-        uniqueViewers: 98,
-        nonFollowerPct: 88.0,
-        watchTimeSec: 5.3,
-        watchTimePct: 22.1,
-        saves: 1,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      }
+
     },
     dueChecks: {
       '7d': '2026-06-23'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 13,
@@ -662,21 +601,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-15',
     checks: {
-      '24h': {
-        views: 899,
-        uniqueViewers: 568,
-        nonFollowerPct: 84.5,
-        watchTimeSec: 9,
-        watchTimePct: 20.5,
-        saves: 3,
-        shares: 0,
-        distribution: 'Neutral - testing'
-      },
       '7d': {
         views: 1082,
-        uniqueViewers: 699,
         nonFollowerPct: 82.4,
-        watchTimeSec: 10,
         watchTimePct: 22.7,
         saves: 5,
         saveRate: 0.46,
@@ -684,12 +611,7 @@ const POSTS = [
         shareRate: 0.18,
         comments: 11,
         follows: 1,
-        followsPer1k: 0.92,
-        engagementRate: 1.66,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       }
     },
@@ -705,21 +627,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-12',
     checks: {
-      '24h': {
-        views: 133,
-        uniqueViewers: 126,
-        nonFollowerPct: 90.0,
-        watchTimeSec: 9.4,
-        watchTimePct: 9.7,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 162,
-        uniqueViewers: 133,
         nonFollowerPct: 91.0,
-        watchTimeSec: 8.3,
         watchTimePct: 8.6,
         saves: 0,
         saveRate: 0.0,
@@ -727,18 +637,14 @@ const POSTS = [
         shareRate: 0.0,
         comments: 1,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.62,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
         nextAction: 'Drop'
       }
     },
     dueChecks: {
       '30d': '2026-07-12'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 15,
@@ -748,21 +654,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-11',
     checks: {
-      '24h': {
-        views: 545,
-        uniqueViewers: 292,
-        nonFollowerPct: 75.8,
-        watchTimeSec: 7,
-        watchTimePct: 7.2,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 656,
-        uniqueViewers: 344,
         nonFollowerPct: 75.2,
-        watchTimeSec: 7,
         watchTimePct: 7.2,
         saves: 0,
         saveRate: 0.0,
@@ -770,18 +664,14 @@ const POSTS = [
         shareRate: 0.0,
         comments: 2,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.3,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
         nextAction: 'Drop'
       }
     },
     dueChecks: {
       '30d': '2026-07-11'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 16,
@@ -791,21 +681,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-06',
     checks: {
-      '24h': {
-        views: 2152,
-        uniqueViewers: 1646,
-        nonFollowerPct: 85.7,
-        watchTimeSec: 14,
-        watchTimePct: 23.3,
-        saves: 29,
-        shares: 10,
-        distribution: 'Neutral - testing'
-      },
       '7d': {
         views: 2535,
-        uniqueViewers: 1977,
         nonFollowerPct: 84.2,
-        watchTimeSec: 14,
         watchTimePct: 23.3,
         saves: 30,
         saveRate: 1.18,
@@ -813,18 +691,14 @@ const POSTS = [
         shareRate: 0.43,
         comments: 0,
         follows: 2,
-        followsPer1k: 0.79,
-        engagementRate: 1.62,
-        distribution: 'Above baseline - expanded reach',
         outcome: 'Winner',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
         nextAction: 'Repeat'
       }
     },
     dueChecks: {
       '30d': '2026-07-06'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 17,
@@ -834,19 +708,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-06',
     checks: {
-      '24h': {
-        views: 217,
-        watchTimeSec: 14,
-        watchTimePct: 23.3,
-        saves: 3,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 297,
-        uniqueViewers: 263,
         nonFollowerPct: 82.0,
-        watchTimeSec: 14.2,
         watchTimePct: 23.7,
         saves: 4,
         saveRate: 1.35,
@@ -854,18 +718,14 @@ const POSTS = [
         shareRate: 0.34,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 1.68,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-07-06'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 18,
@@ -875,21 +735,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-04',
     checks: {
-      '24h': {
-        views: 913,
-        uniqueViewers: 723,
-        nonFollowerPct: 77.3,
-        watchTimeSec: 12,
-        watchTimePct: 11.1,
-        saves: 9,
-        shares: 8,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1206,
-        uniqueViewers: 947,
         nonFollowerPct: 76.2,
-        watchTimeSec: 11,
         watchTimePct: 10.2,
         saves: 15,
         saveRate: 1.24,
@@ -897,13 +745,8 @@ const POSTS = [
         shareRate: 1.16,
         comments: 8,
         follows: 3,
-        followsPer1k: 2.49,
-        engagementRate: 3.07,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Drop'
+        nextAction: 'Iterate'
       }
     },
     dueChecks: {
@@ -918,21 +761,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-01',
     checks: {
-      '24h': {
-        views: 214,
-        uniqueViewers: 267,
-        nonFollowerPct: 87.0,
-        watchTimeSec: 19.7,
-        watchTimePct: 19.1,
-        saves: 2,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 305,
-        uniqueViewers: 287,
         nonFollowerPct: 85.0,
-        watchTimeSec: 18.6,
         watchTimePct: 18.0,
         saves: 2,
         saveRate: 0.66,
@@ -940,18 +771,14 @@ const POSTS = [
         shareRate: 0.0,
         comments: 3,
         follows: 4,
-        followsPer1k: 13.11,
-        engagementRate: 1.64,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Strong',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-07-01'
-    }
+    },
+    pillar: 'P4'
   },
   {
     id: 20,
@@ -961,36 +788,25 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-05-29',
     checks: {
-      '24h': {
-        views: 1065,
-        uniqueViewers: 493,
-        nonFollowerPct: 20.0,
-        saves: 16,
-        shares: 10,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1356,
         uniqueViewers: 660,
         nonFollowerPct: 50.0,
+        revisitRatio: 2.05,
         saves: 21,
         saveRate: 1.55,
         shares: 12,
         shareRate: 0.88,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 2.43,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Strong',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-06-28'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 21,
@@ -1000,21 +816,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-27',
     checks: {
-      '24h': {
-        views: 1140,
-        uniqueViewers: 940,
-        nonFollowerPct: 74.0,
-        watchTimeSec: 13,
-        watchTimePct: 16.5,
-        saves: 25,
-        shares: 20,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1729,
-        uniqueViewers: 1446,
         nonFollowerPct: 71.4,
-        watchTimeSec: 14,
         watchTimePct: 17.7,
         saves: 29,
         saveRate: 1.68,
@@ -1022,18 +826,14 @@ const POSTS = [
         shareRate: 1.5,
         comments: 4,
         follows: 1,
-        followsPer1k: 0.58,
-        engagementRate: 3.41,
-        distribution: 'At baseline - typical reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
         nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-06-26'
-    }
+    },
+    pillar: 'P4'
   },
   {
     id: 22,
@@ -1043,21 +843,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-19',
     checks: {
-      '24h': {
-        views: 893,
-        uniqueViewers: 555,
-        nonFollowerPct: 70.3,
-        watchTimeSec: 4.9,
-        watchTimePct: 70.0,
-        saves: 21,
-        shares: 10,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1292,
-        uniqueViewers: 857,
         nonFollowerPct: 73.1,
-        watchTimeSec: 4,
         watchTimePct: 57.1,
         saves: 24,
         saveRate: 1.86,
@@ -1065,27 +853,22 @@ const POSTS = [
         shareRate: 1.39,
         comments: 1,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 3.33,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Strong',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1401,
         longTailViews: 109,
-        longTailPct: 7.8,
+        longTailPct: 7.78,
         saves: 26,
         shares: 18,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 23,
@@ -1095,21 +878,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-19',
     checks: {
-      '24h': {
-        views: 218,
-        uniqueViewers: 200,
-        nonFollowerPct: 92.0,
-        watchTimeSec: 2.7,
-        watchTimePct: 38.5,
-        saves: 2,
-        shares: 1,
-        distribution: 'Neutral - testing'
-      },
       '7d': {
         views: 267,
-        uniqueViewers: 2423,
         nonFollowerPct: 92.0,
-        watchTimeSec: 2.7,
         watchTimePct: 38.5,
         saves: 2,
         saveRate: 0.75,
@@ -1117,18 +888,14 @@ const POSTS = [
         shareRate: 0.37,
         comments: 0,
         follows: 2,
-        followsPer1k: 7.49,
-        engagementRate: 1.12,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-06-18'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 24,
@@ -1138,21 +905,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-18',
     checks: {
-      '24h': {
-        views: 518,
-        uniqueViewers: 276,
-        nonFollowerPct: 73.6,
-        watchTimeSec: 6.2,
-        watchTimePct: 7.3,
-        saves: 1,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 729,
-        uniqueViewers: 441,
         nonFollowerPct: 71.1,
-        watchTimeSec: 5.5,
         watchTimePct: 6.5,
         saves: 2,
         saveRate: 0.27,
@@ -1160,13 +915,8 @@ const POSTS = [
         shareRate: 0.0,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.27,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 820,
@@ -1174,13 +924,13 @@ const POSTS = [
         longTailPct: 11.1,
         saves: 2,
         shares: 0,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 25,
@@ -1190,21 +940,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-14',
     checks: {
-      '24h': {
-        views: 639,
-        uniqueViewers: 455,
-        nonFollowerPct: 75.6,
-        watchTimeSec: 11,
-        watchTimePct: 15.9,
-        saves: 4,
-        shares: 3,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 840,
-        uniqueViewers: 608,
         nonFollowerPct: 73.0,
-        watchTimeSec: 10.8,
         watchTimePct: 15.7,
         saves: 4,
         saveRate: 0.48,
@@ -1212,27 +950,22 @@ const POSTS = [
         shareRate: 0.36,
         comments: 2,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 1.07,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 898,
         longTailViews: 58,
-        longTailPct: 6.5,
+        longTailPct: 6.46,
         saves: 5,
         shares: 5,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P4'
   },
   {
     id: 26,
@@ -1242,21 +975,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-14',
     checks: {
-      '24h': {
-        views: 169,
-        uniqueViewers: 147,
-        nonFollowerPct: 89.0,
-        watchTimeSec: 12.4,
-        watchTimePct: 18.8,
-        saves: 0,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 187,
-        uniqueViewers: 165,
         nonFollowerPct: 87.0,
-        watchTimeSec: 13.1,
         watchTimePct: 19.9,
         saves: 0,
         saveRate: 0.0,
@@ -1264,18 +985,14 @@ const POSTS = [
         shareRate: 0.53,
         comments: 1,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 1.07,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
         nextAction: 'Iterate'
       }
     },
     dueChecks: {
       '30d': '2026-06-13'
-    }
+    },
+    pillar: 'P4'
   },
   {
     id: 27,
@@ -1285,19 +1002,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-13',
     checks: {
-      '24h': {
-        views: 351,
-        watchTimeSec: 8,
-        watchTimePct: 7.8,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 739,
-        uniqueViewers: 455,
         nonFollowerPct: 68.2,
-        watchTimeSec: 8.1,
         watchTimePct: 7.9,
         saves: 0,
         saveRate: 0.0,
@@ -1305,27 +1012,22 @@ const POSTS = [
         shareRate: 0.0,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.0,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
         nextAction: 'Drop'
       },
       '30d': {
         views: 770,
         longTailViews: 31,
-        longTailPct: 4.0,
+        longTailPct: 4.03,
         saves: 0,
         shares: 0,
-        follows: 0,
-        distributionType: 'Spike'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P4'
   },
   {
     id: 28,
@@ -1335,21 +1037,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-12',
     checks: {
-      '24h': {
-        views: 1339,
-        uniqueViewers: 1005,
-        nonFollowerPct: 72.9,
-        watchTimeSec: 5.4,
-        watchTimePct: 54.0,
-        saves: 37,
-        shares: 16,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 2238,
-        uniqueViewers: 1758,
         nonFollowerPct: 79.9,
-        watchTimeSec: 5.2,
         watchTimePct: 52.0,
         saves: 44,
         saveRate: 1.97,
@@ -1357,27 +1047,22 @@ const POSTS = [
         shareRate: 0.89,
         comments: 2,
         follows: 1,
-        followsPer1k: 0.45,
-        engagementRate: 2.95,
-        distribution: 'At baseline - typical reach',
-        outcome: 'Learning',
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
+        outcome: 'Winner',
         nextAction: 'Repeat'
       },
       '30d': {
         views: 2476,
         longTailViews: 238,
-        longTailPct: 9.6,
+        longTailPct: 9.61,
         saves: 52,
         shares: 23,
-        follows: 2,
-        distributionType: 'Plateau'
+        follows: 2
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 29,
@@ -1387,21 +1072,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-12',
     checks: {
-      '24h': {
-        views: 166,
-        uniqueViewers: 134,
-        nonFollowerPct: 92.0,
-        watchTimeSec: 10,
-        watchTimePct: 11.6,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 171,
-        uniqueViewers: 162,
         nonFollowerPct: 91.0,
-        watchTimeSec: 9.8,
         watchTimePct: 11.4,
         saves: 0,
         saveRate: 0.0,
@@ -1409,18 +1082,14 @@ const POSTS = [
         shareRate: 0.0,
         comments: 1,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.58,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
         nextAction: 'Drop'
       }
     },
     dueChecks: {
       '30d': '2026-06-11'
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 30,
@@ -1430,45 +1099,33 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-05-08',
     checks: {
-      '24h': {
-        views: 1146,
-        uniqueViewers: 469,
-        nonFollowerPct: 10.0,
-        saves: 8,
-        shares: 11,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1606,
         uniqueViewers: 647,
         nonFollowerPct: 140.0,
+        revisitRatio: 2.48,
         saves: 13,
         saveRate: 0.81,
         shares: 13,
         shareRate: 0.81,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 1.62,
-        distribution: 'At baseline - typical reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1796,
         longTailViews: 190,
-        longTailPct: 10.6,
+        longTailPct: 10.58,
         saves: 19,
         shares: 17,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P3'
   },
   {
     id: 31,
@@ -1478,21 +1135,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-05-04',
     checks: {
-      '24h': {
-        views: 833,
-        uniqueViewers: 530,
-        nonFollowerPct: 71.8,
-        watchTimeSec: 4.6,
-        watchTimePct: 46.0,
-        saves: 11,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1099,
-        uniqueViewers: 711,
         nonFollowerPct: 27.3,
-        watchTimeSec: 4.6,
         watchTimePct: 46.0,
         saves: 15,
         saveRate: 1.36,
@@ -1500,27 +1145,22 @@ const POSTS = [
         shareRate: 0.09,
         comments: 2,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 1.64,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1214,
         longTailViews: 115,
-        longTailPct: 9.5,
+        longTailPct: 9.47,
         saves: 15,
         shares: 2,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 32,
@@ -1530,45 +1170,33 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-05-04',
     checks: {
-      '24h': {
-        views: 401,
-        uniqueViewers: 298,
-        nonFollowerPct: 90.0,
-        saves: 3,
-        shares: 1,
-        distribution: 'Neutral - testing'
-      },
       '7d': {
         views: 644,
         uniqueViewers: 484,
         nonFollowerPct: 91.0,
+        revisitRatio: 1.33,
         saves: 5,
         saveRate: 0.78,
         shares: 5,
         shareRate: 0.78,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 1.55,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 683,
         longTailViews: 39,
-        longTailPct: 5.7,
+        longTailPct: 5.71,
         saves: 5,
         shares: 5,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P3'
   },
   {
     id: 33,
@@ -1578,21 +1206,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-30',
     checks: {
-      '24h': {
-        views: 1958,
-        uniqueViewers: 1472,
-        nonFollowerPct: 90.1,
-        watchTimeSec: 9.4,
-        watchTimePct: 24.7,
-        saves: 22,
-        shares: 18,
-        distribution: 'Neutral - testing'
-      },
       '7d': {
         views: 2521,
-        uniqueViewers: 1964,
         nonFollowerPct: 89.9,
-        watchTimeSec: 9,
         watchTimePct: 23.7,
         saves: 32,
         saveRate: 1.27,
@@ -1600,27 +1216,22 @@ const POSTS = [
         shareRate: 0.95,
         comments: 17,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 2.9,
-        distribution: 'Above baseline - expanded reach',
-        outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
-        nextAction: 'Repeat'
+        outcome: 'Winner',
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 2649,
         longTailViews: 128,
-        longTailPct: 4.8,
+        longTailPct: 4.83,
         saves: 34,
         shares: 24,
-        follows: 0,
-        distributionType: 'Spike'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 34,
@@ -1630,21 +1241,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-30',
     checks: {
-      '24h': {
-        views: 577,
-        uniqueViewers: 394,
-        nonFollowerPct: 86.0,
-        watchTimeSec: 12.1,
-        watchTimePct: 32.6,
-        saves: 11,
-        shares: 14,
-        distribution: 'Neutral - testing'
-      },
       '7d': {
         views: 622,
-        uniqueViewers: 558,
         nonFollowerPct: 87.0,
-        watchTimeSec: 12,
         watchTimePct: 32.3,
         saves: 11,
         saveRate: 1.77,
@@ -1652,27 +1251,22 @@ const POSTS = [
         shareRate: 2.25,
         comments: 0,
         follows: 3,
-        followsPer1k: 4.82,
-        engagementRate: 4.02,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 637,
         longTailViews: 15,
-        longTailPct: 2.4,
+        longTailPct: 2.35,
         saves: 11,
         shares: 14,
-        follows: 3,
-        distributionType: 'Spike'
+        follows: 3
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 35,
@@ -1682,21 +1276,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-28',
     checks: {
-      '24h': {
-        views: 196,
-        uniqueViewers: 119,
-        nonFollowerPct: 79.0,
-        watchTimeSec: 4,
-        watchTimePct: 30.7,
-        saves: 2,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 217,
-        uniqueViewers: 179,
         nonFollowerPct: 80.0,
-        watchTimeSec: 4.2,
         watchTimePct: 32.2,
         saves: 3,
         saveRate: 1.38,
@@ -1704,27 +1286,22 @@ const POSTS = [
         shareRate: 0.46,
         comments: 0,
         follows: 1,
-        followsPer1k: 4.61,
-        engagementRate: 1.84,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 231,
         longTailViews: 14,
-        longTailPct: 6.1,
+        longTailPct: 6.06,
         saves: 3,
         shares: 1,
-        follows: 1,
-        distributionType: 'Plateau'
+        follows: 1
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 36,
@@ -1734,21 +1311,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-27',
     checks: {
-      '24h': {
-        views: 573,
-        uniqueViewers: 256,
-        nonFollowerPct: 74.2,
-        watchTimeSec: 4,
-        watchTimePct: 20.0,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 692,
-        uniqueViewers: 335,
         nonFollowerPct: 70.5,
-        watchTimeSec: 5,
         watchTimePct: 25.0,
         saves: 0,
         saveRate: 0.0,
@@ -1756,27 +1321,22 @@ const POSTS = [
         shareRate: 0.14,
         comments: 0,
         follows: 1,
-        followsPer1k: 1.45,
-        engagementRate: 0.14,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 752,
         longTailViews: 60,
-        longTailPct: 8.0,
+        longTailPct: 7.98,
         saves: 0,
         shares: 1,
-        follows: 1,
-        distributionType: 'Plateau'
+        follows: 1
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P4'
   },
   {
     id: 37,
@@ -1786,21 +1346,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-23',
     checks: {
-      '24h': {
-        views: 1855,
-        uniqueViewers: 1191,
-        nonFollowerPct: 75.6,
-        watchTimeSec: 7,
-        watchTimePct: 70.0,
-        saves: 34,
-        shares: 8,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 4262,
-        uniqueViewers: 2925,
         nonFollowerPct: 84.4,
-        watchTimeSec: 9.5,
         watchTimePct: 95.0,
         saves: 57,
         saveRate: 1.34,
@@ -1808,27 +1356,22 @@ const POSTS = [
         shareRate: 0.45,
         comments: 2,
         follows: 3,
-        followsPer1k: 0.7,
-        engagementRate: 1.83,
-        distribution: 'Above baseline - expanded reach',
         outcome: 'Winner',
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
         nextAction: 'Repeat'
       },
       '30d': {
         views: 4552,
         longTailViews: 290,
-        longTailPct: 6.4,
+        longTailPct: 6.37,
         saves: 63,
         shares: 20,
-        follows: 4,
-        distributionType: 'Plateau'
+        follows: 4
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'Lowskip rate, 63 saves, 20 shares means people are passing this on. Rewatch behavior confirmed by 9.4s avg watch on a 9s video. Every engagement rate is above account average.',
     hookInsight: 'The negative hook ("DON\'T") created urgency that carried through to profile visits and follow decisions.'
   },
@@ -1840,21 +1383,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-19',
     checks: {
-      '24h': {
-        views: 566,
-        uniqueViewers: 369,
-        nonFollowerPct: 71.4,
-        watchTimeSec: 3,
-        watchTimePct: 37.5,
-        saves: 7,
-        shares: 7,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 650,
-        uniqueViewers: 422,
         nonFollowerPct: 70.0,
-        watchTimeSec: 3,
         watchTimePct: 37.5,
         saves: 11,
         saveRate: 1.69,
@@ -1862,27 +1393,22 @@ const POSTS = [
         shareRate: 1.08,
         comments: 1,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 2.92,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Strong',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 707,
         longTailViews: 57,
-        longTailPct: 8.1,
+        longTailPct: 8.06,
         saves: 11,
         shares: 7,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'All engagement rates are above average. But the retention curve drops steeply in the first 2s before leveling. Watch time labeled "lower." This is a split verdict: warm response from the audience it reached, but too few reached. The people who gave it a real watch found it worth saving and sharing. This is a "bad first impression" verdict. The topic (showing real essay examples) has proven demand, just needs a better entry point.',
     hookInsight: 'Every engagement rate except skip rate is above average. Translation: the ~24% of people who didn\'t skip found it genuinely valuable. The content itself has merit but it\'s failing at the moment of first impression.'
   },
@@ -1894,21 +1420,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-08',
     checks: {
-      '24h': {
-        views: 1085,
-        uniqueViewers: 678,
-        nonFollowerPct: 73.2,
-        watchTimeSec: 5,
-        watchTimePct: 50.0,
-        saves: 26,
-        shares: 5,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1546,
-        uniqueViewers: 950,
         nonFollowerPct: 73.3,
-        watchTimeSec: 5,
         watchTimePct: 50.0,
         saves: 38,
         saveRate: 2.46,
@@ -1916,27 +1430,22 @@ const POSTS = [
         shareRate: 0.52,
         comments: 0,
         follows: 1,
-        followsPer1k: 0.65,
-        engagementRate: 2.98,
-        distribution: 'At baseline - typical reach',
-        outcome: 'Testing',
-        engagementQuality: 'Strong',
-        businessSignal: 'Neutral',
-        nextAction: 'Repeat'
+        outcome: 'Learning',
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 1724,
         longTailViews: 178,
-        longTailPct: 10.3,
+        longTailPct: 10.32,
         saves: 41,
         shares: 8,
-        follows: 1,
-        distributionType: 'Plateau'
+        follows: 1
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'A 57.5% skip rate labeled "Lower" than average means fewer people swiped past this than your typical post. Text-first hooks that promise a clear, specific payoff (Common App Prompt 5 specifically) outperform vague talking-head openers for this audience. People save when they want to come back to something. Common App Prompt 5 is a specific, high-stakes task students are actively working through ...this became a resource. The 3.47% save rate well above account average confirms the topic had genuine utility. This is the content type your audience bookmarks. The algorithm barely tested this outside current followers. This is a reach problem, not a content quality problem. 1 follow on 43 saves reveals a specific disconnect: people trusted the information but didn\'t feel compelled to follow. This often happens when content is reference-forward ("here\'s what to do") without being creator-forward ("here\'s why I\'m the person to follow for more of this"). There\'s no urgency or personality hook pulling them to the profile.',
     hookInsight: '"Do\'s & Don\'ts" is a durable framework audience responds to. What\'s missing is a creator-identity layer... something that makes the viewer associate this expert knowledge with this specific person, not just the topic. Consider opening with a POV line before the list, or closing with a specific reason to follow rather than just delivering the information cleanly.'
   },
@@ -1948,21 +1457,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-02',
     checks: {
-      '24h': {
-        views: 638,
-        uniqueViewers: 353,
-        nonFollowerPct: 73.9,
-        watchTimeSec: 4,
-        watchTimePct: 14.8,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 834,
-        uniqueViewers: 495,
         nonFollowerPct: 73.85,
-        watchTimeSec: 5,
         watchTimePct: 18.5,
         saves: 1,
         saveRate: 0.12,
@@ -1970,27 +1467,22 @@ const POSTS = [
         shareRate: 0.0,
         comments: 0,
         follows: 1,
-        followsPer1k: 1.2,
-        engagementRate: 0.12,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Neutral',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1043,
         longTailViews: 209,
-        longTailPct: 20.0,
+        longTailPct: 20.04,
         saves: 2,
         shares: 0,
-        follows: 2,
-        distributionType: 'Evergreen'
+        follows: 2
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P2'
   },
   {
     id: 41,
@@ -2000,20 +1492,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-04-02',
     checks: {
-      '24h': {
-        views: 141,
-        nonFollowerPct: 93.0,
-        watchTimeSec: 3.6,
-        watchTimePct: 13.8,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 149,
-        uniqueViewers: 144,
         nonFollowerPct: 92.0,
-        watchTimeSec: 3.6,
         watchTimePct: 13.8,
         saves: 0,
         saveRate: 0.0,
@@ -2021,27 +1502,22 @@ const POSTS = [
         shareRate: 0.0,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.0,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
         nextAction: 'Drop'
       },
       '30d': {
         views: 167,
         longTailViews: 18,
-        longTailPct: 10.8,
+        longTailPct: 10.78,
         saves: 0,
         shares: 0,
-        follows: 1,
-        distributionType: 'Plateau'
+        follows: 1
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P2'
   },
   {
     id: 42,
@@ -2051,17 +1527,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-03-27',
     checks: {
-      '24h': {
-        views: 425,
-        nonFollowerPct: 79.0,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 650,
         nonFollowerPct: 76.0,
-        watchTimeSec: 8,
         watchTimePct: 15.7,
         saves: 1,
         saveRate: 0.15,
@@ -2069,27 +1537,22 @@ const POSTS = [
         shareRate: 0.15,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.31,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 909,
         longTailViews: 259,
-        longTailPct: 28.5,
+        longTailPct: 28.49,
         saves: 1,
         shares: 1,
-        follows: 0,
-        distributionType: 'Evergreen'
+        follows: 0
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'Best scroll-stop of any CEA reel in the tracker — skip rate 50.45% (25.75 pts below typical 76.2%), avg watch time 11.1s above average. Despite those hook metrics, views landed -70.8% below account average, the worst reach in the batch. The Prompt 4 topic is hyper-specific: it converts exactly the student working on that prompt right now, which explains the exceptional scroll-stop, but the small addressable audience caps total views and prevents the viral loop needed for algorithmic push. Distribution was Feed (50.7%) + Profile (25.6%) — content being found by people already looking, not pushed to new ones. Stories at 0.0% and Explore at 3.6% confirm no warm or cold discovery fired. 0 follows and 0 profile visits despite 79.4% non-follower reach = no business conversion.',
     hookInsight: 'On-screen text hook: \'Stacey gives a Common App Essay Prompt 4 example\' — this is doing ALL the scroll-stop work. The specificity (Prompt 4 + example + Stacey\'s name as credibility signal) is what drove the best skip rate in the batch. Spoken video hook: \'I was working with a student who he worked remotely with a group of Cambodian students and forged a special friendship with a 10-year-old.\' Two problems: (1) grammar slip (\'who he worked\') erodes credibility immediately; (2) dives straight into story narration without framing the value — the viewer doesn\'t know why this example matters to them before they hear it. Steep retention drop in the first 5-7 seconds reflects people who stopped for the text hook and left when the spoken content didn\'t match its promise. Fix: frame before you story. Open with: \'Prompt 4 asks you to reflect on something someone did that made you happy or thankful. Here\'s how one student nailed it.\' Then go into the Cambodian student example. That one sentence of framing would extend retention past the initial cliff.'
   },
@@ -2101,18 +1564,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-03-24',
     checks: {
-      '24h': {
-        views: 0,
-        uniqueViewers: 0,
-        nonFollowerPct: 0.0,
-        saves: 0,
-        shares: 0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 888,
         nonFollowerPct: 80.0,
-        watchTimeSec: 7,
         watchTimePct: 9.0,
         saves: 2,
         saveRate: 0.23,
@@ -2120,27 +1574,22 @@ const POSTS = [
         shareRate: 0.0,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.23,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Underperformed',
-        engagementQuality: 'Weak',
-        businessSignal: 'Weak',
-        nextAction: 'Drop'
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 1382,
         longTailViews: 494,
-        longTailPct: 35.7,
+        longTailPct: 35.75,
         saves: 2,
         shares: 1,
-        follows: 0,
-        distributionType: 'Evergreen'
+        follows: 0
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'Hook metrics were above average (skip rate 64.4% vs 76.2% typical; avg watch time 8.9s above average) but every engagement metric was below: like rate 0.34%, save rate 0.17%, share rate 0.08%, 0 comments, 0 follows, 0 profile visits. Views came in -55.6% below account average. The pattern is a classic hook-body mismatch: the scroll-stop worked, but the 1:18 talking-head format dropped 50%+ of viewers within the first 10-15 seconds before delivering value. Without watch-through signals, the algorithm kept distribution Feed-heavy (36.9%) with minimal Explore push (5.9%). 82.2% non-follower reach with zero conversion confirms the content found a cold audience but gave them no reason to act.',
     hookInsight: 'Video hook: \'I want to address something that comes up very often. How much is too much to reveal in your college application essay?\' The opener is a throat-clearer — \'I want to address something that comes up very often\' adds zero value and delays the actual hook by a full sentence. Viewers who stopped for the thumbnail (strong graphic + topic) hit this soft opener and left: explains the steep 50%+ drop in the first 10-15 seconds and 8.9s average watch time. The question itself (\'How much is too much to reveal?\') is solid — specific, relatable, and searchable — but it arrives too late. Fix: lead with the question. Cut the preamble entirely. \'How much is too much to reveal in your college essay?\' as the first words would have earned the watch time the thumbnail already stopped for. Note: the caption hook (\'This isn\'t a dear diary entry...\') is far stronger than the video hook — that gap is the core creative problem.'
   },
@@ -2152,40 +1601,27 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-03-20',
     checks: {
-      '24h': {
-        views: 476,
-        uniqueViewers: 450,
-        nonFollowerPct: 0.0,
-        saves: 5,
-        shares: 2,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1256,
         uniqueViewers: 561,
         nonFollowerPct: 70.0,
+        revisitRatio: 2.24,
         saves: 5,
         saveRate: 0.4,
         shares: 2,
         shareRate: 0.16,
         comments: 2,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.72,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1291,
         longTailViews: 35,
-        longTailPct: 2.7,
+        longTailPct: 2.71,
         saves: 5,
         shares: 2,
-        follows: 0,
-        distributionType: 'Spike'
+        follows: 0
       }
     },
     dueChecks: {
@@ -2200,21 +1636,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-03-20',
     checks: {
-      '24h': {
-        views: 241,
-        uniqueViewers: 203,
-        nonFollowerPct: 96.7,
-        watchTimeSec: 6.4,
-        watchTimePct: 20.6,
-        saves: 1,
-        shares: 0,
-        distribution: 'Neutral - testing'
-      },
       '7d': {
         views: 295,
-        uniqueViewers: 269,
         nonFollowerPct: 92.0,
-        watchTimeSec: 6.9,
         watchTimePct: 22.3,
         saves: 1,
         saveRate: 0.34,
@@ -2222,27 +1646,22 @@ const POSTS = [
         shareRate: 0.0,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.34,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Underperformed',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 307,
         longTailViews: 12,
-        longTailPct: 3.9,
+        longTailPct: 3.91,
         saves: 1,
         shares: 0,
-        follows: 0,
-        distributionType: 'Spike'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 46,
@@ -2252,14 +1671,6 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-03-19',
     checks: {
-      '24h': {
-        views: 976,
-        uniqueViewers: 466,
-        nonFollowerPct: 0.3,
-        saves: 10,
-        shares: 1,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1420,
         nonFollowerPct: 110.0,
@@ -2269,27 +1680,22 @@ const POSTS = [
         shareRate: 0.21,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 1.06,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1658,
         longTailViews: 238,
-        longTailPct: 14.4,
+        longTailPct: 14.35,
         saves: 16,
         shares: 4,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P2'
   },
   {
     id: 47,
@@ -2299,20 +1705,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-03-17',
     checks: {
-      '24h': {
-        views: 521,
-        nonFollowerPct: 71.0,
-        watchTimeSec: 3,
-        watchTimePct: 30.0,
-        saves: 20,
-        shares: 9,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1571,
-        uniqueViewers: 1290,
         nonFollowerPct: 82.0,
-        watchTimeSec: 3,
         watchTimePct: 30.0,
         saves: 24,
         saveRate: 1.53,
@@ -2320,27 +1715,22 @@ const POSTS = [
         shareRate: 0.76,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 2.29,
-        distribution: 'At baseline - typical reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1802,
         longTailViews: 231,
-        longTailPct: 12.8,
+        longTailPct: 12.82,
         saves: 25,
         shares: 14,
-        follows: 1,
-        distributionType: 'Plateau'
+        follows: 1
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'Reached baseline at 7d and drove the second-best save rate in the dataset at 1.53% (24 saves from 1,571 views). But 0 comments and no comment CTA kept the business signal Weak, same pattern as the Better Essay video. The colorful text-block format over b-roll is more visually engaging than the Burglar\'s annotated document, which is likely why this one reached baseline where the Burglar didn\'t. The content works as a reference people bookmark, not something that sparks a conversation.',
     hookInsight: 'Opens with the title "Quick tips to brainstorm essay topics" in bold white text over b-roll of someone writing. Bold claim hook: names the problem and promises a quick fix. Skip rate of 74% beats the account average of 77.4%, so the hook is actually stopping people at an above-average rate. The retention problem kicks in after the stop: people average 3 seconds on a 10-second video and don\'t make it through all 5 tips. The colorful tip boxes are visible enough to trigger a save without watching through, which is why saves are strong while watch time is low.'
   },
@@ -2352,16 +1742,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-03-11',
     checks: {
-      '24h': {
-        views: 2752,
-        nonFollowerPct: 93.0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 3316,
-        uniqueViewers: 3006,
         nonFollowerPct: 92.9,
-        watchTimeSec: 4,
         watchTimePct: 12.5,
         saves: 8,
         saveRate: 0.24,
@@ -2369,27 +1752,22 @@ const POSTS = [
         shareRate: 0.03,
         comments: 12,
         follows: 3,
-        followsPer1k: 0.9,
-        engagementRate: 0.63,
-        distribution: 'Above baseline - expanded reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Repeat'
+        outcome: 'Learning',
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 3545,
         longTailViews: 229,
-        longTailPct: 6.5,
+        longTailPct: 6.46,
         saves: 9,
         shares: 1,
-        follows: 3,
-        distributionType: 'Plateau'
+        follows: 3
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'Comment CTA drove early engagement, which pushed non-follower reach to 93%. The podcast clip format with two advisors adds credibility without feeling staged. Prompt 3 is a real pain point so the topic itself pulls in the right people.',
     hookInsight: 'Opens mid-reaction before any setup or title card. Leads with the viewer\'s own confusion about Prompt 3, which earns trust before any advice lands. Works as a curiosity hook even for people who haven\'t seen the prompt yet.'
   },
@@ -2401,37 +1779,26 @@ const POSTS = [
     type: 'Video',
     date: '2026-03-06',
     checks: {
-      '24h': {
-        views: 1048,
-        nonFollowerPct: 88.0,
-        watchTimeSec: 6,
-        watchTimePct: 8.5,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 2213,
         nonFollowerPct: 90.0,
-        watchTimeSec: 6,
         watchTimePct: 8.5,
-        distribution: 'At baseline - typical reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Drop'
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 2538,
         longTailViews: 325,
-        longTailPct: 12.8,
+        longTailPct: 12.81,
         saves: 16,
         shares: 11,
-        follows: 3,
-        distributionType: 'Plateau'
+        follows: 3
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'Hit baseline at 7d with solid distribution: 49.9% from the Reels tab and 43.8% of viewers aged 13-24, the best student targeting of any video so far. But it didn\'t convert past baseline. 0 comments and no comment CTA meant no early engagement loop. 16 saves and 11 shares are good but the business signal stayed Neutral. The topic "show don\'t tell" is general writing advice, not a specific pain point. Compare to the podcast, which used a comment CTA and a specific prompt and hit 3,316 7d views.',
     hookInsight: 'Skip rate was 77.4% vs an 81.1% account average, so the hook actually stopped people better than usual. Stacey\'s face and energy in the first frame is doing the work before any text registers. But the retention curve drops steeply to under 10% within the first few seconds and keeps declining through the full 71 seconds. People stopped and then left: at 71 seconds with no clear upfront promise of a payoff, most don\'t commit. The interesting claim, "YOU\'RE NOT PROVING A POINT," lands mid-video, too late for someone who hasn\'t already decided to watch.'
   },
@@ -2443,33 +1810,25 @@ const POSTS = [
     type: 'Video',
     date: '2026-03-06',
     checks: {
-      '24h': {
-        views: 869,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1162,
-        watchTimeSec: 0.1,
-        watchTimePct: 0.1,
-        distribution: 'Above baseline - expanded reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Repeat'
+        watchTimePct: 10.0,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 1207,
         longTailViews: 45,
-        longTailPct: 3.7,
+        longTailPct: 3.73,
         saves: 23,
         shares: 1,
-        follows: 0,
-        distributionType: 'Spike'
+        follows: 0
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P1'
   },
   {
     id: 51,
@@ -2479,11 +1838,6 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-03-03',
     checks: {
-      '24h': {
-        views: 375,
-        nonFollowerPct: 0.0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 748,
         nonFollowerPct: 67.0,
@@ -2493,27 +1847,22 @@ const POSTS = [
         shareRate: 1.34,
         comments: 6,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 3.88,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Strong',
-        businessSignal: 'Weak',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 891,
         longTailViews: 143,
-        longTailPct: 16.0,
+        longTailPct: 16.05,
         saves: 15,
         shares: 11,
-        follows: 1,
-        distributionType: 'Plateau'
+        follows: 1
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'The content worked for the people who saw it: 3.88% engagement rate, Strong quality tag, 15 saves and 11 shares. But 48% of viewers were aged 45-54 (parents and counselors, not students), and 94.9% of views came from Feed with zero Reels tab distribution. The follower base is skewing adult, and adults don\'t share this content to students at scale. This explains why engagement is high but growth is flat. Same pattern as the other carousel: the format has no path to student audiences.',
     hookInsight: 'Slide 1 opens with a notebook cover naming the exact prompt in bold teal. Direct address, specific topic. Slide 3 (the actual prompt text plus "What They\'re Really Asking") got the most likes after the cover, which means people found the reframe valuable. The "What works..." transition slide (slide 4) got zero likes and likely caused some drop-off before the 20/80 Rule. The hook logic is right, but it\'s reaching parents in their feed, not students discovering it through Reels.'
   },
@@ -2525,17 +1874,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-02-26',
     checks: {
-      '24h': {
-        views: 305,
-        nonFollowerPct: 78.0,
-        watchTimeSec: 2,
-        watchTimePct: 25.0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 1296,
         nonFollowerPct: 94.0,
-        watchTimeSec: 2,
         watchTimePct: 25.0,
         saves: 2,
         saveRate: 0.15,
@@ -2543,27 +1884,22 @@ const POSTS = [
         shareRate: 0.08,
         comments: 0,
         follows: 0,
-        followsPer1k: 0.0,
-        engagementRate: 0.23,
-        distribution: 'Below baseline - limited reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Weak',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1576,
         longTailViews: 280,
-        longTailPct: 17.8,
+        longTailPct: 17.77,
         saves: 2,
         shares: 1,
-        follows: 0,
-        distributionType: 'Plateau'
+        follows: 0
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P1',
     whyItPerformed: 'It didn\'t. 7d views came in at 1,296 vs the 1,900 baseline, and the audience skewed wrong: only 38% of viewers were 13-24, compared to 56% on the What Juniors post. The text-only format doesn\'t signal who it\'s for, so the algo pushed it to adults who weren\'t the right audience. 24.5% of views came from profile visits, meaning followers sought it out, but non-followers didn\'t engage (66% of interactions came from followers only).',
     hookInsight: 'The skip rate was 81.3%, nearly identical to the account average of 80.7%, so the first frame wasn\'t losing people faster than usual. But the retention curve drops steeply in the first 2 seconds before flattening out. People stopped scrolling and then left immediately. The format asks too much too fast: stop, read small text, parse annotations, with no audio, no face, and no motion to reward the pause. The hook stops people at a normal rate but the content doesn\'t give them a reason to stay.'
   },
@@ -2575,17 +1911,9 @@ const POSTS = [
     type: 'Video',
     date: '2026-02-23',
     checks: {
-      '24h': {
-        views: 1005,
-        nonFollowerPct: 88.0,
-        watchTimeSec: 5,
-        watchTimePct: 10.6,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 4697,
         nonFollowerPct: 95.0,
-        watchTimeSec: 5,
         watchTimePct: 10.6,
         saves: 13,
         saveRate: 0.28,
@@ -2593,27 +1921,22 @@ const POSTS = [
         shareRate: 0.17,
         comments: 0,
         follows: 5,
-        followsPer1k: 1.06,
-        engagementRate: 0.45,
-        distribution: 'Above baseline - expanded reach',
-        outcome: 'Winner',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Repeat'
+        outcome: 'Learning',
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 5125,
         longTailViews: 428,
-        longTailPct: 8.4,
+        longTailPct: 8.35,
         saves: 14,
         shares: 10,
-        follows: 6,
-        distributionType: 'Plateau'
+        follows: 6
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P3',
     whyItPerformed: 'The skip rate came in at 73.6% vs the account average of 80.8%, which means Stacey stopped people who would normally have kept scrolling. The age breakdown confirms the targeting worked: 56% of viewers were 13 to 24, exactly the student audience. Saves (14) and shares (10) drove the algo without any comment CTA, making this the only Winner in the dataset so far.',
     hookInsight: 'Stacey opens with "IF YOU\'RE A JUNIOR" on screen with the word JUNIOR highlighted in teal, a targeting hook that filters in the right audience from the first frame. The below-average skip rate (73.6% vs 80.8% typical) confirms it landed. A secondary "HERE IS THE SECRET" text overlay mid-video gave people a reason to keep watching past the initial drop, which shows in the flattened retention curve after second 5.'
   },
@@ -2625,33 +1948,25 @@ const POSTS = [
     type: 'Video',
     date: '2026-02-23',
     checks: {
-      '24h': {
-        views: 740,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 842,
-        watchTimeSec: 3,
         watchTimePct: 6.5,
-        distribution: 'At baseline - typical reach',
         outcome: 'Learning',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
-        nextAction: 'Drop'
+        nextAction: 'Iterate'
       },
       '30d': {
         views: 887,
         longTailViews: 45,
-        longTailPct: 5.1,
+        longTailPct: 5.07,
         saves: 5,
         shares: 2,
-        follows: 3,
-        distributionType: 'Plateau'
+        follows: 3
       }
     },
     dueChecks: {
 
-    }
+    },
+    pillar: 'P3'
   },
   {
     id: 55,
@@ -2661,11 +1976,6 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-02-19',
     checks: {
-      '24h': {
-        views: 577,
-        nonFollowerPct: 69.0,
-        distribution: 'Weak - limited algo test'
-      },
       '7d': {
         views: 840,
         nonFollowerPct: 4.4,
@@ -2675,27 +1985,22 @@ const POSTS = [
         shareRate: 0.71,
         comments: 0,
         follows: 1,
-        followsPer1k: 1.19,
-        engagementRate: 1.31,
-        distribution: 'Below baseline - limited reach',
-        outcome: 'Testing',
-        engagementQuality: 'Neutral',
-        businessSignal: 'Neutral',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 955,
         longTailViews: 115,
-        longTailPct: 12.0,
+        longTailPct: 12.04,
         saves: 6,
         shares: 7,
-        follows: 1,
-        distributionType: 'Plateau'
+        follows: 1
       }
     },
     dueChecks: {
 
     },
+    pillar: 'P3',
     whyItPerformed: 'The audience breakdown tells the story: 38% of viewers were 45 to 54, meaning it reached mostly parents, not students. The content speaks directly to the student so it did not land as hard with that crowd. Slide engagement confirms the drop-off: 6 likes on slide 1, then 2, 1, 0. Almost no one made it through. With 93.9% followers reached and only 6.1% non-followers, the algo never picked it up at all.',
     hookInsight: 'Bold claim hook that is written for students but served to a parent-heavy audience. That mismatch hurt before the content even had a chance. The confusing one-two of the headline and the "Wait, what?" laptop text gave people a reason to scroll past rather than a reason to stop. Compare this to the Juniors post, where the targeting hook pulled in exactly the right age group and the skip rate beat the account average.'
   }
