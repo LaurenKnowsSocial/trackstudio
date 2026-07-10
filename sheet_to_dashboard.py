@@ -10,8 +10,10 @@ Run:  python3 ~/trackstudio/sheet_to_dashboard.py
       python3 ~/trackstudio/sheet_to_dashboard.py --push   (also git push)
 """
 
+import json
 import pickle
 import re
+import statistics
 import subprocess
 import sys
 from datetime import datetime, timedelta
@@ -24,6 +26,13 @@ import gspread
 SHEET_ID    = "1zXggnf739i5km6HlNwBnMzDRm3qavVYuDo4NaEbZIqc"
 PICKLE_PATH = Path.home() / ".credentials/google-sheets-token.pickle"
 INDEX_HTML  = Path.home() / "trackstudio/index.html"
+
+# Rolling baseline: median 7d views of the last N posts, per client/platform.
+# Only recomputed for v2 (migrated) tabs, and only once there are enough posts.
+CLIENTS_JSON      = Path.home() / ".claude/social-clients.json"
+BASELINE_WINDOW   = 10
+BASELINE_MIN_POSTS = 5
+PLATFORM_KEY      = {"ig": "instagram", "tt": "tiktok"}
 
 # Tabs to read: (tab name, client, platform, layout)
 # "v2" = lean 30-col layout (7d/30d only, pillar/format/hook, carousel revisit
@@ -397,6 +406,41 @@ def build_posts_js(posts):
     entries = ['  ' + dict_to_js(p, indent=1) for p in posts]
     return 'const POSTS = [\n' + ',\n'.join(entries) + '\n];'
 
+# ── Rolling baselines ─────────────────────────────────────────────────────────
+
+def recompute_baselines(all_posts, v2_tabs):
+    """Median 7d views of the last BASELINE_WINDOW posts per migrated
+    client/platform. Writes changes back to social-clients.json and returns
+    (cfg, changes)."""
+    cfg = json.loads(CLIENTS_JSON.read_text())
+    changes = []
+    for tab_name, client, platform in v2_tabs:
+        posts = [p for p in all_posts
+                 if p["client"] == client and p["platform"] == platform
+                 and p["checks"].get("7d", {}).get("views")]
+        posts.sort(key=lambda p: p["date"], reverse=True)
+        recent = [p["checks"]["7d"]["views"] for p in posts[:BASELINE_WINDOW]]
+        if len(recent) < BASELINE_MIN_POSTS:
+            continue
+        new_bl = int(statistics.median(recent))
+        plat = cfg["clients"][client]["platforms"][PLATFORM_KEY[platform]]
+        if new_bl != plat["baseline_views"]:
+            changes.append((tab_name, client, platform, plat["baseline_views"], new_bl))
+            plat["baseline_views"] = new_bl
+    if changes:
+        CLIENTS_JSON.write_text(json.dumps(cfg, indent=2) + "\n")
+    return cfg, changes
+
+def patch_clients_const(content, cfg):
+    """Sync the CLIENTS const in index.html with social-clients.json baselines."""
+    for client, cdata in cfg["clients"].items():
+        ig = cdata["platforms"]["instagram"]["baseline_views"]
+        tt = cdata["platforms"]["tiktok"]["baseline_views"]
+        content = re.sub(
+            rf"({client}: \{{ name:'{client}', baselines:\{{ ig:)\d+(, tt:)\d+( \}} \}})",
+            rf"\g<1>{ig}\g<2>{tt}\g<3>", content)
+    return content
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -412,12 +456,17 @@ def main():
 
     # Read all tabs
     all_posts = []
+    v2_tabs = []          # (tab_name, client, platform) for baseline recompute
+    worksheets = {}
     for tab_name, client, platform, layout in TABS:
         try:
             ws = sh.worksheet(tab_name)
         except gspread.exceptions.WorksheetNotFound:
             print(f"  {tab_name}: tab not found — skipping")
             continue
+        worksheets[tab_name] = ws
+        if layout == "v2":
+            v2_tabs.append((tab_name, client, platform))
 
         rows = ws.get_all_values()
         data_rows = [r for r in rows[4:] if any(c.strip() for c in r)]
@@ -451,6 +500,17 @@ def main():
     for k, v in sorted(by_client.items()):
         print(f"  {k}: {v}")
 
+    # Rolling baselines (migrated tabs only)
+    cfg, bl_changes = recompute_baselines(all_posts, v2_tabs)
+    for tab_name, client, platform, old_bl, new_bl in bl_changes:
+        print(f"\nBaseline updated: {client} {platform} {old_bl:,} → {new_bl:,} "
+              f"(median 7d views, last {BASELINE_WINDOW} posts)")
+        try:
+            worksheets[tab_name].update_acell(
+                "A2", f"Baseline (7d median views, auto-updated): {new_bl:,}")
+        except Exception as e:
+            print(f"  (could not update baseline label on {tab_name!r}: {e})")
+
     # Build JS
     js = build_posts_js(all_posts)
 
@@ -476,6 +536,7 @@ def main():
 
     new_block   = f'// DATA_START\n{js}\n// DATA_END'
     new_content = re.sub(r'// DATA_START\n.*?// DATA_END', new_block, content, flags=re.DOTALL)
+    new_content = patch_clients_const(new_content, cfg)
 
     if new_content == content:
         print("index.html already up to date — no changes written.")
