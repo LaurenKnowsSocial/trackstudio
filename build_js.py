@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-build_js.py — Parses all SocialTracking reports.md files and rebuilds the
-POSTS array in ~/trackstudio/index.html between // DATA_START and // DATA_END.
-
-Run:  python3 ~/trackstudio/build_js.py
+build_js.py — DEPRECATED (2026-07-10). The Google Sheet is the source of
+truth; use sheet_to_dashboard.py instead. The SocialTracking .md files this
+script reads are a frozen archive — running this would overwrite the
+dashboard with stale data. Kept only for reference; requires --force to run.
 """
 
 import json
@@ -11,6 +11,11 @@ import re
 import sys
 from pathlib import Path
 from datetime import datetime, timedelta
+
+if "--force" not in sys.argv:
+    sys.exit("DEPRECATED: use sheet_to_dashboard.py (the Sheet is the source of "
+             "truth). The .md report files are a frozen archive. "
+             "Pass --force only if you really mean to rebuild from them.")
 
 # ── Config ────────────────────────────────────────────────────────────────────
 

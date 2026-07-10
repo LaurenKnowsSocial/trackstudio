@@ -25,14 +25,16 @@ SHEET_ID    = "1zXggnf739i5km6HlNwBnMzDRm3qavVYuDo4NaEbZIqc"
 PICKLE_PATH = Path.home() / ".credentials/google-sheets-token.pickle"
 INDEX_HTML  = Path.home() / "trackstudio/index.html"
 
-# Tabs to read and their (client, platform) labels
+# Tabs to read: (tab name, client, platform, layout)
+# "v2" = lean 30-col layout (7d/30d only, pillar/format/hook, carousel revisit
+# ratio); "v1" = original 39-col layout. Flip a tab to v2 when it's migrated.
 TABS = [
-    ("CEA Instagram", "CEA", "ig"),
-    ("CEA TikTok",    "CEA", "tt"),
-    ("RDC Instagram", "RDC", "ig"),
-    ("RDC TikTok",    "RDC", "tt"),
-    ("LKS Instagram", "LKS", "ig"),
-    ("LKS TikTok",    "LKS", "tt"),
+    ("CEA Instagram", "CEA", "ig", "v2"),
+    ("CEA TikTok",    "CEA", "tt", "v2"),
+    ("RDC Instagram", "RDC", "ig", "v1"),
+    ("RDC TikTok",    "RDC", "tt", "v1"),
+    ("LKS Instagram", "LKS", "ig", "v1"),
+    ("LKS TikTok",    "LKS", "tt", "v1"),
 ]
 
 # Column indices (0-based, matching row 4 headers)
@@ -83,11 +85,49 @@ C = {
     "notes_hook":   38,
 }
 
+# v2 layout (lean, 30 cols) — matches the migrated CEA tabs, row-4 headers
+C2 = {
+    # Post info
+    "title":          0,
+    "date":           1,
+    "post_type":      2,
+    "video_len":      3,
+    "format":         4,
+    "hook_type":      5,
+    "pillar":         6,
+    # 7d
+    "v7_views":       7,
+    "v7_uniq":        8,   # carousel only
+    "v7_nonfoll":     9,
+    "v7_wtpct":       10,  # video only
+    "v7_revisit":     11,  # carousel only (auto)
+    "v7_saves":       12,
+    "v7_saverate":    13,
+    "v7_shares":      14,
+    "v7_sharerate":   15,
+    "v7_comments":    16,
+    "v7_follows":     17,
+    "v7_profvisits":  18,
+    "v7_linktaps":    19,
+    "v7_outcome":     20,
+    "v7_nextact":     21,
+    # 30d
+    "v30_views":      22,
+    "v30_ltviews":    23,
+    "v30_ltpct":      24,
+    "v30_saves":      25,
+    "v30_shares":     26,
+    "v30_follows":    27,
+    # Notes
+    "notes_why":      28,
+    "notes_hook":     29,
+}
+
 # ── Value parsers ─────────────────────────────────────────────────────────────
 
-def g(row, key):
+def g(row, key, cmap=None):
     """Get cell value by column key, empty string if out of range."""
-    i = C[key]
+    i = (cmap or C)[key]
     return row[i].strip() if i < len(row) else ""
 
 def parse_num(v):
@@ -204,10 +244,6 @@ def row_to_post(row, client, platform, post_id):
         if (d := g(row,"v7_engq")):                                     c["engagementQuality"] = d
         if (d := g(row,"v7_bizsig")):                                   c["businessSignal"] = d
         if (d := g(row,"v7_nextact")):                                  c["nextAction"]    = d
-        # Combine both notes fields
-        notes = " | ".join(filter(None, [g(row,"notes_why"), g(row,"notes_hook")]))
-        if notes:
-            c["notes"] = notes
         checks["7d"] = c
 
     # ── 30d check ─────────────────────────────────────────────────────────────
@@ -231,7 +267,7 @@ def row_to_post(row, client, platform, post_id):
     elif not has_30d:
         due["30d"] = due_date(post_date + timedelta(days=30))
 
-    return {
+    post = {
         "id":        post_id,
         "client":    client,
         "platform":  platform,
@@ -242,6 +278,96 @@ def row_to_post(row, client, platform, post_id):
         "dueChecks": due,
         "_sort_date": post_date,   # removed before writing JS
     }
+
+    if why := g(row, "notes_why"):
+        post["whyItPerformed"] = why
+    if hook := g(row, "notes_hook"):
+        post["hookInsight"] = hook
+
+    return post
+
+# ── Row → post object (v2 lean layout) ────────────────────────────────────────
+
+def row_to_post_v2(row, client, platform, post_id):
+    g2 = lambda key: g(row, key, C2)
+
+    title     = g2("title")
+    date_raw  = g2("date")
+    post_type = g2("post_type") or "Video"
+
+    if not title or not date_raw:
+        return None
+
+    post_date = parse_date(date_raw)
+    if not post_date:
+        print(f"  WARNING: Could not parse date {date_raw!r} for {title!r} — skipping")
+        return None
+
+    has_7d  = has_any(g2("v7_views"),  g2("v7_saves"))
+    has_30d = has_any(g2("v30_views"), g2("v30_saves"), g2("v30_shares"))
+
+    checks = {}
+
+    if has_7d:
+        c = {}
+        if (v := parse_num(g2("v7_views")))              is not None: c["views"]          = v
+        if (v := parse_num(g2("v7_uniq")))               is not None: c["uniqueViewers"]  = v
+        if (v := parse_pct_raw(g2("v7_nonfoll")))        is not None: c["nonFollowerPct"] = v
+        if (v := parse_pct_formatted(g2("v7_wtpct")))    is not None: c["watchTimePct"]   = v
+        if (v := parse_num(g2("v7_revisit")))            is not None: c["revisitRatio"]   = v
+        if (v := parse_num(g2("v7_saves")))              is not None: c["saves"]          = v
+        if (v := parse_pct_formatted(g2("v7_saverate"))) is not None: c["saveRate"]       = v
+        if (v := parse_num(g2("v7_shares")))             is not None: c["shares"]         = v
+        if (v := parse_pct_formatted(g2("v7_sharerate"))) is not None: c["shareRate"]     = v
+        if (v := parse_num(g2("v7_comments")))           is not None: c["comments"]       = v
+        if (v := parse_num(g2("v7_follows")))            is not None: c["follows"]        = v
+        if (v := parse_num(g2("v7_profvisits")))         is not None: c["profileVisits"]  = v
+        if (v := parse_num(g2("v7_linktaps")))           is not None: c["linkTaps"]       = v
+        if (d := g2("v7_outcome")):                                    c["outcome"]       = d
+        if (d := g2("v7_nextact")):                                    c["nextAction"]    = d
+        checks["7d"] = c
+
+    if has_30d:
+        c = {}
+        if (v := parse_num(g2("v30_views")))             is not None: c["views"]         = v
+        if (v := parse_num(g2("v30_ltviews")))           is not None: c["longTailViews"] = v
+        if (v := parse_pct_formatted(g2("v30_ltpct")))   is not None: c["longTailPct"]   = v
+        if (v := parse_num(g2("v30_saves")))             is not None: c["saves"]         = v
+        if (v := parse_num(g2("v30_shares")))            is not None: c["shares"]        = v
+        if (v := parse_num(g2("v30_follows")))           is not None: c["follows"]       = v
+        checks["30d"] = c
+
+    # v2 has no 24h check — due dates are 7d then 30d only
+    due = {}
+    if not has_7d:
+        due["7d"]  = due_date(post_date + timedelta(days=7))
+    elif not has_30d:
+        due["30d"] = due_date(post_date + timedelta(days=30))
+
+    post = {
+        "id":        post_id,
+        "client":    client,
+        "platform":  platform,
+        "title":     title,
+        "type":      post_type,
+        "date":      iso_date(post_date),
+        "checks":    checks,
+        "dueChecks": due,
+        "_sort_date": post_date,
+    }
+
+    if fmt := g2("format"):
+        post["format"] = fmt
+    if hook := g2("hook_type"):
+        post["hookType"] = hook
+    if pillar := g2("pillar"):
+        post["pillar"] = pillar
+    if why := g2("notes_why"):
+        post["whyItPerformed"] = why
+    if hk := g2("notes_hook"):
+        post["hookInsight"] = hk
+
+    return post
 
 # ── JS serialiser (mirrors build_js.py) ──────────────────────────────────────
 
@@ -286,7 +412,7 @@ def main():
 
     # Read all tabs
     all_posts = []
-    for tab_name, client, platform in TABS:
+    for tab_name, client, platform, layout in TABS:
         try:
             ws = sh.worksheet(tab_name)
         except gspread.exceptions.WorksheetNotFound:
@@ -296,9 +422,10 @@ def main():
         rows = ws.get_all_values()
         data_rows = [r for r in rows[4:] if any(c.strip() for c in r)]
 
+        parse_row = row_to_post_v2 if layout == "v2" else row_to_post
         tab_posts = []
         for row in data_rows:
-            post = row_to_post(row, client, platform, post_id=0)
+            post = parse_row(row, client, platform, post_id=0)
             if post:
                 tab_posts.append(post)
 
