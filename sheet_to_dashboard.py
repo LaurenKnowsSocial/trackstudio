@@ -94,7 +94,9 @@ C = {
     "notes_hook":   38,
 }
 
-# v2 layout (lean, 30 cols) — matches the migrated CEA tabs, row-4 headers
+# v2 layout (lean, 31 cols A-AE) — matches the migrated CEA tabs, row-4
+# headers. 2026-07-10: watch-time SECONDS reinstated as the entered column
+# (K); watch % (L) is a sheet formula, as are all other (auto) columns.
 C2 = {
     # Post info
     "title":          0,
@@ -108,28 +110,29 @@ C2 = {
     "v7_views":       7,
     "v7_uniq":        8,   # carousel only
     "v7_nonfoll":     9,
-    "v7_wtpct":       10,  # video only
-    "v7_revisit":     11,  # carousel only (auto)
-    "v7_saves":       12,
-    "v7_saverate":    13,
-    "v7_shares":      14,
-    "v7_sharerate":   15,
-    "v7_comments":    16,
-    "v7_follows":     17,
-    "v7_profvisits":  18,
-    "v7_linktaps":    19,
-    "v7_outcome":     20,
-    "v7_nextact":     21,
+    "v7_wtsec":       10,  # video only (entered)
+    "v7_wtpct":       11,  # video only (auto: sec / video_len)
+    "v7_revisit":     12,  # carousel only (auto)
+    "v7_saves":       13,
+    "v7_saverate":    14,
+    "v7_shares":      15,
+    "v7_sharerate":   16,
+    "v7_comments":    17,
+    "v7_follows":     18,
+    "v7_profvisits":  19,
+    "v7_linktaps":    20,
+    "v7_outcome":     21,
+    "v7_nextact":     22,
     # 30d
-    "v30_views":      22,
-    "v30_ltviews":    23,
-    "v30_ltpct":      24,
-    "v30_saves":      25,
-    "v30_shares":     26,
-    "v30_follows":    27,
+    "v30_views":      23,
+    "v30_ltviews":    24,
+    "v30_ltpct":      25,
+    "v30_saves":      26,
+    "v30_shares":     27,
+    "v30_follows":    28,
     # Notes
-    "notes_why":      28,
-    "notes_hook":     29,
+    "notes_why":      29,
+    "notes_hook":     30,
 }
 
 # ── Value parsers ─────────────────────────────────────────────────────────────
@@ -322,6 +325,7 @@ def row_to_post_v2(row, client, platform, post_id):
         if (v := parse_num(g2("v7_views")))              is not None: c["views"]          = v
         if (v := parse_num(g2("v7_uniq")))               is not None: c["uniqueViewers"]  = v
         if (v := parse_pct_raw(g2("v7_nonfoll")))        is not None: c["nonFollowerPct"] = v
+        if (v := parse_num(g2("v7_wtsec")))              is not None: c["watchTimeSec"]   = v
         if (v := parse_pct_formatted(g2("v7_wtpct")))    is not None: c["watchTimePct"]   = v
         if (v := parse_num(g2("v7_revisit")))            is not None: c["revisitRatio"]   = v
         if (v := parse_num(g2("v7_saves")))              is not None: c["saves"]          = v
