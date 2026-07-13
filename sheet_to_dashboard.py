@@ -34,65 +34,14 @@ BASELINE_WINDOW   = 10
 BASELINE_MIN_POSTS = 5
 PLATFORM_KEY      = {"ig": "instagram", "tt": "tiktok"}
 
-# Tabs to read: (tab name, client, platform, layout)
-# "v2" = lean 30-col layout (7d/30d only, pillar/format/hook, carousel revisit
-# ratio); "v1" = original 39-col layout. Flip a tab to v2 when it's migrated.
+# Tabs to read: (tab name, client, platform, layout). All tabs use the lean
+# v2+ layout since 2026-07-10 (RDC/LKS removed from the tracker; the v1 parser
+# lives in git history if ever needed).
 TABS = [
     ("CEA Instagram", "CEA", "ig", "v2"),
     ("CEA TikTok",    "CEA", "tt", "v2"),
-    ("RDC Instagram", "RDC", "ig", "v1"),
-    ("RDC TikTok",    "RDC", "tt", "v1"),
-    ("LKS Instagram", "LKS", "ig", "v1"),
-    ("LKS TikTok",    "LKS", "tt", "v1"),
+    ("BTC Instagram", "BTC", "ig", "v2"),
 ]
-
-# Column indices (0-based, matching row 4 headers)
-C = {
-    # Post info
-    "title":        0,
-    "date":         1,
-    "post_type":    2,
-    "video_len":    3,
-    # 24h
-    "v24_views":    4,
-    "v24_uniq":     5,
-    "v24_nonfoll":  6,
-    "v24_wtsec":    7,
-    "v24_wtpct":    8,
-    "v24_saves":    9,
-    "v24_shares":   10,
-    "v24_distro":   11,
-    # 7d
-    "v7_views":     12,
-    "v7_uniq":      13,
-    "v7_nonfoll":   14,
-    "v7_wtsec":     15,
-    "v7_wtpct":     16,
-    "v7_saves":     17,
-    "v7_saverate":  18,
-    "v7_shares":    19,
-    "v7_sharerate": 20,
-    "v7_comments":  21,
-    "v7_follows":   22,
-    "v7_f1k":       23,
-    "v7_engrate":   24,
-    "v7_distro":    25,
-    "v7_outcome":   26,
-    "v7_engq":      27,
-    "v7_bizsig":    28,
-    "v7_nextact":   29,
-    # 30d
-    "v30_views":    30,
-    "v30_ltviews":  31,
-    "v30_ltpct":    32,
-    "v30_saves":    33,
-    "v30_shares":   34,
-    "v30_follows":  35,
-    "v30_disttype": 36,
-    # Notes
-    "notes_why":    37,
-    "notes_hook":   38,
-}
 
 # v2 layout (lean, 31 cols A-AE) — matches the migrated CEA tabs, row-4
 # headers. 2026-07-10: watch-time SECONDS reinstated as the entered column
@@ -133,13 +82,15 @@ C2 = {
     # Notes
     "notes_why":      29,
     "notes_hook":     30,
+    # v3.1 (2026-07-10): post URL. Older CEA rows are shorter — g() returns ""
+    "link":           31,
 }
 
 # ── Value parsers ─────────────────────────────────────────────────────────────
 
 def g(row, key, cmap=None):
     """Get cell value by column key, empty string if out of range."""
-    i = (cmap or C)[key]
+    i = (cmap or C2)[key]
     return row[i].strip() if i < len(row) else ""
 
 def parse_num(v):
@@ -164,22 +115,6 @@ def parse_pct_formatted(v):
     except ValueError:
         return None
 
-def parse_pct_raw(v):
-    """Parse a raw percentage that Sheets may store as decimal (0.834 = 83.4%)
-    or as a plain number (82 = 82%). Threshold: if abs(val) < 2, multiply ×100."""
-    v = v.strip().rstrip('%')
-    if not v or v == '—':
-        return None
-    try:
-        f = float(v)
-        if f == 0:
-            return 0.0
-        if abs(f) < 2:
-            return round(f * 100, 2)
-        return f
-    except ValueError:
-        return None
-
 def parse_date(v):
     """Parse mixed date formats: 3/19/2026, 3/17/26, 2/23/2026 → datetime."""
     v = v.strip()
@@ -199,104 +134,6 @@ def due_date(dt):
 def has_any(*vals):
     """True if at least one value is non-empty and not '—'."""
     return any(v.strip() and v.strip() != '—' for v in vals)
-
-# ── Row → post object ─────────────────────────────────────────────────────────
-
-def row_to_post(row, client, platform, post_id):
-    title     = g(row, "title")
-    date_raw  = g(row, "date")
-    post_type = g(row, "post_type") or "Video"
-
-    if not title or not date_raw:
-        return None
-
-    post_date = parse_date(date_raw)
-    if not post_date:
-        print(f"  WARNING: Could not parse date {date_raw!r} for {title!r} — skipping")
-        return None
-
-    # ── Detect which windows have data ────────────────────────────────────────
-    has_24h = has_any(g(row,"v24_views"), g(row,"v24_saves"), g(row,"v24_shares"))
-    has_7d  = has_any(g(row,"v7_views"),  g(row,"v7_saves"))
-    has_30d = has_any(g(row,"v30_views"), g(row,"v30_saves"), g(row,"v30_shares"))
-
-    checks = {}
-
-    # ── 24h check ─────────────────────────────────────────────────────────────
-    if has_24h:
-        c = {}
-        if (v := parse_num(g(row,"v24_views")))   is not None: c["views"]          = v
-        if (v := parse_num(g(row,"v24_uniq")))    is not None: c["uniqueViewers"]   = v
-        if (v := parse_pct_raw(g(row,"v24_nonfoll"))) is not None: c["nonFollowerPct"] = v
-        if (v := parse_num(g(row,"v24_wtsec")))   is not None: c["watchTimeSec"]   = v
-        if (v := parse_pct_formatted(g(row,"v24_wtpct"))) is not None: c["watchTimePct"] = v
-        if (v := parse_num(g(row,"v24_saves")))   is not None: c["saves"]           = v
-        if (v := parse_num(g(row,"v24_shares")))  is not None: c["shares"]          = v
-        if (d := g(row,"v24_distro")):                          c["distribution"]   = d
-        checks["24h"] = c
-
-    # ── 7d check ──────────────────────────────────────────────────────────────
-    if has_7d:
-        c = {}
-        if (v := parse_num(g(row,"v7_views")))           is not None: c["views"]          = v
-        if (v := parse_num(g(row,"v7_uniq")))            is not None: c["uniqueViewers"]   = v
-        if (v := parse_pct_raw(g(row,"v7_nonfoll")))     is not None: c["nonFollowerPct"] = v
-        if (v := parse_num(g(row,"v7_wtsec")))           is not None: c["watchTimeSec"]   = v
-        if (v := parse_pct_formatted(g(row,"v7_wtpct"))) is not None: c["watchTimePct"]   = v
-        if (v := parse_num(g(row,"v7_saves")))           is not None: c["saves"]           = v
-        if (v := parse_pct_formatted(g(row,"v7_saverate"))) is not None: c["saveRate"]     = v
-        if (v := parse_num(g(row,"v7_shares")))          is not None: c["shares"]          = v
-        if (v := parse_pct_formatted(g(row,"v7_sharerate"))) is not None: c["shareRate"]   = v
-        if (v := parse_num(g(row,"v7_comments")))        is not None: c["comments"]        = v
-        if (v := parse_num(g(row,"v7_follows")))         is not None: c["follows"]         = v
-        if (v := parse_pct_formatted(g(row,"v7_f1k")))   is not None: c["followsPer1k"]   = v
-        if (v := parse_pct_formatted(g(row,"v7_engrate"))) is not None: c["engagementRate"] = v
-        if (d := g(row,"v7_distro")):                                   c["distribution"]  = d
-        if (d := g(row,"v7_outcome")):                                  c["outcome"]       = d
-        if (d := g(row,"v7_engq")):                                     c["engagementQuality"] = d
-        if (d := g(row,"v7_bizsig")):                                   c["businessSignal"] = d
-        if (d := g(row,"v7_nextact")):                                  c["nextAction"]    = d
-        checks["7d"] = c
-
-    # ── 30d check ─────────────────────────────────────────────────────────────
-    if has_30d:
-        c = {}
-        if (v := parse_num(g(row,"v30_views")))   is not None: c["views"]           = v
-        if (v := parse_num(g(row,"v30_ltviews"))) is not None: c["longTailViews"]   = v
-        if (v := parse_pct_formatted(g(row,"v30_ltpct"))) is not None: c["longTailPct"] = v
-        if (v := parse_num(g(row,"v30_saves")))   is not None: c["saves"]           = v
-        if (v := parse_num(g(row,"v30_shares")))  is not None: c["shares"]          = v
-        if (v := parse_num(g(row,"v30_follows"))) is not None: c["follows"]         = v
-        if (d := g(row,"v30_disttype")):                        c["distributionType"] = d
-        checks["30d"] = c
-
-    # ── dueChecks ─────────────────────────────────────────────────────────────
-    due = {}
-    if not has_24h:
-        due["24h"] = due_date(post_date + timedelta(days=1))
-    elif not has_7d:
-        due["7d"]  = due_date(post_date + timedelta(days=7))
-    elif not has_30d:
-        due["30d"] = due_date(post_date + timedelta(days=30))
-
-    post = {
-        "id":        post_id,
-        "client":    client,
-        "platform":  platform,
-        "title":     title,
-        "type":      post_type,
-        "date":      iso_date(post_date),
-        "checks":    checks,
-        "dueChecks": due,
-        "_sort_date": post_date,   # removed before writing JS
-    }
-
-    if why := g(row, "notes_why"):
-        post["whyItPerformed"] = why
-    if hook := g(row, "notes_hook"):
-        post["hookInsight"] = hook
-
-    return post
 
 # ── Row → post object (v2 lean layout) ────────────────────────────────────────
 
@@ -324,7 +161,7 @@ def row_to_post_v2(row, client, platform, post_id):
         c = {}
         if (v := parse_num(g2("v7_views")))              is not None: c["views"]          = v
         if (v := parse_num(g2("v7_uniq")))               is not None: c["uniqueViewers"]  = v
-        if (v := parse_pct_raw(g2("v7_nonfoll")))        is not None: c["nonFollowerPct"] = v
+        if (v := parse_pct_formatted(g2("v7_nonfoll")))  is not None: c["nonFollowerPct"] = v
         if (v := parse_num(g2("v7_wtsec")))              is not None: c["watchTimeSec"]   = v
         if (v := parse_pct_formatted(g2("v7_wtpct")))    is not None: c["watchTimePct"]   = v
         if (v := parse_num(g2("v7_revisit")))            is not None: c["revisitRatio"]   = v
@@ -375,6 +212,8 @@ def row_to_post_v2(row, client, platform, post_id):
         post["hookType"] = hook
     if pillar := g2("pillar"):
         post["pillar"] = pillar
+    if link := g2("link"):
+        post["link"] = link
     if why := g2("notes_why"):
         post["whyItPerformed"] = why
     if hk := g2("notes_hook"):
@@ -436,14 +275,22 @@ def recompute_baselines(all_posts, v2_tabs):
     return cfg, changes
 
 def patch_clients_const(content, cfg):
-    """Sync the CLIENTS const in index.html with social-clients.json baselines."""
-    for client, cdata in cfg["clients"].items():
-        ig = cdata["platforms"]["instagram"]["baseline_views"]
-        tt = cdata["platforms"]["tiktok"]["baseline_views"]
-        content = re.sub(
-            rf"({client}: \{{ name:'{client}', baselines:\{{ ig:)\d+(, tt:)\d+( \}} \}})",
-            rf"\g<1>{ig}\g<2>{tt}\g<3>", content)
-    return content
+    """Regenerate the whole CLIENTS const in index.html from
+    social-clients.json — names, per-platform baselines, and pillar maps.
+    The json is the only hand-edited copy."""
+    js_plat = {"instagram": "ig", "tiktok": "tt"}
+    entries = []
+    for key, cdata in cfg["clients"].items():
+        bl = ", ".join(f"{js_plat[p]}:{d['baseline_views']}"
+                       for p, d in cdata["platforms"].items())
+        pillars = ", ".join(
+            f"{p['id']}:'" + p["name"].replace("\\", "\\\\").replace("'", "\\'") + "'"
+            for p in cdata.get("pillars", []))
+        name = cdata["name"].replace("'", "\\'")
+        entries.append(f"  {key}: {{ name:'{name}', baselines:{{ {bl} }}, "
+                       f"pillars:{{ {pillars} }} }}")
+    block = "const CLIENTS = {\n" + ",\n".join(entries) + "\n};"
+    return re.sub(r"const CLIENTS = \{.*?\};", block, content, flags=re.DOTALL)
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -475,10 +322,9 @@ def main():
         rows = ws.get_all_values()
         data_rows = [r for r in rows[4:] if any(c.strip() for c in r)]
 
-        parse_row = row_to_post_v2 if layout == "v2" else row_to_post
         tab_posts = []
         for row in data_rows:
-            post = parse_row(row, client, platform, post_id=0)
+            post = row_to_post_v2(row, client, platform, post_id=0)
             if post:
                 tab_posts.append(post)
 
