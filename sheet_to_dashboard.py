@@ -43,48 +43,76 @@ TABS = [
     ("BTC Instagram", "BTC", "ig", "v2"),
 ]
 
-# v2 layout (lean, 31 cols A-AE) — matches the migrated CEA tabs, row-4
-# headers. 2026-07-10: watch-time SECONDS reinstated as the entered column
-# (K); watch % (L) is a sheet formula, as are all other (auto) columns.
+# v3.2 layout (lean, 30 cols A-AD) — row-4 headers. 2026-07-13: Format and
+# Hook Type columns removed (never used). Watch time entered as SECONDS (I);
+# % (J) and all other (auto) columns are sheet formulas.
 C2 = {
     # Post info
     "title":          0,
     "date":           1,
-    "post_type":      2,
+    "post_type":      2,   # Video / Carousel / Static
     "video_len":      3,
-    "format":         4,
-    "hook_type":      5,
-    "pillar":         6,
+    "pillar":         4,
     # 7d
-    "v7_views":       7,
-    "v7_uniq":        8,   # carousel only
-    "v7_nonfoll":     9,
-    "v7_wtsec":       10,  # video only (entered)
-    "v7_wtpct":       11,  # video only (auto: sec / video_len)
-    "v7_revisit":     12,  # carousel only (auto)
-    "v7_saves":       13,
-    "v7_saverate":    14,
-    "v7_shares":      15,
-    "v7_sharerate":   16,
-    "v7_comments":    17,
-    "v7_follows":     18,
-    "v7_profvisits":  19,
-    "v7_linktaps":    20,
-    "v7_outcome":     21,
-    "v7_nextact":     22,
+    "v7_views":       5,
+    "v7_uniq":        6,   # non-video only
+    "v7_nonfoll":     7,
+    "v7_wtsec":       8,   # video only (entered)
+    "v7_wtpct":       9,   # video only (auto: sec / video_len)
+    "v7_revisit":     10,  # non-video (auto)
+    "v7_saves":       11,
+    "v7_saverate":    12,
+    "v7_shares":      13,
+    "v7_sharerate":   14,
+    "v7_comments":    15,
+    "v7_follows":     16,
+    "v7_profvisits":  17,
+    "v7_linktaps":    18,
+    "v7_outcome":     19,
+    "v7_nextact":     20,
     # 30d
-    "v30_views":      23,
-    "v30_ltviews":    24,
-    "v30_ltpct":      25,
-    "v30_saves":      26,
-    "v30_shares":     27,
-    "v30_follows":    28,
+    "v30_views":      21,
+    "v30_ltviews":    22,
+    "v30_ltpct":      23,
+    "v30_saves":      24,
+    "v30_shares":     25,
+    "v30_follows":    26,
     # Notes
-    "notes_why":      29,
-    "notes_hook":     30,
-    # v3.1 (2026-07-10): post URL. Older CEA rows are shorter — g() returns ""
-    "link":           31,
+    "notes_why":      27,
+    "notes_hook":     28,
+    "link":           29,
 }
+
+# Auto-column formulas (v3.2 letters). Reinstalled on every run because rows
+# INSERTED into the sheet (Lauren adds newest posts at the top) don't inherit
+# formulas — idempotent: these columns contain nothing but formulas.
+FORMULA_ROWS = (5, 1000)
+
+def auto_formulas(r):
+    return {
+        "J": (f'=IF(AND($C{r}="Video",$I{r}<>"",$D{r}<>""),ROUND($I{r}/$D{r}*100,1),"")'),
+        "K": (f'=IF(AND($C{r}<>"",$C{r}<>"Video",$F{r}<>"",$G{r}<>""),ROUND($F{r}/$G{r},2),"")'),
+        "M": (f'=IF(AND($F{r}<>"",$L{r}<>""),ROUND($L{r}/$F{r}*100,2),"")'),
+        "O": (f'=IF(AND($F{r}<>"",$N{r}<>""),ROUND($N{r}/$F{r}*100,2),"")'),
+        "T": (f'=IF($F{r}="","",IFERROR(LET(bl,VALUE(SUBSTITUTE(REGEXEXTRACT($A$2,"[\\d,]+$"),",","")),'
+              f'ret_hi,IF($C{r}="Video",IF($J{r}<>"",$J{r}>=30,FALSE),IF($K{r}<>"",$K{r}>=1.3,FALSE)),'
+              f'ret_lo,IF($C{r}="Video",IF($J{r}<>"",$J{r}<20,TRUE),IF($K{r}<>"",$K{r}<1.1,TRUE)),'
+              f'save_hi,IF($M{r}<>"",$M{r}>=1,FALSE),'
+              f'save_lo,IF($M{r}<>"",$M{r}<0.5,FALSE),'
+              f'IF(AND($F{r}>bl*1.2,OR(ret_hi,save_hi)),"Winner",'
+              f'IF(AND($F{r}<bl*0.8,ret_lo,save_lo),"Underperformed","Learning"))),"CHECK A2"))'),
+        "U": (f'=IF($T{r}="","",IF(AND($T{r}="Winner",OR(N($Q{r})>0,N($S{r})>0)),"Repeat",'
+              f'IF(AND($T{r}="Underperformed",$L{r}<>"",$N{r}<>"",$L{r}=0,$N{r}=0),"Drop","Iterate")))'),
+        "W": (f'=IF(AND($V{r}<>"",$F{r}<>""),$V{r}-$F{r},"")'),
+        "X": (f'=IF(AND($V{r}<>"",$W{r}<>""),ROUND($W{r}/$V{r}*100,2),"")'),
+    }
+
+def ensure_formulas(ws):
+    first, last = FORMULA_ROWS
+    data = [{"range": f"{col}{first}:{col}{last}",
+             "values": [[auto_formulas(r)[col]] for r in range(first, last + 1)]}
+            for col in ("J", "K", "M", "O", "T", "U", "W", "X")]
+    ws.batch_update(data, value_input_option="USER_ENTERED")
 
 # ── Value parsers ─────────────────────────────────────────────────────────────
 
@@ -206,10 +234,6 @@ def row_to_post_v2(row, client, platform, post_id):
         "_sort_date": post_date,
     }
 
-    if fmt := g2("format"):
-        post["format"] = fmt
-    if hook := g2("hook_type"):
-        post["hookType"] = hook
     if pillar := g2("pillar"):
         post["pillar"] = pillar
     if link := g2("link"):
@@ -318,6 +342,10 @@ def main():
         worksheets[tab_name] = ws
         if layout == "v2":
             v2_tabs.append((tab_name, client, platform))
+
+        # Self-heal: rows Lauren inserts by hand don't inherit formulas —
+        # reinstall the auto columns before reading values.
+        ensure_formulas(ws)
 
         rows = ws.get_all_values()
         data_rows = [r for r in rows[4:] if any(c.strip() for c in r)]
