@@ -342,7 +342,7 @@ const ACCESS_KEYS = {
 // CLIENT CONFIG
 // ══════════════════════════════════════════════════════
 const CLIENTS = {
-  CEA: { name:'CEA', baselines:{ ig:1144, tt:242 } },
+  CEA: { name:'CEA', baselines:{ ig:1144, tt:264 } },
   RDC: { name:'RDC', baselines:{ ig:1000, tt:866 } },
   LKS: { name:'LKS', baselines:{ ig:500, tt:400 } }
 };
@@ -461,9 +461,10 @@ const POSTS = [
       '7d': {
         views: 2408,
         nonFollowerPct: 77.1,
+        watchTimeSec: 6,
         watchTimePct: 60.0,
         saves: 25,
-        saveRate: 1.04,
+        saveRate: 1.0,
         shares: 24,
         shareRate: 1.0,
         comments: 12,
@@ -488,6 +489,7 @@ const POSTS = [
       '7d': {
         views: 989,
         nonFollowerPct: 71.7,
+        watchTimeSec: 8,
         watchTimePct: 8.7,
         saves: 3,
         saveRate: 0.3,
@@ -518,9 +520,9 @@ const POSTS = [
         nonFollowerPct: 11.9,
         revisitRatio: 2.26,
         saves: 18,
-        saveRate: 1.36,
+        saveRate: 1.4,
         shares: 10,
-        shareRate: 0.76,
+        shareRate: 0.8,
         comments: 0,
         follows: 0,
         outcome: 'Learning',
@@ -543,6 +545,7 @@ const POSTS = [
       '7d': {
         views: 1012,
         nonFollowerPct: 66.8,
+        watchTimeSec: 12,
         watchTimePct: 12.6,
         saves: 2,
         saveRate: 0.2,
@@ -570,11 +573,12 @@ const POSTS = [
       '7d': {
         views: 1064,
         nonFollowerPct: 74.4,
+        watchTimeSec: 6,
         watchTimePct: 25.0,
         saves: 19,
-        saveRate: 1.79,
+        saveRate: 1.8,
         shares: 4,
-        shareRate: 0.38,
+        shareRate: 0.4,
         comments: 4,
         follows: 0,
         outcome: 'Learning',
@@ -594,10 +598,15 @@ const POSTS = [
     type: 'Video',
     date: '2026-06-16',
     checks: {
-
+      '7d': {
+        views: 262,
+        nonFollowerPct: 80.0,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
+      }
     },
     dueChecks: {
-      '7d': '2026-06-23'
+      '30d': '2026-07-16'
     },
     pillar: 'P1'
   },
@@ -612,11 +621,12 @@ const POSTS = [
       '7d': {
         views: 1082,
         nonFollowerPct: 82.4,
+        watchTimeSec: 10,
         watchTimePct: 22.7,
         saves: 5,
-        saveRate: 0.46,
+        saveRate: 0.5,
         shares: 2,
-        shareRate: 0.18,
+        shareRate: 0.2,
         comments: 11,
         follows: 1,
         outcome: 'Learning',
@@ -639,6 +649,7 @@ const POSTS = [
       '7d': {
         views: 162,
         nonFollowerPct: 91.0,
+        watchTimeSec: 8.3,
         watchTimePct: 8.6,
         saves: 0,
         saveRate: 0.0,
@@ -648,10 +659,18 @@ const POSTS = [
         follows: 0,
         outcome: 'Underperformed',
         nextAction: 'Drop'
+      },
+      '30d': {
+        views: 229,
+        longTailViews: 67,
+        longTailPct: 29.3,
+        saves: 9,
+        shares: 9,
+        follows: 9
       }
     },
     dueChecks: {
-      '30d': '2026-07-12'
+
     },
     pillar: 'P1'
   },
@@ -666,6 +685,7 @@ const POSTS = [
       '7d': {
         views: 656,
         nonFollowerPct: 75.2,
+        watchTimeSec: 7,
         watchTimePct: 7.2,
         saves: 0,
         saveRate: 0.0,
@@ -679,7 +699,7 @@ const POSTS = [
       '30d': {
         views: 743,
         longTailViews: 87,
-        longTailPct: 11.71,
+        longTailPct: 11.7,
         saves: 0,
         shares: 0,
         follows: 0
@@ -701,19 +721,28 @@ const POSTS = [
       '7d': {
         views: 2535,
         nonFollowerPct: 84.2,
+        watchTimeSec: 14,
         watchTimePct: 23.3,
         saves: 30,
-        saveRate: 1.18,
+        saveRate: 1.2,
         shares: 11,
-        shareRate: 0.43,
+        shareRate: 0.4,
         comments: 0,
         follows: 2,
         outcome: 'Winner',
         nextAction: 'Repeat'
+      },
+      '30d': {
+        views: 2813,
+        longTailViews: 278,
+        longTailPct: 9.9,
+        saves: 31,
+        shares: 17,
+        follows: 4
       }
     },
     dueChecks: {
-      '30d': '2026-07-06'
+
     },
     pillar: 'P1'
   },
@@ -728,11 +757,12 @@ const POSTS = [
       '7d': {
         views: 297,
         nonFollowerPct: 82.0,
+        watchTimeSec: 14.2,
         watchTimePct: 23.7,
         saves: 4,
-        saveRate: 1.35,
+        saveRate: 1.4,
         shares: 1,
-        shareRate: 0.34,
+        shareRate: 0.3,
         comments: 0,
         follows: 0,
         outcome: 'Winner',
@@ -755,19 +785,28 @@ const POSTS = [
       '7d': {
         views: 1206,
         nonFollowerPct: 76.2,
+        watchTimeSec: 11,
         watchTimePct: 10.2,
         saves: 15,
-        saveRate: 1.24,
+        saveRate: 1.2,
         shares: 14,
-        shareRate: 1.16,
+        shareRate: 1.2,
         comments: 8,
         follows: 3,
         outcome: 'Learning',
         nextAction: 'Iterate'
+      },
+      '30d': {
+        views: 1309,
+        longTailViews: 103,
+        longTailPct: 7.9,
+        saves: 17,
+        shares: 15,
+        follows: 4
       }
     },
     dueChecks: {
-      '30d': '2026-07-04'
+
     },
     pillar: 'P1'
   },
@@ -782,9 +821,10 @@ const POSTS = [
       '7d': {
         views: 305,
         nonFollowerPct: 85.0,
+        watchTimeSec: 18.6,
         watchTimePct: 18.0,
         saves: 2,
-        saveRate: 0.66,
+        saveRate: 0.7,
         shares: 0,
         shareRate: 0.0,
         comments: 3,
@@ -812,17 +852,25 @@ const POSTS = [
         nonFollowerPct: 50.0,
         revisitRatio: 2.05,
         saves: 21,
-        saveRate: 1.55,
+        saveRate: 1.6,
         shares: 12,
-        shareRate: 0.88,
+        shareRate: 0.9,
         comments: 0,
         follows: 0,
         outcome: 'Learning',
         nextAction: 'Iterate'
+      },
+      '30d': {
+        views: 1710,
+        longTailViews: 354,
+        longTailPct: 20.7,
+        saves: 25,
+        shares: 20,
+        follows: 0
       }
     },
     dueChecks: {
-      '30d': '2026-06-28'
+
     },
     pillar: 'P1'
   },
@@ -837,19 +885,28 @@ const POSTS = [
       '7d': {
         views: 1729,
         nonFollowerPct: 71.4,
+        watchTimeSec: 14,
         watchTimePct: 17.7,
         saves: 29,
-        saveRate: 1.68,
+        saveRate: 1.7,
         shares: 26,
         shareRate: 1.5,
         comments: 4,
         follows: 1,
         outcome: 'Winner',
         nextAction: 'Repeat'
+      },
+      '30d': {
+        views: 1930,
+        longTailViews: 201,
+        longTailPct: 10.4,
+        saves: 31,
+        shares: 29,
+        follows: 1
       }
     },
     dueChecks: {
-      '30d': '2026-06-26'
+
     },
     pillar: 'P4'
   },
@@ -864,11 +921,12 @@ const POSTS = [
       '7d': {
         views: 1292,
         nonFollowerPct: 73.1,
+        watchTimeSec: 4,
         watchTimePct: 57.1,
         saves: 24,
-        saveRate: 1.86,
+        saveRate: 1.9,
         shares: 18,
-        shareRate: 1.39,
+        shareRate: 1.4,
         comments: 1,
         follows: 0,
         outcome: 'Learning',
@@ -877,7 +935,7 @@ const POSTS = [
       '30d': {
         views: 1401,
         longTailViews: 109,
-        longTailPct: 7.78,
+        longTailPct: 7.8,
         saves: 26,
         shares: 18,
         follows: 0
@@ -899,11 +957,12 @@ const POSTS = [
       '7d': {
         views: 267,
         nonFollowerPct: 92.0,
+        watchTimeSec: 2.7,
         watchTimePct: 38.5,
         saves: 2,
-        saveRate: 0.75,
+        saveRate: 0.8,
         shares: 1,
-        shareRate: 0.37,
+        shareRate: 0.4,
         comments: 0,
         follows: 2,
         outcome: 'Learning',
@@ -926,9 +985,10 @@ const POSTS = [
       '7d': {
         views: 729,
         nonFollowerPct: 71.1,
+        watchTimeSec: 5.5,
         watchTimePct: 6.5,
         saves: 2,
-        saveRate: 0.27,
+        saveRate: 0.3,
         shares: 0,
         shareRate: 0.0,
         comments: 0,
@@ -961,11 +1021,12 @@ const POSTS = [
       '7d': {
         views: 840,
         nonFollowerPct: 73.0,
+        watchTimeSec: 10.8,
         watchTimePct: 15.7,
         saves: 4,
-        saveRate: 0.48,
+        saveRate: 0.5,
         shares: 3,
-        shareRate: 0.36,
+        shareRate: 0.4,
         comments: 2,
         follows: 0,
         outcome: 'Underperformed',
@@ -974,7 +1035,7 @@ const POSTS = [
       '30d': {
         views: 898,
         longTailViews: 58,
-        longTailPct: 6.46,
+        longTailPct: 6.5,
         saves: 5,
         shares: 5,
         follows: 0
@@ -996,11 +1057,12 @@ const POSTS = [
       '7d': {
         views: 187,
         nonFollowerPct: 87.0,
+        watchTimeSec: 13.1,
         watchTimePct: 19.9,
         saves: 0,
         saveRate: 0.0,
         shares: 1,
-        shareRate: 0.53,
+        shareRate: 0.5,
         comments: 1,
         follows: 0,
         outcome: 'Underperformed',
@@ -1023,6 +1085,7 @@ const POSTS = [
       '7d': {
         views: 739,
         nonFollowerPct: 68.2,
+        watchTimeSec: 8.1,
         watchTimePct: 7.9,
         saves: 0,
         saveRate: 0.0,
@@ -1036,7 +1099,7 @@ const POSTS = [
       '30d': {
         views: 770,
         longTailViews: 31,
-        longTailPct: 4.03,
+        longTailPct: 4.0,
         saves: 0,
         shares: 0,
         follows: 0
@@ -1058,11 +1121,12 @@ const POSTS = [
       '7d': {
         views: 2238,
         nonFollowerPct: 79.9,
+        watchTimeSec: 5.2,
         watchTimePct: 52.0,
         saves: 44,
-        saveRate: 1.97,
+        saveRate: 2.0,
         shares: 20,
-        shareRate: 0.89,
+        shareRate: 0.9,
         comments: 2,
         follows: 1,
         outcome: 'Winner',
@@ -1071,7 +1135,7 @@ const POSTS = [
       '30d': {
         views: 2476,
         longTailViews: 238,
-        longTailPct: 9.61,
+        longTailPct: 9.6,
         saves: 52,
         shares: 23,
         follows: 2
@@ -1093,6 +1157,7 @@ const POSTS = [
       '7d': {
         views: 171,
         nonFollowerPct: 91.0,
+        watchTimeSec: 9.8,
         watchTimePct: 11.4,
         saves: 0,
         saveRate: 0.0,
@@ -1123,9 +1188,9 @@ const POSTS = [
         nonFollowerPct: 140.0,
         revisitRatio: 2.48,
         saves: 13,
-        saveRate: 0.81,
+        saveRate: 0.8,
         shares: 13,
-        shareRate: 0.81,
+        shareRate: 0.8,
         comments: 0,
         follows: 0,
         outcome: 'Winner',
@@ -1134,7 +1199,7 @@ const POSTS = [
       '30d': {
         views: 1796,
         longTailViews: 190,
-        longTailPct: 10.58,
+        longTailPct: 10.6,
         saves: 19,
         shares: 17,
         follows: 0
@@ -1156,11 +1221,12 @@ const POSTS = [
       '7d': {
         views: 1099,
         nonFollowerPct: 27.3,
+        watchTimeSec: 4.6,
         watchTimePct: 46.0,
         saves: 15,
-        saveRate: 1.36,
+        saveRate: 1.4,
         shares: 1,
-        shareRate: 0.09,
+        shareRate: 0.1,
         comments: 2,
         follows: 0,
         outcome: 'Learning',
@@ -1169,7 +1235,7 @@ const POSTS = [
       '30d': {
         views: 1214,
         longTailViews: 115,
-        longTailPct: 9.47,
+        longTailPct: 9.5,
         saves: 15,
         shares: 2,
         follows: 0
@@ -1194,9 +1260,9 @@ const POSTS = [
         nonFollowerPct: 91.0,
         revisitRatio: 1.33,
         saves: 5,
-        saveRate: 0.78,
+        saveRate: 0.8,
         shares: 5,
-        shareRate: 0.78,
+        shareRate: 0.8,
         comments: 0,
         follows: 0,
         outcome: 'Winner',
@@ -1205,7 +1271,7 @@ const POSTS = [
       '30d': {
         views: 683,
         longTailViews: 39,
-        longTailPct: 5.71,
+        longTailPct: 5.7,
         saves: 5,
         shares: 5,
         follows: 0
@@ -1227,11 +1293,12 @@ const POSTS = [
       '7d': {
         views: 2521,
         nonFollowerPct: 89.9,
+        watchTimeSec: 9,
         watchTimePct: 23.7,
         saves: 32,
-        saveRate: 1.27,
+        saveRate: 1.3,
         shares: 24,
-        shareRate: 0.95,
+        shareRate: 1.0,
         comments: 17,
         follows: 0,
         outcome: 'Winner',
@@ -1240,7 +1307,7 @@ const POSTS = [
       '30d': {
         views: 2649,
         longTailViews: 128,
-        longTailPct: 4.83,
+        longTailPct: 4.8,
         saves: 34,
         shares: 24,
         follows: 0
@@ -1262,11 +1329,12 @@ const POSTS = [
       '7d': {
         views: 622,
         nonFollowerPct: 87.0,
+        watchTimeSec: 12,
         watchTimePct: 32.3,
         saves: 11,
-        saveRate: 1.77,
+        saveRate: 1.8,
         shares: 14,
-        shareRate: 2.25,
+        shareRate: 2.3,
         comments: 0,
         follows: 3,
         outcome: 'Winner',
@@ -1275,7 +1343,7 @@ const POSTS = [
       '30d': {
         views: 637,
         longTailViews: 15,
-        longTailPct: 2.35,
+        longTailPct: 2.4,
         saves: 11,
         shares: 14,
         follows: 3
@@ -1297,11 +1365,12 @@ const POSTS = [
       '7d': {
         views: 217,
         nonFollowerPct: 80.0,
+        watchTimeSec: 4.2,
         watchTimePct: 32.2,
         saves: 3,
-        saveRate: 1.38,
+        saveRate: 1.4,
         shares: 1,
-        shareRate: 0.46,
+        shareRate: 0.5,
         comments: 0,
         follows: 1,
         outcome: 'Learning',
@@ -1310,7 +1379,7 @@ const POSTS = [
       '30d': {
         views: 231,
         longTailViews: 14,
-        longTailPct: 6.06,
+        longTailPct: 6.1,
         saves: 3,
         shares: 1,
         follows: 1
@@ -1332,11 +1401,12 @@ const POSTS = [
       '7d': {
         views: 692,
         nonFollowerPct: 70.5,
+        watchTimeSec: 5,
         watchTimePct: 25.0,
         saves: 0,
         saveRate: 0.0,
         shares: 1,
-        shareRate: 0.14,
+        shareRate: 0.1,
         comments: 0,
         follows: 1,
         outcome: 'Learning',
@@ -1345,7 +1415,7 @@ const POSTS = [
       '30d': {
         views: 752,
         longTailViews: 60,
-        longTailPct: 7.98,
+        longTailPct: 8.0,
         saves: 0,
         shares: 1,
         follows: 1
@@ -1367,11 +1437,12 @@ const POSTS = [
       '7d': {
         views: 4262,
         nonFollowerPct: 84.4,
+        watchTimeSec: 9.5,
         watchTimePct: 95.0,
         saves: 57,
-        saveRate: 1.34,
+        saveRate: 1.3,
         shares: 19,
-        shareRate: 0.45,
+        shareRate: 0.5,
         comments: 2,
         follows: 3,
         outcome: 'Winner',
@@ -1380,7 +1451,7 @@ const POSTS = [
       '30d': {
         views: 4552,
         longTailViews: 290,
-        longTailPct: 6.37,
+        longTailPct: 6.4,
         saves: 63,
         shares: 20,
         follows: 4
@@ -1404,11 +1475,12 @@ const POSTS = [
       '7d': {
         views: 650,
         nonFollowerPct: 70.0,
+        watchTimeSec: 3,
         watchTimePct: 37.5,
         saves: 11,
-        saveRate: 1.69,
+        saveRate: 1.7,
         shares: 7,
-        shareRate: 1.08,
+        shareRate: 1.1,
         comments: 1,
         follows: 0,
         outcome: 'Learning',
@@ -1417,7 +1489,7 @@ const POSTS = [
       '30d': {
         views: 707,
         longTailViews: 57,
-        longTailPct: 8.06,
+        longTailPct: 8.1,
         saves: 11,
         shares: 7,
         follows: 0
@@ -1441,11 +1513,12 @@ const POSTS = [
       '7d': {
         views: 1546,
         nonFollowerPct: 73.3,
+        watchTimeSec: 5,
         watchTimePct: 50.0,
         saves: 38,
-        saveRate: 2.46,
+        saveRate: 2.5,
         shares: 8,
-        shareRate: 0.52,
+        shareRate: 0.5,
         comments: 0,
         follows: 1,
         outcome: 'Winner',
@@ -1454,7 +1527,7 @@ const POSTS = [
       '30d': {
         views: 1724,
         longTailViews: 178,
-        longTailPct: 10.32,
+        longTailPct: 10.3,
         saves: 41,
         shares: 8,
         follows: 1
@@ -1477,10 +1550,11 @@ const POSTS = [
     checks: {
       '7d': {
         views: 834,
-        nonFollowerPct: 73.85,
+        nonFollowerPct: 73.9,
+        watchTimeSec: 5,
         watchTimePct: 18.5,
         saves: 1,
-        saveRate: 0.12,
+        saveRate: 0.1,
         shares: 0,
         shareRate: 0.0,
         comments: 0,
@@ -1491,7 +1565,7 @@ const POSTS = [
       '30d': {
         views: 1043,
         longTailViews: 209,
-        longTailPct: 20.04,
+        longTailPct: 20.0,
         saves: 2,
         shares: 0,
         follows: 2
@@ -1513,6 +1587,7 @@ const POSTS = [
       '7d': {
         views: 149,
         nonFollowerPct: 92.0,
+        watchTimeSec: 3.6,
         watchTimePct: 13.8,
         saves: 0,
         saveRate: 0.0,
@@ -1526,7 +1601,7 @@ const POSTS = [
       '30d': {
         views: 167,
         longTailViews: 18,
-        longTailPct: 10.78,
+        longTailPct: 10.8,
         saves: 0,
         shares: 0,
         follows: 1
@@ -1548,11 +1623,12 @@ const POSTS = [
       '7d': {
         views: 650,
         nonFollowerPct: 76.0,
+        watchTimeSec: 8,
         watchTimePct: 15.7,
         saves: 1,
-        saveRate: 0.15,
+        saveRate: 0.2,
         shares: 1,
-        shareRate: 0.15,
+        shareRate: 0.2,
         comments: 0,
         follows: 0,
         outcome: 'Underperformed',
@@ -1561,7 +1637,7 @@ const POSTS = [
       '30d': {
         views: 909,
         longTailViews: 259,
-        longTailPct: 28.49,
+        longTailPct: 28.5,
         saves: 1,
         shares: 1,
         follows: 0
@@ -1585,9 +1661,10 @@ const POSTS = [
       '7d': {
         views: 888,
         nonFollowerPct: 80.0,
+        watchTimeSec: 7,
         watchTimePct: 9.0,
         saves: 2,
-        saveRate: 0.23,
+        saveRate: 0.2,
         shares: 0,
         shareRate: 0.0,
         comments: 0,
@@ -1598,7 +1675,7 @@ const POSTS = [
       '30d': {
         views: 1382,
         longTailViews: 494,
-        longTailPct: 35.75,
+        longTailPct: 35.8,
         saves: 2,
         shares: 1,
         follows: 0
@@ -1627,7 +1704,7 @@ const POSTS = [
         saves: 5,
         saveRate: 0.4,
         shares: 2,
-        shareRate: 0.16,
+        shareRate: 0.2,
         comments: 2,
         follows: 0,
         outcome: 'Learning',
@@ -1636,7 +1713,7 @@ const POSTS = [
       '30d': {
         views: 1291,
         longTailViews: 35,
-        longTailPct: 2.71,
+        longTailPct: 2.7,
         saves: 5,
         shares: 2,
         follows: 0
@@ -1658,9 +1735,10 @@ const POSTS = [
       '7d': {
         views: 295,
         nonFollowerPct: 92.0,
+        watchTimeSec: 6.9,
         watchTimePct: 22.3,
         saves: 1,
-        saveRate: 0.34,
+        saveRate: 0.3,
         shares: 0,
         shareRate: 0.0,
         comments: 0,
@@ -1671,7 +1749,7 @@ const POSTS = [
       '30d': {
         views: 307,
         longTailViews: 12,
-        longTailPct: 3.91,
+        longTailPct: 3.9,
         saves: 1,
         shares: 0,
         follows: 0
@@ -1694,9 +1772,9 @@ const POSTS = [
         views: 1420,
         nonFollowerPct: 110.0,
         saves: 12,
-        saveRate: 0.85,
+        saveRate: 0.9,
         shares: 3,
-        shareRate: 0.21,
+        shareRate: 0.2,
         comments: 0,
         follows: 0,
         outcome: 'Learning',
@@ -1705,7 +1783,7 @@ const POSTS = [
       '30d': {
         views: 1658,
         longTailViews: 238,
-        longTailPct: 14.35,
+        longTailPct: 14.4,
         saves: 16,
         shares: 4,
         follows: 0
@@ -1727,11 +1805,12 @@ const POSTS = [
       '7d': {
         views: 1571,
         nonFollowerPct: 82.0,
+        watchTimeSec: 3,
         watchTimePct: 30.0,
         saves: 24,
-        saveRate: 1.53,
+        saveRate: 1.5,
         shares: 12,
-        shareRate: 0.76,
+        shareRate: 0.8,
         comments: 0,
         follows: 0,
         outcome: 'Winner',
@@ -1740,7 +1819,7 @@ const POSTS = [
       '30d': {
         views: 1802,
         longTailViews: 231,
-        longTailPct: 12.82,
+        longTailPct: 12.8,
         saves: 25,
         shares: 14,
         follows: 1
@@ -1764,11 +1843,12 @@ const POSTS = [
       '7d': {
         views: 3316,
         nonFollowerPct: 92.9,
+        watchTimeSec: 4,
         watchTimePct: 12.5,
         saves: 8,
-        saveRate: 0.24,
+        saveRate: 0.2,
         shares: 1,
-        shareRate: 0.03,
+        shareRate: 0.0,
         comments: 12,
         follows: 3,
         outcome: 'Learning',
@@ -1777,7 +1857,7 @@ const POSTS = [
       '30d': {
         views: 3545,
         longTailViews: 229,
-        longTailPct: 6.46,
+        longTailPct: 6.5,
         saves: 9,
         shares: 1,
         follows: 3
@@ -1801,6 +1881,7 @@ const POSTS = [
       '7d': {
         views: 2213,
         nonFollowerPct: 90.0,
+        watchTimeSec: 6,
         watchTimePct: 8.5,
         outcome: 'Learning',
         nextAction: 'Iterate'
@@ -1808,7 +1889,7 @@ const POSTS = [
       '30d': {
         views: 2538,
         longTailViews: 325,
-        longTailPct: 12.81,
+        longTailPct: 12.8,
         saves: 16,
         shares: 11,
         follows: 3
@@ -1831,14 +1912,13 @@ const POSTS = [
     checks: {
       '7d': {
         views: 1162,
-        watchTimePct: 10.0,
         outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
         views: 1207,
         longTailViews: 45,
-        longTailPct: 3.73,
+        longTailPct: 3.7,
         saves: 23,
         shares: 1,
         follows: 0
@@ -1861,9 +1941,9 @@ const POSTS = [
         views: 748,
         nonFollowerPct: 67.0,
         saves: 13,
-        saveRate: 1.74,
+        saveRate: 1.7,
         shares: 10,
-        shareRate: 1.34,
+        shareRate: 1.3,
         comments: 6,
         follows: 0,
         outcome: 'Learning',
@@ -1872,7 +1952,7 @@ const POSTS = [
       '30d': {
         views: 891,
         longTailViews: 143,
-        longTailPct: 16.05,
+        longTailPct: 16.1,
         saves: 15,
         shares: 11,
         follows: 1
@@ -1896,11 +1976,12 @@ const POSTS = [
       '7d': {
         views: 1296,
         nonFollowerPct: 94.0,
+        watchTimeSec: 2,
         watchTimePct: 25.0,
         saves: 2,
-        saveRate: 0.15,
+        saveRate: 0.2,
         shares: 1,
-        shareRate: 0.08,
+        shareRate: 0.1,
         comments: 0,
         follows: 0,
         outcome: 'Learning',
@@ -1909,7 +1990,7 @@ const POSTS = [
       '30d': {
         views: 1576,
         longTailViews: 280,
-        longTailPct: 17.77,
+        longTailPct: 17.8,
         saves: 2,
         shares: 1,
         follows: 0
@@ -1933,11 +2014,12 @@ const POSTS = [
       '7d': {
         views: 4697,
         nonFollowerPct: 95.0,
+        watchTimeSec: 5,
         watchTimePct: 10.6,
         saves: 13,
-        saveRate: 0.28,
+        saveRate: 0.3,
         shares: 8,
-        shareRate: 0.17,
+        shareRate: 0.2,
         comments: 0,
         follows: 5,
         outcome: 'Learning',
@@ -1946,7 +2028,7 @@ const POSTS = [
       '30d': {
         views: 5125,
         longTailViews: 428,
-        longTailPct: 8.35,
+        longTailPct: 8.4,
         saves: 14,
         shares: 10,
         follows: 6
@@ -1969,6 +2051,7 @@ const POSTS = [
     checks: {
       '7d': {
         views: 842,
+        watchTimeSec: 3,
         watchTimePct: 6.5,
         outcome: 'Learning',
         nextAction: 'Iterate'
@@ -1976,7 +2059,7 @@ const POSTS = [
       '30d': {
         views: 887,
         longTailViews: 45,
-        longTailPct: 5.07,
+        longTailPct: 5.1,
         saves: 5,
         shares: 2,
         follows: 3
@@ -2001,7 +2084,7 @@ const POSTS = [
         saves: 5,
         saveRate: 0.6,
         shares: 6,
-        shareRate: 0.71,
+        shareRate: 0.7,
         comments: 0,
         follows: 1,
         outcome: 'Learning',
@@ -2010,7 +2093,7 @@ const POSTS = [
       '30d': {
         views: 955,
         longTailViews: 115,
-        longTailPct: 12.04,
+        longTailPct: 12.0,
         saves: 6,
         shares: 7,
         follows: 1
