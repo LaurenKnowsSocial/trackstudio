@@ -6,289 +6,233 @@
 <title>The Receipts</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#ffffff;--surface:#fafaf8;--surface2:#f4f2ee;--border:#e8e0d8;--border2:#ddd5cb;
-  --text:#1a1614;--text2:#7a7068;--muted:#b0a898;
-  --accent:#EB8201;--accent-dim:rgba(235,130,1,0.08);
-  --warn:#d4a000;--warn-dim:rgba(212,160,0,0.08);
-  --danger:#cc3333;--danger-dim:rgba(204,51,51,0.08);
-  --instagram:#e1306c;--tiktok:#0f9ea8;--orange:#EB8201;--cream:#FFF7CE;--repeat:#2a8a3e;--repeat-dim:rgba(42,138,62,0.08);--iterate:#c8a000;--iterate-dim:rgba(200,160,0,0.08);--drop:#cc3333;--drop-dim:rgba(204,51,51,0.08);
+:root{
+  --paper:#FBF8F3; --ink:#292420; --ink2:#5C544A; --muted:#8A8071;
+  --line:#E4DCCF; --line2:#CFC4B0; --card:#FFFDF8;
+  --accent:#D96F00; --accent-bright:#EB8201; --cream:#FFF4D6;
+  --good:#2A7A3B; --good-dim:rgba(42,122,59,.09);
+  --bad:#BA3A2A; --bad-dim:rgba(186,58,42,.08);
+  --warn:#8a6d00;
+  --instagram:#e1306c; --tiktok:#0f7e86;
+  --p1:#3E6FAE; --p2:#557A29; --p3:#9A5BA6; --p4:#B7860B;
+  --serif:'Fraunces',Georgia,serif;
+  --mono:'DM Mono',ui-monospace,'SF Mono',Menlo,monospace;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.55;}
+button{font-family:var(--mono);}
+a{color:inherit;}
 
-/* ── AUTH ── */
-#authScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-#authScreen::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(198,241,53,0.05) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
-.auth-box{width:420px;padding:48px;border:1px solid var(--border2);background:var(--surface);animation:fadeUp 0.5s ease both;}
-.auth-logo{font-family:'Fraunces',serif;font-size:26px;font-weight:300;margin-bottom:4px;letter-spacing:-0.5px;}
-.auth-logo em{font-style:italic;color:var(--orange);}
-.auth-tagline{font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:32px;}
-.auth-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
-.auth-input{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:11px 14px;outline:none;transition:border-color 0.15s;margin-bottom:14px;}
+/* ── auth ─────────────────────────────────── */
+#authScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.auth-box{width:360px;border:1px solid var(--ink);border-top-width:3px;background:var(--card);padding:38px 34px;}
+.auth-logo{font-family:var(--serif);font-weight:300;font-size:34px;}
+.auth-logo em{font-style:italic;color:var(--accent);}
+.auth-tagline{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin:6px 0 30px;}
+.auth-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.auth-input{width:100%;font-family:var(--mono);font-size:13px;padding:10px 12px;border:1px solid var(--line2);background:var(--paper);color:var(--ink);outline:none;}
 .auth-input:focus{border-color:var(--accent);}
-.auth-input::placeholder{color:var(--muted);}
-.auth-btn{width:100%;padding:12px;background:var(--orange);color:#fff;border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:opacity 0.15s;}
-.auth-btn:hover{opacity:0.88;}
-.auth-error{font-size:11px;color:var(--danger);margin-top:10px;display:none;}
-.auth-note{font-size:10px;color:var(--muted);margin-top:18px;line-height:1.7;text-align:center;}
+.auth-btn{width:100%;margin-top:12px;padding:11px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:none;cursor:pointer;}
+.auth-btn:hover{background:var(--accent);}
+.auth-error{display:none;color:var(--bad);font-size:11px;margin-top:12px;}
+.auth-note{font-size:9px;color:var(--muted);margin-top:22px;line-height:1.7;}
 
-/* ── APP ── */
-#appShell{display:none;height:100vh;flex-direction:column;}
-#appShell.visible{display:flex;}
+/* ── shell ────────────────────────────────── */
+#appShell{display:none;}
+#appShell.visible{display:block;}
+.topbar{display:flex;align-items:center;gap:18px;padding:14px 24px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.topbar-logo{font-family:var(--serif);font-weight:300;font-size:20px;white-space:nowrap;}
+.topbar-logo em{font-style:italic;color:var(--accent);}
+.client-pill{font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1px solid var(--line2);color:var(--ink2);padding:5px 14px;cursor:pointer;}
+.client-pill.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.client-pill:focus-visible,.nav-btn:focus-visible,.ctl-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.sync-dot-wrap{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:8px;}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--good);}
+.client-badge{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-right:8px;}
+.client-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);}
+.nav-btn{padding:6px 14px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line2);background:transparent;color:var(--ink2);cursor:pointer;}
+.nav-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.main{max-width:1040px;margin:0 auto;padding:34px 20px 90px;}
 
-/* TOPBAR */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--orange) !important;}
-.topbar-logo{font-family:'Fraunces',serif;font-size:17px;font-weight:300;letter-spacing:-0.3px;color:#fff;}
-.topbar-logo em{font-style:italic;color:var(--cream);}
-.topbar-center{display:flex;gap:3px;}
-.client-pill{padding:5px 13px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.3);background:transparent;color:rgba(255,255,255,0.7);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
-.client-pill.active{background:#fff;color:var(--orange);border-color:#fff;font-weight:500;}
-.client-pill:hover:not(.active){color:#fff;border-color:rgba(255,255,255,0.6);}
-.topbar-right{display:flex;align-items:center;gap:8px;}
-.sync-dot-wrap{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);}
-.sync-dot{width:5px;height:5px;border-radius:50%;background:#fff;animation:pulse 2.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.client-badge{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text2);padding:5px 12px;border:1px solid var(--border2);}
-.client-badge-dot{width:6px;height:6px;border-radius:50%;background:#fff;}
-.nav-btn{padding:5px 12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.3);background:transparent;color:rgba(255,255,255,0.7);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.12s;}
-.nav-btn.active{color:#fff;border-color:#fff;}
+/* ── statement controls ───────────────────── */
+.controls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:26px;font-size:10px;}
+.ctl-group{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.ctl-label{letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px;}
+.ctl-btn{font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:transparent;border:1px solid var(--line2);color:var(--ink2);padding:5px 12px;cursor:pointer;}
+.ctl-btn:hover{border-color:var(--ink2);}
+.ctl-btn.on{background:var(--accent);border-color:var(--accent);color:#fff;}
+.date-input{font-family:var(--mono);font-size:10px;border:1px solid var(--line2);background:var(--card);color:var(--ink);padding:4px 7px;outline:none;}
+.date-input:focus{border-color:var(--accent);}
 
-/* BODY */
-.body-layout{display:grid;grid-template-columns:258px 1fr;flex:1;overflow:hidden;}
-.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--surface2);}
-.sidebar-top{padding:18px 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0;}
-.baseline-header{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
-.bl-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);}
-.bl-row:last-child{border-bottom:none;}
-.bl-left{display:flex;align-items:center;gap:7px;}
-.pdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
-.pdot.ig{background:var(--instagram);}
-.pdot.tt{background:var(--tiktok);}
-.bl-name{font-size:10px;color:var(--text2);}
-.bl-val{font-family:'Fraunces',serif;font-size:16px;font-weight:600;}
-.post-scroll{flex:1;overflow-y:auto;padding:10px 8px;}
-.post-scroll::-webkit-scrollbar{width:3px;}
-.post-scroll::-webkit-scrollbar-thumb{background:var(--border2);}
-.ssl{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 8px;margin:6px 0 8px;}
-.prow{padding:10px;border:1px solid transparent;cursor:pointer;transition:all 0.1s;margin-bottom:3px;}
-.prow:hover{background:var(--surface2);border-color:var(--border);}
-.prow.active{background:var(--surface2);border-color:var(--border2);}
-.prow.active .prow-title{color:var(--text);}
-.prow-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:8px;}
-.prow-title{font-size:11px;color:var(--text2);line-height:1.35;flex:1;}
-.mini-pdot{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
-.prow-meta{display:flex;align-items:center;justify-content:space-between;}
-.prow-date{font-size:10px;color:var(--muted);}
+/* ── masthead / stamp ─────────────────────── */
+.masthead{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:22px 0 20px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+.wordmark{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink2);margin-bottom:10px;}
+.wordmark em{color:var(--accent);font-style:normal;}
+h1{font-family:var(--serif);font-weight:300;font-style:italic;font-size:52px;line-height:.95;margin:0;letter-spacing:-1px;text-wrap:balance;}
+.mast-meta{font-size:11px;color:var(--muted);margin-top:12px;}
+.mast-meta b{color:var(--ink2);font-weight:500;}
+.stamp{font-size:12px;letter-spacing:.18em;text-transform:uppercase;border:2px solid var(--accent);color:var(--accent);padding:10px 16px;transform:rotate(-3deg);font-weight:500;white-space:nowrap;}
+.stamp.good{border-color:var(--good);color:var(--good);}
+.stamp.bad{border-color:var(--bad);color:var(--bad);}
+.stamp small{display:block;font-size:9px;letter-spacing:.1em;font-weight:400;margin-top:2px;}
+
+/* ── tiles ────────────────────────────────── */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:32px 0;}
+.tile{background:var(--card);padding:20px 18px 16px;}
+.tile-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.tile-val{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1;font-variant-numeric:tabular-nums;}
+.tile-val.up{color:var(--good)} .tile-val.down{color:var(--bad)} .tile-val.accent{color:var(--accent)}
+.tile-sub{font-size:10px;color:var(--muted);margin-top:8px;}
+.tile-sub b{color:var(--good);font-weight:500;} .tile-sub b.neg{color:var(--bad);}
+
+/* ── sections ─────────────────────────────── */
+.sec{margin:44px 0;}
+.sec-hd{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:18px;}
+.sec-no{font-size:10px;color:var(--accent);letter-spacing:.1em;}
+.sec-title{font-family:var(--serif);font-style:italic;font-size:21px;}
+.sec-why{margin-left:auto;font-size:10px;color:var(--muted);text-align:right;}
+
+/* ── matrix ───────────────────────────────── */
+.matrix{display:grid;grid-template-columns:170px repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);overflow-x:auto;}
+.mx{background:var(--card);padding:14px;min-width:0;}
+.mx-hdr{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;background:var(--paper);}
+.mx-pillar{display:flex;align-items:center;gap:8px;font-size:12px;background:var(--paper);}
+.pdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.pdot.ig{background:var(--instagram);} .pdot.tt{background:var(--tiktok);}
+.mx-val{font-family:var(--serif);font-weight:600;font-size:23px;font-variant-numeric:tabular-nums;line-height:1;}
+.mx-sub{font-size:9px;color:var(--muted);margin-top:5px;}
+.mx-win{color:var(--good);font-weight:500;}
+.mx-empty{color:var(--line2);display:flex;align-items:center;font-size:14px;}
+
+/* ── timeline ─────────────────────────────── */
+.chart-wrap{border:1px solid var(--line);background:var(--card);padding:18px 10px 8px;overflow-x:auto;}
+svg{display:block;width:100%;height:auto;}
+.dot{transition:r .12s ease;cursor:pointer;}
+.dot:hover{r:9;}
+@media (prefers-reduced-motion: reduce){.dot{transition:none}}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:10px;color:var(--ink2);}
+.legend span{display:flex;align-items:center;gap:6px;}
+
+/* ── ledger ───────────────────────────────── */
+.ledger{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;min-width:780px;}
+th{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:500;padding:6px 10px;border-bottom:1px solid var(--ink);}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;}
+td{padding:12px 10px;border-bottom:1px dashed var(--line2);font-size:12px;vertical-align:baseline;}
+tr.rowlink{cursor:pointer;}
+tr.rowlink:hover td{background:var(--cream);}
+td.title{font-family:var(--serif);font-size:15px;}
+.plat-mini{font-size:9px;letter-spacing:.08em;color:var(--muted);}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--ink2);white-space:nowrap;}
+.tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;padding:3px 8px;white-space:nowrap;}
+.tag.win{color:var(--good);background:var(--good-dim);}
+.tag.learn{color:var(--ink2);background:var(--cream);}
+.tag.under{color:var(--bad);background:var(--bad-dim);}
+.tag.pending{color:var(--muted);border:1px dashed var(--line2);}
+.action{font-size:10px;color:var(--muted);}
+.action.repeat{color:var(--good);font-weight:500;}
+.action.drop{color:var(--bad);font-weight:500;}
+.empty-period{padding:30px;text-align:center;color:var(--muted);font-size:11px;border:1px dashed var(--line2);}
+
+/* ── total / share links ──────────────────── */
+.total{margin-top:40px;border-top:1px solid var(--ink);padding:20px 4px 34px;position:relative;}
+.total-row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;}
+.total-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
+.total-vals{font-family:var(--serif);font-weight:600;font-size:26px;font-variant-numeric:tabular-nums;}
+.total-vals small{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:400;margin:0 8px 0 4px;}
+.fineprint{font-size:9px;color:var(--muted);margin-top:14px;line-height:1.7;}
+.tear{position:absolute;left:0;right:0;bottom:-2px;height:12px;
+  background:linear-gradient(-45deg,transparent 8px,var(--paper) 0) 0 0/16px 16px repeat-x,
+             linear-gradient(45deg,transparent 8px,var(--paper) 0) 8px 0/16px 16px repeat-x;
+  filter:drop-shadow(0 1px 0 var(--line2));}
+.share-links{margin-top:34px;}
+.share-title{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.url-item{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);background:var(--card);padding:9px 12px;margin-bottom:6px;font-size:10px;}
+.url-str{color:var(--muted);word-break:break-all;}
+.url-cname{color:var(--ink2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;}
+.url-copy{font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line2);background:transparent;color:var(--ink2);padding:4px 10px;cursor:pointer;white-space:nowrap;}
+.url-copy:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ── posts view ───────────────────────────── */
+.posts-layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start;}
+@media (max-width:820px){.posts-layout{grid-template-columns:1fr;}}
+.plist-box{border:1px solid var(--line);background:var(--card);max-height:76vh;overflow-y:auto;}
+.pf-row{display:flex;gap:4px;padding:10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);}
+.prow{padding:10px 12px;border-bottom:1px dashed var(--line2);cursor:pointer;}
+.prow:hover{background:var(--cream);}
+.prow.active{background:var(--cream);border-left:3px solid var(--accent);padding-left:9px;}
+.prow-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline;}
+.prow-title{font-family:var(--serif);font-size:13px;line-height:1.3;}
+.mini-pdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.prow-meta{display:flex;justify-content:space-between;align-items:center;margin-top:5px;}
+.prow-date{font-size:9px;color:var(--muted);}
 .cdots{display:flex;gap:3px;}
-.cdot{width:15px;height:15px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--muted);}
-.cdot.done{border-color:var(--orange);color:var(--orange);background:var(--accent-dim);}
-.cdot.due{border-color:var(--warn);color:var(--warn);background:var(--warn-dim);animation:glow 2s infinite;}
-@keyframes glow{0%,100%{box-shadow:none;}50%{box-shadow:0 0 5px rgba(240,168,48,0.35);}}
+.cdot{font-size:8px;color:var(--muted);border:1px solid var(--line2);padding:1px 5px;}
+.cdot.done{background:var(--good-dim);color:var(--good);border-color:transparent;}
+.cdot.due{background:var(--cream);color:var(--warn);border-color:var(--warn);}
+.post-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:14px;}
+.post-hl{font-family:var(--serif);font-style:italic;font-weight:300;font-size:26px;line-height:1.15;letter-spacing:-.3px;}
+.post-link-out{font-size:10px;color:var(--muted);text-decoration:none;border:1px solid var(--line);padding:2px 8px;margin-left:10px;vertical-align:middle;white-space:nowrap;}
+.post-link-out:hover{color:var(--accent);border-color:var(--accent);}
+.meta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;}
+.meta-chip{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink2);}
+.otag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;border:2px solid var(--line2);color:var(--muted);padding:8px 12px;transform:rotate(-2deg);}
+.otag.winner{border-color:var(--good);color:var(--good);}
+.otag.underperformed{border-color:var(--bad);color:var(--bad);}
+.otag.learning{border-color:var(--warn);color:var(--warn);}
+.ctabs{display:flex;gap:5px;margin:16px 0;}
+.ctab{font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line2);background:transparent;color:var(--ink2);padding:6px 14px;cursor:pointer;}
+.ctab.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.ctab.locked{opacity:.4;cursor:default;}
+.ctab.due{border-color:var(--warn);color:var(--warn);}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:20px;}
+.mc{background:var(--card);padding:14px;}
+.mc-lbl{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.mc-val{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1;font-variant-numeric:tabular-nums;}
+.mc-val.g{color:var(--good);} .mc-val.r{color:var(--bad);} .mc-val.o{color:var(--accent);} .mc-val.n{color:var(--ink);}
+.mc-sub{font-size:9px;color:var(--muted);margin-top:5px;}
+.shd{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:6px;margin:22px 0 12px;}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:8px;}
+.tc{background:var(--card);padding:14px;}
+.tc-cat{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.tc-val{font-family:var(--serif);font-size:16px;font-weight:600;}
+.tc-val.g{color:var(--good);} .tc-val.r{color:var(--bad);} .tc-val.o{color:var(--accent);}
+.tc-desc{font-size:9px;color:var(--muted);margin-top:4px;}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:8px;}
+.rc{border:1px solid var(--line);background:var(--card);padding:12px;}
+.rc-top{display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px;}
+.rc-name{color:var(--ink2);}
+.rc-val.g{color:var(--good);} .rc-val.r{color:var(--bad);} .rc-val.o{color:var(--accent);}
+.bt{height:4px;background:var(--line);overflow:hidden;}
+.bf{height:100%;}
+.bf.g{background:var(--good);} .bf.r{background:var(--bad);} .bf.o{background:var(--accent);}
+.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.ac{border:1px solid var(--line);background:var(--card);padding:14px;}
+.ac.sel-repeat{border-color:var(--good);} .ac.sel-iterate{border-color:var(--warn);} .ac.sel-drop{border-color:var(--bad);}
+.ac-title{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin-bottom:10px;}
+.ac-title.g{color:var(--good);} .ac-title.o{color:var(--warn);} .ac-title.r{color:var(--bad);}
+.cl{display:flex;flex-direction:column;gap:5px;font-size:10px;}
+.cm{color:var(--ink2);} .cu{color:var(--line2);}
+.nb{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--card);padding:12px 14px;margin-bottom:10px;}
+.nb-lbl{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.nb-text{font-size:12px;line-height:1.7;color:var(--ink2);}
+.empty-state{padding:60px 20px;text-align:center;color:var(--muted);}
+.empty-state .ei{font-size:28px;margin-bottom:10px;}
+.empty-state .et{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink2);}
+.empty-state .es{font-size:10px;margin-top:8px;}
 
-/* PLATFORM FILTER */
-.pf-row{display:flex;gap:3px;margin-bottom:8px;padding:0 8px;}
-.pf-btn{padding:3px 9px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.1s;}
-.pf-btn.active.ig{border-color:var(--instagram);color:var(--instagram);}
-.pf-btn.active.tt{border-color:var(--tiktok);color:var(--tiktok);}
-.pf-btn.active.all{border-color:var(--orange);color:var(--orange);}
-
-/* MAIN */
-.main-content{overflow-y:auto;padding:26px 30px;background:var(--bg);}
-.main-content::-webkit-scrollbar{width:3px;}
-.main-content::-webkit-scrollbar-thumb{background:var(--border2);}
-.post-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);}
-.post-hl{font-family:'Fraunces',serif;font-size:27px;font-weight:300;line-height:1.1;margin-bottom:9px;letter-spacing:-0.5px;}
-.post-hl em{font-style:italic;color:var(--accent);}
-.meta-row{display:flex;gap:14px;}
-.meta-chip{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);}
-.otag{padding:7px 16px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;align-self:flex-start;flex-shrink:0;}
-.otag.winner{background:var(--repeat);color:#fff;}
-.otag.learning{background:var(--warn);color:var(--bg);}
-.otag.underperformed{background:var(--danger);color:#fff;}
-.otag.testing{background:var(--surface2);color:var(--muted);border:1px solid var(--border2);}
-.ctabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:22px;}
-.ctab{padding:8px 16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.12s;}
-.ctab.active{color:var(--orange);border-bottom-color:var(--orange);}
-.ctab:hover:not(.active):not(.locked){color:var(--text2);}
-.ctab.locked{color:var(--border2);cursor:default;}
-.ctab.due{color:var(--warn);}
-.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
-.mc{background:var(--surface);border:1px solid var(--border);padding:15px 13px;position:relative;overflow:hidden;animation:fadeUp 0.3s ease both;}
-.mc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--border);}
-.mc.pos::after{background:var(--accent);}
-.mc.neu::after{background:var(--warn);}
-.mc.neg::after{background:var(--danger);}
-.mc-lbl{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
-.mc-val{font-family:'Fraunces',serif;font-size:30px;font-weight:600;line-height:1;margin-bottom:4px;}
-.mc-val.g{color:var(--accent);}
-.mc-val.o{color:var(--warn);}
-.mc-val.r{color:var(--danger);}
-.mc-val.n{color:var(--text);}
-.mc-sub{font-size:10px;color:var(--muted);}
-.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
-.tc{background:var(--surface);border:1px solid var(--border);padding:13px;animation:fadeUp 0.3s ease both;}
-.tc-cat{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
-.tc-val{font-size:11px;font-weight:500;margin-bottom:3px;}
-.tc-val.g{color:var(--repeat);}
-.tc-val.o{color:var(--warn);}
-.tc-val.r{color:var(--danger);}
-.tc-desc{font-size:10px;color:var(--muted);line-height:1.5;}
-.shd{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
-.rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
-.rc{background:var(--surface);border:1px solid var(--border);padding:13px;}
-.rc-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
-.rc-name{font-size:10px;color:var(--text2);}
-.rc-val{font-size:15px;font-family:'Fraunces',serif;font-weight:600;}
-.rc-val.g{color:var(--accent);}
-.rc-val.o{color:var(--warn);}
-.rc-val.r{color:var(--danger);}
-.bt{height:2px;background:var(--border2);}
-.bf{height:100%;transition:width 0.7s cubic-bezier(0.16,1,0.3,1);}
-.bf.g{background:var(--repeat);}
-.bf.o{background:var(--warn);}
-.bf.r{background:var(--danger);}
-.agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
-.ac{background:var(--surface);border:2px solid var(--border);padding:16px;}
-.ac.sel-repeat{border-color:var(--repeat);background:var(--repeat-dim);}
-.ac.sel-iterate{border-color:var(--iterate);background:var(--iterate-dim);}
-.ac.sel-drop{border-color:var(--drop);background:var(--drop-dim);}
-.ac-title{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
-.ac-title.g{color:var(--repeat);}
-.ac-title.o{color:var(--iterate);}
-.ac-title.r{color:var(--drop);}
-.cl{font-size:10px;line-height:2;}
-.cm{color:var(--repeat);}
-.cu{color:var(--border2);}
-.nb{background:var(--surface);border:1px solid var(--border);padding:14px;margin-bottom:18px;}
-.nb textarea{width:100%;background:transparent;border:none;color:var(--text2);font-family:'DM Mono',monospace;font-size:12px;resize:none;outline:none;line-height:1.7;min-height:65px;}
-.nb textarea::placeholder{color:var(--muted);}
-.nb-lbl{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
-.nb-text{font-size:12px;color:var(--text2);line-height:1.7;}
-.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;color:var(--muted);gap:8px;text-align:center;}
-.ei{font-size:30px;opacity:0.35;margin-bottom:4px;}
-.et{font-size:13px;color:var(--text2);}
-.es{font-size:11px;max-width:260px;line-height:1.6;}
-.uh{font-family:'Fraunces',serif;font-size:24px;font-weight:300;margin-bottom:5px;}
-.uh em{font-style:italic;color:var(--accent);}
-.usub{font-size:11px;color:var(--muted);margin-bottom:24px;}
-.dl{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border);}
-.dr{display:flex;justify-content:space-between;align-items:center;padding:13px 15px;background:var(--surface);border:1px solid var(--border);margin-bottom:5px;cursor:pointer;transition:border-color 0.1s;}
-.dr:hover{border-color:var(--border2);}
-.dr-title{font-size:12px;margin-bottom:3px;}
-.dr-meta{font-size:10px;color:var(--muted);}
+/* ── upcoming ─────────────────────────────── */
+.dr{display:flex;justify-content:space-between;align-items:center;gap:14px;border:1px solid var(--line);background:var(--card);padding:14px 16px;margin-bottom:8px;cursor:pointer;}
+.dr:hover{background:var(--cream);}
+.dr-title{font-family:var(--serif);font-size:15px;}
+.dr-meta{font-size:9px;color:var(--muted);margin-top:3px;}
 .dr-right{text-align:right;}
-.dw{font-size:11px;font-weight:500;margin-bottom:2px;}
-.dw.today{color:var(--warn);}
-.dw.soon{color:var(--text2);}
-.dc{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
-
-/* ADMIN URL SECTION */
-.url-section{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);}
-.url-sec-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.url-item{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);margin-bottom:4px;}
-.url-cname{font-size:10px;color:var(--text2);margin-bottom:2px;}
-.url-str{font-size:9px;color:var(--muted);word-break:break-all;max-width:160px;}
-.url-copy{font-size:9px;color:var(--accent);cursor:pointer;background:none;border:1px solid var(--border);font-family:'DM Mono',monospace;padding:2px 7px;transition:all 0.1s;flex-shrink:0;margin-left:8px;}
-.url-copy:hover{background:var(--accent-dim);border-color:var(--accent);}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-.mc:nth-child(1){animation-delay:.04s;}.mc:nth-child(2){animation-delay:.08s;}.mc:nth-child(3){animation-delay:.12s;}.mc:nth-child(4){animation-delay:.16s;}
-
-/* INSIGHTS */
-
-.filter-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:20px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);}
-.filter-group{display:flex;align-items:center;gap:6px;}
-.filter-group-label{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);flex-shrink:0;}
-.filter-sep{width:1px;height:20px;background:var(--border2);}
-.ins-best-post{background:var(--surface);border:2px solid var(--orange);padding:20px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;}
-.ins-best-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
-.ins-best-title{font-family:'Fraunces',serif;font-size:20px;font-weight:300;font-style:italic;margin-bottom:8px;color:var(--text);}
-.ins-best-meta{font-size:10px;color:var(--muted);}
-.ins-best-stats{display:flex;gap:20px;}
-.ins-best-stat{text-align:center;}
-.ins-best-stat-val{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--orange);}
-.ins-best-stat-label{font-size:9px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
-.ins-health{display:flex;align-items:center;gap:12px;padding:14px 18px;margin-bottom:24px;border:1px solid var(--border);}
-.ins-health-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
-.ins-health-dot.green{background:var(--repeat);}
-.ins-health-dot.orange{background:var(--orange);}
-.ins-health-dot.red{background:var(--drop);}
-.ins-health-text{font-size:12px;color:var(--text);}
-.ins-health-sub{font-size:10px;color:var(--muted);}
-.ins-format-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
-.ins-format-card{background:var(--surface);border:1px solid var(--border);padding:14px;}
-.ins-format-name{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.ins-format-val{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--text);margin-bottom:2px;}
-.ins-format-sub{font-size:10px;color:var(--muted);}
-.ins-format-bar{height:3px;margin-top:10px;background:var(--border2);border-radius:2px;overflow:hidden;}
-.ins-format-bar-fill{height:100%;border-radius:2px;background:var(--orange);}
-/* Pillar × Format matrix */
-.pfm{display:grid;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
-.pfm>div{background:var(--bg);padding:10px 12px;min-width:0;}
-.pfm .pfm-hdr{background:var(--surface2);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;align-items:center;}
-.pfm .pfm-row{background:var(--surface);font-size:11px;font-weight:600;display:flex;align-items:center;}
-.pfm .pfm-cell-val{font-family:'Fraunces',serif;font-size:17px;line-height:1.1;}
-.pfm .pfm-cell-sub{font-size:9px;color:var(--muted);margin-top:2px;}
-.pfm .pfm-empty{color:var(--border2);font-size:12px;display:flex;align-items:center;}
-/* Due-today strip on insights */
-.due-strip{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;}
-.due-chip{font-size:10px;padding:4px 10px;border:1px solid var(--orange);color:var(--orange);border-radius:999px;cursor:pointer;background:var(--bg);font-family:'DM Mono',monospace;}
-.due-chip:hover{background:var(--cream);}
-.post-link-out{font-size:10px;color:var(--muted);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:2px 7px;margin-left:8px;vertical-align:middle;}
-.post-link-out:hover{color:var(--orange);border-color:var(--orange);}
-.ins-evergreen-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;}
-.ins-evergreen-row:last-child{border-bottom:none;}
-.ins-evergreen-title{color:var(--text);flex:1;margin-right:12px;}
-.ins-evergreen-views{color:var(--repeat);font-weight:500;white-space:nowrap;}
-.tf-row{display:flex;gap:3px;margin-bottom:0;}
-.tf-btn{padding:4px 10px;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.1s;}
-.tf-btn.active{background:var(--orange);color:#fff;border-color:var(--orange);}
-.tf-btn:hover:not(.active){color:var(--text);border-color:var(--text2);}
-.date-input{font-family:'DM Mono',monospace;font-size:10px;border:1px solid var(--border2);background:var(--surface2);color:var(--text);padding:3px 7px;outline:none;cursor:pointer;}
-.date-input:focus{border-color:var(--orange);}
-.ins-pf-btn{padding:4px 10px;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.1s;}
-.ins-pf-btn.active{background:var(--orange);color:#fff;border-color:var(--orange);}
-.ins-pf-btn.active.ig{background:var(--instagram);border-color:var(--instagram);}
-.ins-pf-btn.active.tt{background:var(--tiktok);border-color:var(--tiktok);}
-.ins-pf-btn:hover:not(.active){color:var(--text);border-color:var(--text2);}
-
-.ins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
-.ins-card{background:var(--surface);border:1px solid var(--border);padding:18px;animation:fadeUp 0.3s ease both;}
-.ins-card-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.ins-card-val{font-family:'Fraunces',serif;font-size:36px;font-weight:600;line-height:1;margin-bottom:4px;}
-.ins-card-sub{font-size:10px;color:var(--muted);}
-.ins-card-val.orange{color:var(--orange);}
-.ins-card-val.green{color:var(--repeat);}
-.ins-card-val.red{color:var(--drop);}
-.ins-section{margin-bottom:28px;}
-.ins-section-title{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.ins-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.ins-bar-label{font-size:11px;color:var(--text);width:260px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ins-bar-track{flex:1;height:6px;background:var(--border2);border-radius:3px;overflow:hidden;}
-.ins-bar-fill{height:100%;border-radius:3px;transition:width 0.7s cubic-bezier(0.16,1,0.3,1);}
-.ins-bar-fill.orange{background:var(--orange);}
-.ins-bar-fill.green{background:var(--repeat);}
-.ins-bar-fill.red{background:var(--drop);}
-.ins-bar-num{font-size:11px;color:var(--text2);width:60px;text-align:right;flex-shrink:0;}
-.ins-two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
-.ins-panel{background:var(--surface);border:1px solid var(--border);padding:18px;}
-.ins-panel-title{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
-.outcome-pill{display:inline-block;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;margin-right:4px;margin-bottom:4px;font-weight:500;}
-.outcome-pill.winner{background:var(--repeat-dim);color:var(--repeat);border:1px solid var(--repeat);}
-.outcome-pill.learning{background:var(--warn-dim);color:var(--warn);border:1px solid var(--warn);}
-.outcome-pill.underperformed{background:var(--danger-dim);color:var(--danger);border:1px solid var(--danger);}
-.outcome-pill.testing{background:var(--surface2);color:var(--muted);border:1px solid var(--border2);}
-.ins-insight-row{padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--text2);line-height:1.6;}
-.ins-insight-row:last-child{border-bottom:none;}
-.ins-insight-row strong{color:var(--text);font-weight:500;}
-.ins-donut-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.ins-donut-swatch{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.ins-donut-name{font-size:11px;color:var(--text2);flex:1;}
-.ins-donut-pct{font-size:11px;color:var(--text);font-weight:500;}
-.ins-highlight{background:var(--accent-dim);border:1px solid var(--orange);padding:14px;margin-bottom:10px;}
-.ins-highlight-title{font-size:10px;color:var(--orange);font-weight:500;margin-bottom:4px;}
-.ins-highlight-body{font-size:11px;color:var(--text2);line-height:1.6;}
+.dw{font-size:10px;letter-spacing:.1em;text-transform:uppercase;}
+.dw.today{color:var(--bad);font-weight:500;}
+.dw.soon{color:var(--muted);}
+.dc{font-size:9px;color:var(--muted);margin-top:2px;}
 </style>
 </head>
 <body>
@@ -297,7 +241,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 <div id="authScreen">
   <div class="auth-box">
     <div class="auth-logo">the <em>receipts</em></div>
-    <div class="auth-tagline">Social Analytics</div>
+    <div class="auth-tagline">Weekly statement · social analytics</div>
     <div class="auth-label">Access key</div>
     <input class="auth-input" id="keyInput" type="password" placeholder="Enter your access key…" onkeydown="if(event.key==='Enter')login()"/>
     <button class="auth-btn" onclick="login()">Enter →</button>
@@ -310,33 +254,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Mon
 <div id="appShell">
   <div class="topbar">
     <div class="topbar-logo">the <em>receipts</em></div>
-    <div class="topbar-center" id="clientTabs"></div>
+    <div id="clientTabs" style="display:flex;gap:5px;"></div>
     <div class="topbar-right">
       <div class="sync-dot-wrap"><div class="sync-dot"></div><span>synced</span></div>
       <div id="clientBadge" class="client-badge" style="display:none"><div class="client-badge-dot"></div><span id="clientBadgeLabel"></span></div>
-      <button class="nav-btn active" id="btnPosts" onclick="setView('posts')">Posts</button>
+      <button class="nav-btn" id="btnStatement" onclick="setView('statement')">Statement</button>
+      <button class="nav-btn" id="btnPosts" onclick="setView('posts')">Posts</button>
       <button class="nav-btn" id="btnUpcoming" onclick="setView('upcoming')">Upcoming</button>
-      <button class="nav-btn" id="btnInsights" onclick="setView('insights')">Insights</button>
     </div>
   </div>
-  <div class="body-layout">
-    <div class="sidebar">
-      <div class="sidebar-top" id="sidebarTop">
-        <div class="baseline-header">Baselines</div>
-        <div id="baselineBlock"></div>
-      </div>
-      <div class="post-scroll">
-        <div class="pf-row">
-          <button class="pf-btn active all" onclick="filterPlat('all',this)">All</button>
-          <button class="pf-btn ig" onclick="filterPlat('ig',this)">IG</button>
-          <button class="pf-btn tt" onclick="filterPlat('tt',this)">TT</button>
-        </div>
-        <div class="ssl">Posts</div>
-        <div id="postList"></div>
-      </div>
-    </div>
-    <div class="main-content" id="mainContent"></div>
-  </div>
+  <div class="main" id="mainContent"></div>
 </div>
 
 <script>
@@ -351,20 +278,12 @@ const ACCESS_KEYS = {
   'btc-view-2026':    'BTC'
 };
 
-// ══════════════════════════════════════════════════════
-// CLIENT CONFIG
-// ══════════════════════════════════════════════════════
 // Generated by sheet_to_dashboard.py from ~/.claude/social-clients.json —
 // names, per-platform baselines, and pillar maps. Edit the json, not this.
 const CLIENTS = {
   CEA: { name:'CEA', baselines:{ ig:1144, tt:264 }, pillars:{ P1:'Demystify', P2:'Kill the Myth', P3:'Validate and Move', P4:'Ethical AI' } },
   BTC: { name:'Brooklyn Teacup', baselines:{ ig:11163 }, pillars:{ P1:'↔ Process', P2:'🍽️ Use', P3:'🛟 Preservation', P4:'🧠 Education' } }
 };
-
-// Pillar display name for a post (per-client pillar maps)
-function pillarName(client, pid) {
-  return (CLIENTS[client]?.pillars || {})[pid] || pid;
-}
 
 // ══════════════════════════════════════════════════════
 // POSTS — Claude's /update-dashboard rewrites this block
@@ -2411,672 +2330,437 @@ const POSTS = [
 // ══════════════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════════════
-let S = { role:null, activeClient:null, activePost:null, activeCheck:'7d', activeView:'insights', platFilter:'all', timeframe:'all', postType:'all', outcomeFilter:'all', dateFrom:'', dateTo:'' };
+let S = { role:null, activeClient:null, activeView:'statement', activePost:null, activeCheck:'7d',
+          plat:'all', periodDays:null, dateFrom:'', dateTo:'', postPlat:'all' };
+const PERIODS = [['30d',30],['60d',60],['90d',90],['All',null]];
+const FORMATS = ['Video','Carousel','Static'];
+const PCOLORS = {P1:'var(--p1)',P2:'var(--p2)',P3:'var(--p3)',P4:'var(--p4)'};
+const fmtN = n => (n==null?'—':n.toLocaleString('en-US'));
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const platName = p => p==='ig' ? 'Instagram' : 'TikTok';
 
 // ══════════════════════════════════════════════════════
-// INIT — check URL key param first
+// INIT / AUTH
 // ══════════════════════════════════════════════════════
-function init() {
-  const params = new URLSearchParams(window.location.search);
-  const k = params.get('key');
+function init(){
+  const k = new URLSearchParams(window.location.search).get('key');
   if (k && ACCESS_KEYS[k]) startSession(ACCESS_KEYS[k]);
 }
-
-function login() {
+function login(){
   const k = document.getElementById('keyInput').value.trim();
-  if (ACCESS_KEYS[k]) { startSession(ACCESS_KEYS[k]); }
-  else {
-    document.getElementById('authError').style.display = 'block';
-    document.getElementById('keyInput').style.borderColor = 'var(--danger)';
-  }
+  if (ACCESS_KEYS[k]) startSession(ACCESS_KEYS[k]);
+  else { document.getElementById('authError').style.display='block';
+         document.getElementById('keyInput').style.borderColor='var(--bad)'; }
 }
-
-function startSession(role) {
+function startSession(role){
   S.role = role;
-  const isAdmin = role === 'ADMIN';
+  const isAdmin = role==='ADMIN';
   const clients = isAdmin ? Object.keys(CLIENTS) : [role];
   S.activeClient = clients[0];
-  const first = POSTS.find(p => p.client === S.activeClient);
+  const first = POSTS.find(p=>p.client===S.activeClient);
   S.activePost = first?.id || null;
-  if (first) S.activeCheck = ['7d','24h','30d'].find(c => first.checks[c]) || '7d';
-  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('authScreen').style.display='none';
   document.getElementById('appShell').classList.add('visible');
-  if (!isAdmin) {
-    document.getElementById('clientBadge').style.display = 'flex';
+  if (!isAdmin){
+    document.getElementById('clientBadge').style.display='flex';
     document.getElementById('clientBadgeLabel').textContent = CLIENTS[role]?.name || role;
   }
-  syncNavButtons();
-  renderAll(isAdmin, clients);
+  renderAll();
 }
-
-function syncNavButtons() {
-  document.getElementById('btnPosts').classList.toggle('active', S.activeView==='posts');
-  document.getElementById('btnUpcoming').classList.toggle('active', S.activeView==='upcoming');
-  document.getElementById('btnInsights').classList.toggle('active', S.activeView==='insights');
-}
-
-// ══════════════════════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════════════════════
-function renderAll(isAdmin, clients) {
-  isAdmin = isAdmin ?? S.role === 'ADMIN';
-  clients = clients ?? (isAdmin ? Object.keys(CLIENTS) : [S.role]);
-  renderClientTabs(isAdmin, clients);
-  renderBaselines();
-  renderPostList();
-  renderMain();
-  if (isAdmin && !document.getElementById('urlSection')) renderAdminUrls();
-}
-
-function renderClientTabs(isAdmin, clients) {
+function renderAll(){
+  const isAdmin = S.role==='ADMIN';
   const el = document.getElementById('clientTabs');
-  if (!isAdmin) { el.innerHTML = ''; return; }
-  el.innerHTML = clients.map(c =>
-    `<button class="client-pill ${c===S.activeClient?'active':''}" onclick="setClient('${c}')">${c}</button>`
-  ).join('');
+  el.innerHTML = isAdmin ? Object.keys(CLIENTS).map(c =>
+    `<button class="client-pill ${c===S.activeClient?'active':''}" onclick="setClient('${c}')">${c}</button>`).join('') : '';
+  syncNav();
+  renderMain();
+}
+function syncNav(){
+  for (const v of ['Statement','Posts','Upcoming'])
+    document.getElementById('btn'+v).classList.toggle('active', S.activeView===v.toLowerCase());
+}
+function setClient(c){
+  S.activeClient = c;
+  S.plat='all'; S.postPlat='all';
+  const first = POSTS.find(p=>p.client===c);
+  S.activePost = first?.id || null;
+  S.activeView = 'statement';
+  renderAll();
+}
+function setView(v){ S.activeView=v; syncNav(); renderMain(); }
+function renderMain(){
+  if (S.activeView==='posts') return renderPostsView();
+  if (S.activeView==='upcoming') return renderUpcoming();
+  renderStatement();
 }
 
-function renderBaselines() {
+// ══════════════════════════════════════════════════════
+// STATEMENT (landing)
+// ══════════════════════════════════════════════════════
+function stmtPosts(){
+  let ps = POSTS.filter(p=>p.client===S.activeClient && (S.plat==='all'||p.platform===S.plat));
+  let from=null, to=null;
+  if (S.dateFrom) from = new Date(S.dateFrom);
+  else if (S.periodDays){ from = new Date(); from.setDate(from.getDate()-S.periodDays); }
+  if (S.dateTo) to = new Date(S.dateTo);
+  if (from||to) ps = ps.filter(p=>{ const d=new Date(p.date);
+    if (isNaN(d)) return true; if (from&&d<from) return false; if (to&&d>to) return false; return true; });
+  return ps.sort((a,b)=> a.date<b.date?1:-1);
+}
+function setPeriod(d){ S.periodDays=d; S.dateFrom=''; S.dateTo=''; renderStatement(); }
+function setDateRange(f,v){ if(f==='from')S.dateFrom=v; else S.dateTo=v; S.periodDays=null; renderStatement(); }
+function setPlat(p){ S.plat=p; renderStatement(); }
+
+function renderStatement(){
   const c = CLIENTS[S.activeClient];
-  // Only the platforms this client actually tracks (BTC is IG-only)
-  const rows = [['ig','Instagram'],['tt','TikTok']].filter(([k]) => c.baselines[k] != null)
-    .map(([k,label]) => `<div class="bl-row"><div class="bl-left"><div class="pdot ${k}"></div><div class="bl-name">${label}</div></div><div class="bl-val">${c.baselines[k].toLocaleString()}</div></div>`);
-  document.getElementById('baselineBlock').innerHTML = rows.join('');
-  // Hide the sidebar TT filter for single-platform clients
-  const ttBtn = document.querySelector('.pf-row .pf-btn.tt');
-  if (ttBtn) ttBtn.style.display = c.baselines.tt != null ? '' : 'none';
+  const plats = Object.keys(c.baselines);
+  if (S.plat!=='all' && !plats.includes(S.plat)) S.plat='all';
+  const ps = stmtPosts();
+  const live = ps.filter(p=>p.checks['7d']);
+  const pending = ps.filter(p=>!p.checks['7d']);
+  const bl = c.baselines[S.plat==='all' ? plats[0] : S.plat];
+
+  const winners = live.filter(p=>p.checks['7d'].outcome==='Winner');
+  const winRate = live.length ? Math.round(winners.length/live.length*100) : 0;
+  const avgV = live.length ? Math.round(live.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/live.length) : 0;
+  const saves = live.reduce((s,p)=>s+(p.checks['7d'].saves||0),0);
+  const follows = live.reduce((s,p)=>s+(p.checks['7d'].follows||0),0);
+  const views = live.reduce((s,p)=>s+(p.checks['7d'].views||0),0);
+  const delta = bl ? Math.round((avgV-bl)/bl*100) : 0;
+
+  let sTxt='Building momentum', sCls='', sSub=`avg views ${delta>=0?'above':'below'} baseline · win rate ${winRate}%`;
+  if (!live.length){ sTxt='Awaiting data'; sSub='no completed 7d checks in this period'; }
+  else if (winRate>=40 && avgV>=bl){ sTxt='In the green'; sCls='good'; }
+  else if (winRate<20 && avgV<bl*0.7){ sTxt='Needs attention'; sCls='bad'; }
+
+  const dates = ps.map(p=>p.date).sort();
+  const range = dates.length ? `${dates[0]} — ${dates[dates.length-1]}` : 'no posts in period';
+  const platLabel = S.plat==='all' ? plats.map(p=>p.toUpperCase()).join(' + ') : S.plat.toUpperCase();
+
+  document.getElementById('mainContent').innerHTML = `
+    <div class="controls">
+      ${plats.length>1 ? `<div class="ctl-group"><span class="ctl-label">Platform</span>
+        ${['all',...plats].map(p=>`<button class="ctl-btn ${p===S.plat?'on':''}" onclick="setPlat('${p}')">${p==='all'?'All':p.toUpperCase()}</button>`).join('')}</div>` : ''}
+      <div class="ctl-group"><span class="ctl-label">Period</span>
+        ${PERIODS.map(([lbl,d])=>`<button class="ctl-btn ${d===S.periodDays&&!S.dateFrom&&!S.dateTo?'on':''}" onclick="setPeriod(${d})">${lbl}</button>`).join('')}</div>
+      <div class="ctl-group"><span class="ctl-label">Custom</span>
+        <input type="date" class="date-input" value="${S.dateFrom}" onchange="setDateRange('from',this.value)">
+        <span style="color:var(--muted)">→</span>
+        <input type="date" class="date-input" value="${S.dateTo}" onchange="setDateRange('to',this.value)"></div>
+    </div>
+
+    <header class="masthead">
+      <div>
+        <div class="wordmark">the <em>receipts</em> · statement</div>
+        <h1>${esc(c.name)}</h1>
+        <div class="mast-meta">${platLabel} · ${range} · baseline <b>${fmtN(bl)}</b> views (rolling median, auto)</div>
+      </div>
+      <div class="stamp ${sCls}">${sTxt}<small>${sSub}</small></div>
+    </header>
+
+    <div class="tiles">
+      <div class="tile"><div class="tile-label">Win rate</div><div class="tile-val">${winRate}%</div><div class="tile-sub">${winners.length} of ${live.length} posts beat baseline</div></div>
+      <div class="tile"><div class="tile-label">Avg 7d views</div><div class="tile-val ${delta>=0?'up':'down'}">${fmtN(avgV)}</div><div class="tile-sub"><b class="${delta<0?'neg':''}">${delta>=0?'+':''}${delta}%</b> vs baseline ${fmtN(bl)}</div></div>
+      <div class="tile"><div class="tile-label">Saves</div><div class="tile-val accent">${fmtN(saves)}</div><div class="tile-sub">content people kept</div></div>
+      <div class="tile"><div class="tile-label">New follows</div><div class="tile-val accent">${fmtN(follows)}</div><div class="tile-sub">attributed to tracked posts</div></div>
+    </div>
+
+    <section class="sec">
+      <div class="sec-hd"><span class="sec-no">§1</span><span class="sec-title">Pillar × Format</span>
+        <span class="sec-why">avg 7d views · the "what should we make more of" table</span></div>
+      <div id="matrix"></div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-hd"><span class="sec-no">§2</span><span class="sec-title">The period, on one line</span>
+        <span class="sec-why">every post as a dot · height = 7d views · color = pillar · click a dot to open the post</span></div>
+      <div class="chart-wrap"><div id="chart"></div></div>
+      <div class="legend" id="legend"></div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-hd"><span class="sec-no">§3</span><span class="sec-title">The ledger</span>
+        <span class="sec-why">every post in the period, newest first · click a row for the full breakdown</span></div>
+      <div class="ledger" id="ledger"></div>
+    </section>
+
+    <div class="total">
+      <div class="total-row">
+        <span class="total-label">Total · ${S.dateFrom||S.dateTo ? 'custom range' : S.periodDays ? 'last '+S.periodDays+' days' : 'all time'}</span>
+        <span class="total-vals">${fmtN(views)}<small>views</small> ${fmtN(saves)}<small>saves</small> ${fmtN(follows)}<small>follows</small></span>
+      </div>
+      <div class="fineprint">
+        Baseline is the rolling median of the last 10 posts and updates itself · outcome tags recompute automatically when the baseline moves · blank means "not measured," never zero.
+      </div>
+      <div class="tear"></div>
+    </div>
+    <div id="adminLinks"></div>`;
+
+  renderMatrix(c, live);
+  renderChart(ps, live, pending, bl);
+  renderLedger(ps, plats);
+  renderAdminLinks();
 }
 
-function getFP() {
-  return POSTS.filter(p => p.client===S.activeClient && (S.platFilter==='all'||p.platform===S.platFilter));
+function renderMatrix(c, live){
+  const pillars = Object.entries(c.pillars||{});
+  const withPillar = live.filter(p=>p.pillar);
+  const el = document.getElementById('matrix');
+  if (!withPillar.length){ el.innerHTML = '<div class="empty-period">no pillar-tagged posts in this period</div>'; return; }
+  let maxV=1; const rows=[];
+  for (const [pid,name] of pillars){
+    const cells = FORMATS.map(f=>{
+      const pp = withPillar.filter(p=>p.pillar===pid && (p.type||'Video')===f);
+      if (!pp.length) return null;
+      const avg = Math.round(pp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/pp.length);
+      maxV = Math.max(maxV, avg);
+      return {avg, n:pp.length, win:Math.round(pp.filter(p=>p.checks['7d'].outcome==='Winner').length/pp.length*100)};
+    });
+    if (cells.some(Boolean)) rows.push({pid,name,cells});
+  }
+  el.innerHTML = `<div class="matrix">
+    <div class="mx mx-hdr"></div>${FORMATS.map(f=>`<div class="mx mx-hdr">${f}</div>`).join('')}
+    ${rows.map(r=>`<div class="mx mx-pillar"><span class="pdot" style="background:${PCOLORS[r.pid]}"></span>${esc(r.name)}</div>
+      ${r.cells.map(cell=>cell?`<div class="mx" style="background:color-mix(in srgb,var(--accent-bright) ${(4+14*cell.avg/maxV).toFixed(1)}%,var(--card))">
+        <div class="mx-val">${fmtN(cell.avg)}</div><div class="mx-sub">${cell.n} post${cell.n!==1?'s':''} · ${cell.win>0?`<span class="mx-win">win ${cell.win}%</span>`:'win 0%'}</div>
+      </div>`:'<div class="mx mx-empty">—</div>').join('')}`).join('')}
+  </div>`;
 }
 
-function renderPostList() {
-  const posts = getFP();
-  const el = document.getElementById('postList');
-  if (!posts.length) { el.innerHTML = '<div style="padding:10px 8px;font-size:10px;color:var(--muted)">No posts found</div>'; return; }
-  el.innerHTML = posts.map(p => {
-    // v2 posts (lean schema) never have a 24h check — hide its dot for them
-    const dots = ['24h','7d','30d'].filter(k => k!=='24h' || p.checks[k] || p.dueChecks?.[k]).map(k => {
-      const done = !!p.checks[k], due = !done && p.dueChecks?.[k];
+function renderChart(ps, live, pending, bl){
+  const el = document.getElementById('chart');
+  if (!ps.length){ el.innerHTML = '<div class="empty-period">no posts in this period</div>'; document.getElementById('legend').innerHTML=''; return; }
+  const W=940,H=290,L=64,R=920,T=30,B=260;
+  const ds = ps.map(p=>new Date(p.date).getTime());
+  let t0=Math.min(...ds), t1=Math.max(...ds);
+  if (t0===t1){ t0-=86400e3; t1+=86400e3; }
+  const maxRaw = Math.max(...live.map(p=>p.checks['7d'].views||0), bl, 1);
+  const step = Math.pow(10, Math.floor(Math.log10(maxRaw)));
+  const yMax = Math.ceil(maxRaw*1.05/step)*step;
+  const X = t => L + (t-t0)/(t1-t0)*(R-L);
+  const Y = v => B - v/yMax*(B-T);
+  const gl=[]; for(let i=0;i<=4;i++){const y=T+(B-T)*i/4, v=yMax*(4-i)/4;
+    gl.push(`<line x1="${L}" y1="${y}" x2="${R}" y2="${y}" stroke="var(--line)"/><text x="${L-8}" y="${y+3}" fill="var(--muted)" font-size="10" text-anchor="end">${v>=1000?(v/1000)+'k':v}</text>`);}
+  const dots = live.map(p=>{const c7=p.checks['7d'];
+    return `<circle class="dot" onclick="selectPost(${p.id})" cx="${X(new Date(p.date).getTime()).toFixed(1)}" cy="${Y(c7.views||0).toFixed(1)}" r="7" fill="${PCOLORS[p.pillar]||'var(--muted)'}" stroke="var(--card)" stroke-width="2"><title>${esc(p.title)} · ${p.date} · ${p.type||''} · ${fmtN(c7.views||0)} views · ${c7.outcome||''}</title></circle>`;}).join('');
+  const pend = pending.map(p=>`<circle class="dot" onclick="selectPost(${p.id})" cx="${X(new Date(p.date).getTime()).toFixed(1)}" cy="${B}" r="6" fill="var(--paper)" stroke="var(--muted)" stroke-dasharray="2 2" stroke-width="1.5"><title>${esc(p.title)} · ${p.date} · awaiting 7d check</title></circle>`).join('');
+  const top2 = [...live].sort((a,b)=>(b.checks['7d'].views||0)-(a.checks['7d'].views||0)).slice(0,2);
+  const labels = top2.map(p=>{const x=X(new Date(p.date).getTime()), y=Y(p.checks['7d'].views||0);
+    const short = p.title.length>22 ? p.title.slice(0,22)+'…' : p.title;
+    const anchor = x>R-220 ? 'end' : 'start'; const dx = anchor==='end' ? -12 : 12;
+    return `<text x="${(x+dx).toFixed(1)}" y="${(y-4).toFixed(1)}" fill="var(--ink2)" font-size="10.5">${anchor==='end'?`<tspan text-anchor="end">${esc(short)} · ${((p.checks['7d'].views||0)/1000).toFixed(1)}k</tspan>`:`${esc(short)} · ${((p.checks['7d'].views||0)/1000).toFixed(1)}k`}</text>`;}).join('');
+  const midT=(t0+t1)/2;
+  const dt = t => new Date(t).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="7-day views per post over time, colored by pillar">
+    <g font-family="'DM Mono',monospace">${gl.join('')}
+    <line x1="${L}" y1="${Y(bl).toFixed(1)}" x2="${R}" y2="${Y(bl).toFixed(1)}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 5"/>
+    <text x="${R}" y="${(Y(bl)-6).toFixed(1)}" fill="var(--accent)" font-size="10" text-anchor="end">baseline ${fmtN(bl)}</text>
+    ${dots}${pend}${labels}
+    <g fill="var(--muted)" font-size="10">
+      <text x="${L}" y="282" text-anchor="middle">${dt(t0)}</text>
+      <text x="${X(midT).toFixed(1)}" y="282" text-anchor="middle">${dt(midT)}</text>
+      <text x="${R}" y="282" text-anchor="end">${dt(t1)}</text>
+    </g></g></svg>`;
+  const c = CLIENTS[S.activeClient];
+  document.getElementById('legend').innerHTML = Object.entries(c.pillars||{}).map(([pid,name])=>
+    `<span><span class="pdot" style="background:${PCOLORS[pid]}"></span>${esc(name)}</span>`).join('') +
+    (pending.length?`<span><span class="pdot" style="background:var(--paper);border:1.5px dashed var(--muted)"></span>awaiting 7d check</span>`:'');
+}
+
+function renderLedger(ps, plats){
+  const el = document.getElementById('ledger');
+  if (!ps.length){ el.innerHTML = '<div class="empty-period">no posts in this period</div>'; return; }
+  const platCol = plats.length>1 && S.plat==='all';
+  const c = CLIENTS[S.activeClient];
+  const rows = ps.map(p=>{
+    const c7=p.checks['7d']||{};
+    const d = p.date.slice(5).replace('-','·');
+    const pillar = p.pillar ? `<span class="pill"><span class="pdot" style="background:${PCOLORS[p.pillar]}"></span>${esc(((c.pillars||{})[p.pillar]||p.pillar).replace(/^[^ ]+ /,''))}</span>` : '—';
+    const ret = c7.watchTimePct!=null ? c7.watchTimePct+'% watch' : c7.revisitRatio!=null ? c7.revisitRatio+'× revisit' : '—';
+    const out = !p.checks['7d'] ? `<span class="tag pending">due ${(p.dueChecks&&p.dueChecks['7d'])||'soon'}</span>`
+      : c7.outcome==='Winner' ? '<span class="tag win">Winner</span>'
+      : c7.outcome==='Underperformed' ? '<span class="tag under">Under</span>'
+      : c7.outcome ? '<span class="tag learn">'+esc(c7.outcome)+'</span>' : '—';
+    const act = c7.nextAction==='Repeat' ? '<span class="action repeat">Repeat ↻</span>'
+      : c7.nextAction==='Drop' ? '<span class="action drop">Drop ✕</span>'
+      : c7.nextAction ? '<span class="action">'+esc(c7.nextAction)+'</span>' : '<span class="action">—</span>';
+    return `<tr class="rowlink" onclick="selectPost(${p.id})"><td>${d}</td>${platCol?`<td class="plat-mini">${p.platform.toUpperCase()}</td>`:''}
+      <td class="title">${esc(p.title)}</td><td>${pillar}</td><td>${p.type||'—'}</td>
+      <td class="num">${c7.views!=null?fmtN(c7.views):'—'}</td>
+      <td class="num">${c7.saveRate!=null?c7.saveRate+'%':'—'}</td>
+      <td class="num">${ret}</td><td>${out}</td><td>${act}</td></tr>`;
+  }).join('');
+  el.innerHTML = `<table>
+    <thead><tr><th>Date</th>${platCol?'<th>Plat</th>':''}<th>Post</th><th>Pillar</th><th>Type</th>
+    <th class="num">7d views</th><th class="num">Save rate</th><th class="num">Retention</th><th>Outcome</th><th>Action</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
+
+function renderAdminLinks(){
+  const el = document.getElementById('adminLinks');
+  if (S.role!=='ADMIN' || !el) return;
+  const base = window.location.origin + window.location.pathname;
+  el.innerHTML = `<div class="share-links"><div class="share-title">Client share links</div>
+    ${Object.entries(ACCESS_KEYS).filter(([,v])=>v!=='ADMIN').map(([key,client])=>`
+      <div class="url-item"><div><div class="url-cname">${client}</div><div class="url-str">${base}?key=${key}</div></div>
+      <button class="url-copy" onclick="copyUrl('${base}?key=${key}',this)">Copy</button></div>`).join('')}
+  </div>`;
+}
+function copyUrl(url,btn){ navigator.clipboard.writeText(url).then(()=>{ btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy',2000); }); }
+
+// ══════════════════════════════════════════════════════
+// POSTS VIEW (detail)
+// ══════════════════════════════════════════════════════
+function selectPost(id){
+  S.activePost = id;
+  S.activeView = 'posts';
+  const post = POSTS.find(p=>p.id===id);
+  S.activeCheck = ['7d','30d'].find(c=>post?.checks[c]) || '7d';
+  syncNav(); renderMain();
+}
+function setCheck(c){ S.activeCheck=c; renderMain(); }
+function setPostPlat(p){ S.postPlat=p; renderMain(); }
+
+function renderPostsView(){
+  const c = CLIENTS[S.activeClient];
+  const plats = Object.keys(c.baselines);
+  const posts = POSTS.filter(p=>p.client===S.activeClient && (S.postPlat==='all'||p.platform===S.postPlat));
+  const post = POSTS.find(p=>p.id===S.activePost && p.client===S.activeClient) || posts[0];
+  if (post && post.id!==S.activePost){ S.activePost=post.id; S.activeCheck=['7d','30d'].find(k=>post.checks[k])||'7d'; }
+
+  const list = posts.length ? posts.map(p=>{
+    const dots = ['7d','30d'].map(k=>{
+      const done=!!p.checks[k], due=!done&&p.dueChecks?.[k];
       return `<div class="cdot ${done?'done':due?'due':''}">${k.replace('d','')}</div>`;
     }).join('');
     return `<div class="prow ${p.id===S.activePost?'active':''}" onclick="selectPost(${p.id})">
-      <div class="prow-top"><div class="prow-title">${p.title}</div><div class="mini-pdot pdot ${p.platform}"></div></div>
-      <div class="prow-meta"><div class="prow-date">${p.date}</div><div class="cdots">${dots}</div></div>
-    </div>`;
-  }).join('');
+      <div class="prow-top"><div class="prow-title">${esc(p.title)}</div><div class="mini-pdot pdot ${p.platform}"></div></div>
+      <div class="prow-meta"><div class="prow-date">${p.date}</div><div class="cdots">${dots}</div></div></div>`;
+  }).join('') : '<div style="padding:14px;font-size:10px;color:var(--muted)">No posts found</div>';
+
+  document.getElementById('mainContent').innerHTML = `<div class="posts-layout">
+    <div class="plist-box">
+      ${plats.length>1?`<div class="pf-row">
+        ${['all',...plats].map(p=>`<button class="ctl-btn ${p===S.postPlat?'on':''}" onclick="setPostPlat('${p}')">${p==='all'?'All':p.toUpperCase()}</button>`).join('')}</div>`:''}
+      <div id="postList">${list}</div>
+    </div>
+    <div id="postDetail"></div>
+  </div>`;
+  renderPostDetail(post);
 }
 
-function renderMain() {
-  if (S.activeView==='upcoming') { renderUpcoming(); return; }
-  if (S.activeView==='insights') { renderInsights(); return; }
-  const post = POSTS.find(p => p.id===S.activePost);
-  if (!post) { document.getElementById('mainContent').innerHTML = `<div class="empty-state"><div class="ei">📊</div><div class="et">Select a post</div></div>`; return; }
+function renderPostDetail(post){
+  const el = document.getElementById('postDetail');
+  if (!post){ el.innerHTML = `<div class="empty-state"><div class="ei">🧾</div><div class="et">Select a post</div></div>`; return; }
+  const c = CLIENTS[S.activeClient];
+  const baseline = c.baselines[post.platform] ?? Object.values(c.baselines)[0];
   const check = post.checks[S.activeCheck];
-  const baseline = CLIENTS[S.activeClient].baselines[post.platform];
-  const outcome = check?.outcome;
-  const tabs = ['24h','7d','30d'].filter(k => k!=='24h' || post.checks[k] || post.dueChecks?.[k]).map(k => {
+  const outcome = post.checks['7d']?.outcome;
+  const tabs = ['7d','30d'].map(k=>{
     const done=!!post.checks[k], due=post.dueChecks?.[k];
     const cls = k===S.activeCheck?'active':(!done&&!due?'locked':due&&!done?'due':'');
     return `<button class="ctab ${cls}" ${(done||due)?`onclick="setCheck('${k}')"`:''}>${k}${due&&!done?` — due ${due}`:''}</button>`;
   }).join('');
-  document.getElementById('mainContent').innerHTML = `
-    <div style="animation:fadeUp 0.25s ease both">
-      <div class="post-hdr">
-        <div>
-          <div class="post-hl">"<em>${post.title}</em>"${post.link?`<a class="post-link-out" href="${post.link}" target="_blank" rel="noopener">View post ↗</a>`:''}</div>
-          <div class="meta-row">
-            <div class="meta-chip"><div class="pdot ${post.platform}"></div>${post.platform==='ig'?'Instagram':'TikTok'}</div>
-            <div class="meta-chip" style="color:var(--muted)">Posted ${post.date}</div>
-            <div class="meta-chip" style="color:var(--muted)">${post.type}</div>
-            ${post.pillar?`<div class="meta-chip" style="color:var(--orange)">${pillarName(post.client, post.pillar)}</div>`:''}
-            ${post.format?`<div class="meta-chip" style="color:var(--muted)">${post.format}</div>`:''}
-            ${post.hookType?`<div class="meta-chip" style="color:var(--muted)">Hook: ${post.hookType}</div>`:''}
-          </div>
+  el.innerHTML = `
+    <div class="post-hdr">
+      <div>
+        <div class="post-hl">"${esc(post.title)}"${post.link?`<a class="post-link-out" href="${esc(post.link)}" target="_blank" rel="noopener">View post ↗</a>`:''}</div>
+        <div class="meta-row">
+          <div class="meta-chip"><div class="pdot ${post.platform}"></div>${platName(post.platform)}</div>
+          <div class="meta-chip">Posted ${post.date}</div>
+          <div class="meta-chip">${post.type||''}</div>
+          ${post.pillar?`<div class="meta-chip"><span class="pdot" style="background:${PCOLORS[post.pillar]}"></span>${esc((c.pillars||{})[post.pillar]||post.pillar)}</div>`:''}
         </div>
-        ${outcome?`<div class="otag ${outcome.toLowerCase()}">${outcome}</div>`:''}
       </div>
-      <div class="ctabs">${tabs}</div>
-      ${check ? renderCheck(check, post, baseline) : `<div class="empty-state"><div class="ei">⏳</div><div class="et">${S.activeCheck} check pending</div><div class="es">${post.dueChecks?.[S.activeCheck]?`Due ${post.dueChecks[S.activeCheck]}. Run /track-post in Claude Code.`:"Check window hasn't opened yet."}</div></div>`}
-    </div>`;
+      ${outcome?`<div class="otag ${outcome.toLowerCase()}">${outcome}</div>`:''}
+    </div>
+    <div class="ctabs">${tabs}</div>
+    ${check ? renderCheck(check, post, baseline) : `<div class="empty-state"><div class="ei">⏳</div><div class="et">${S.activeCheck} check pending</div><div class="es">${post.dueChecks?.[S.activeCheck]?`Due ${post.dueChecks[S.activeCheck]}. Run /track-post in Claude Code.`:"Check window hasn't opened yet."}</div></div>`}`;
 }
 
-function renderCheck(c, post, bl) {
-  const is7  = S.activeCheck==='7d';
+function renderCheck(c, post, bl){
+  const is7 = S.activeCheck==='7d';
   const is30 = S.activeCheck==='30d';
   const bp = c.views ? Math.round((c.views/bl)*100) : 0;
-  const dc = c.distribution?.includes('Above')||c.distribution?.includes('Promising')?'g':c.distribution?.includes('Below')||c.distribution?.includes('Weak')?'r':'o';
-  const mc = (lbl,val,cls,sub,bar) => (val == null || val === 'undefined' || (typeof val === 'number' && isNaN(val))) ? '' : `<div class="mc ${bar}"><div class="mc-lbl">${lbl}</div><div class="mc-val ${cls}">${val}</div><div class="mc-sub">${sub}</div></div>`;
+  const mc = (lbl,val,cls,sub,) => (val==null||val==='undefined'||(typeof val==='number'&&isNaN(val))) ? '' :
+    `<div class="mc"><div class="mc-lbl">${lbl}</div><div class="mc-val ${cls}">${val}</div><div class="mc-sub">${sub}</div></div>`;
   const rc = (n,v,cl,pct) => `<div class="rc"><div class="rc-top"><span class="rc-name">${n}</span><span class="rc-val ${cl}">${v}</span></div><div class="bt"><div class="bf ${cl}" style="width:${pct}%"></div></div></div>`;
   const ac = (t,col,sel,crit) => {
     const rows = crit.map(([met,lbl])=>`<div class="${met?'cm':'cu'}">${met?'✓':'—'} ${lbl}</div>`).join('');
     return `<div class="ac ${sel?`sel-${t.toLowerCase()}`:''}"><div class="ac-title ${col}">${sel?'✓ ':''}${t}</div><div class="cl">${rows}</div></div>`;
   };
+  const isVid = post.type==='Video';
   return `
     <div class="mgrid">
-      ${mc('Views',c.views?.toLocaleString(),bp>120?'g':bp<80?'r':'o',`${bp}% of baseline`,bp>120?'pos':bp<80?'neg':'neu')}
-      ${mc('Unique Viewers',c.uniqueViewers?.toLocaleString(),'n',`${Math.round((c.uniqueViewers/c.views)*100)}% unique`,'')}
-      ${mc('Non-Follower %',c.nonFollowerPct != null ? c.nonFollowerPct+'%' : null,c.nonFollowerPct>60?'g':'o',c.nonFollowerPct>60?'algo pushing':'mostly followers',c.nonFollowerPct>60?'pos':'')}
-      ${mc('Watch Time %',c.watchTimePct != null ? c.watchTimePct+'%' : null,c.watchTimePct>35?'g':c.watchTimePct<20?'r':'o',c.watchTimeSec != null ? c.watchTimeSec+'s avg' : '',c.watchTimePct>35?'pos':c.watchTimePct<20?'neg':'neu')}
-      ${mc('Revisit Ratio',c.revisitRatio != null ? c.revisitRatio+'×' : null,c.revisitRatio>=1.3?'g':c.revisitRatio<1.1?'r':'o','views per person (carousel)',c.revisitRatio>=1.3?'pos':c.revisitRatio<1.1?'neg':'neu')}
-      ${mc('Profile Visits',c.profileVisits?.toLocaleString(),'n','from this post','')}
-      ${mc('Link Taps',c.linkTaps?.toLocaleString(),c.linkTaps>0?'g':'n','external link',c.linkTaps>0?'pos':'')}
+      ${mc('Views',c.views?.toLocaleString(),bp>120?'g':bp<80?'r':'o',`${bp}% of baseline`)}
+      ${mc('Unique Viewers',c.uniqueViewers?.toLocaleString(),'n', c.views?`${Math.round((c.uniqueViewers/c.views)*100)}% unique`:'')}
+      ${mc('Non-Follower %',c.nonFollowerPct!=null?c.nonFollowerPct+'%':null,c.nonFollowerPct>60?'g':'o',c.nonFollowerPct>60?'algo pushing':'mostly followers')}
+      ${mc('Watch Time %',c.watchTimePct!=null?c.watchTimePct+'%':null,c.watchTimePct>=30?'g':c.watchTimePct<20?'r':'o',c.watchTimeSec!=null?c.watchTimeSec+'s avg':'')}
+      ${mc('Revisit Ratio',c.revisitRatio!=null?c.revisitRatio+'×':null,c.revisitRatio>=1.3?'g':c.revisitRatio<1.1?'r':'o','views per person')}
+      ${mc('Profile Visits',c.profileVisits?.toLocaleString(),'n','from this post')}
+      ${mc('Link Taps',c.linkTaps?.toLocaleString(),c.linkTaps>0?'g':'n','external link')}
     </div>
     ${is7?`
     <div class="tgrid">
-      ${c.distribution?`<div class="tc"><div class="tc-cat">Distribution</div><div class="tc-val ${dc}">${c.distribution}</div><div class="tc-desc">${c.views?.toLocaleString()} vs ${bl?.toLocaleString()} baseline</div></div>`
-        :`<div class="tc"><div class="tc-cat">Views vs Baseline</div><div class="tc-val ${bp>120?'g':bp<80?'r':'o'}">${bp}%</div><div class="tc-desc">${c.views?.toLocaleString()} vs ${bl?.toLocaleString()} baseline</div></div>`}
-      ${c.engagementQuality?`<div class="tc"><div class="tc-cat">Engagement Quality</div><div class="tc-val ${c.engagementQuality==='Strong'?'g':c.engagementQuality==='Weak'?'r':'o'}">${c.engagementQuality}</div><div class="tc-desc">Save rate ${c.saveRate}% · ${c.shares} shares · ${c.comments} comments</div></div>`:''}
-      ${c.businessSignal?`<div class="tc"><div class="tc-cat">Business Signal</div><div class="tc-val ${c.businessSignal==='Strong'?'g':c.businessSignal==='Weak'?'r':'o'}">${c.businessSignal}</div><div class="tc-desc">${c.follows} follows · ${c.followsPer1k} per 1K</div></div>`:''}
+      <div class="tc"><div class="tc-cat">Views vs Baseline</div><div class="tc-val ${bp>120?'g':bp<80?'r':'o'}">${bp}%</div><div class="tc-desc">${c.views?.toLocaleString()} vs ${bl?.toLocaleString()} baseline</div></div>
       ${c.outcome?`<div class="tc"><div class="tc-cat">Outcome</div><div class="tc-val ${c.outcome==='Winner'?'g':c.outcome==='Underperformed'?'r':'o'}">${c.outcome}</div><div class="tc-desc">Reach + retention + saves criteria</div></div>`:''}
+      ${c.comments!=null?`<div class="tc"><div class="tc-cat">Comments</div><div class="tc-val">${c.comments}</div></div>`:''}
+      ${c.follows!=null?`<div class="tc"><div class="tc-cat">Follows attributed</div><div class="tc-val ${c.follows>0?'g':''}">${c.follows}</div></div>`:''}
     </div>
-    <div class="shd">Calculated Rates</div>
+    <div class="shd">Calculated rates</div>
     <div class="rgrid">
-      ${c.saveRate != null?rc('Save Rate',c.saveRate+'%',c.saveRate>1?'g':c.saveRate>0.5?'o':'r',Math.min(c.saveRate*33,100)):''}
-      ${c.shareRate != null?rc('Share Rate',c.shareRate+'%',c.shareRate>1?'g':'o',Math.min(c.shareRate*25,100)):''}
-      ${c.engagementRate != null?rc('Engagement Rate',c.engagementRate+'%',c.engagementRate>3?'g':c.engagementRate>1.5?'o':'r',Math.min(c.engagementRate*10,100)):''}
-      ${c.followsPer1k != null?rc('Follows / 1K',c.followsPer1k,c.followsPer1k>2?'g':'o',Math.min(c.followsPer1k*20,100)):''}
+      ${c.saveRate!=null?rc('Save Rate',c.saveRate+'%',c.saveRate>1?'g':c.saveRate>0.5?'o':'r',Math.min(c.saveRate*33,100)):''}
+      ${c.shareRate!=null?rc('Share Rate',c.shareRate+'%',c.shareRate>1?'g':'o',Math.min(c.shareRate*25,100)):''}
     </div>
-    <div class="shd">Next Action</div>
+    <div class="shd">Next action</div>
     <div class="agrid">
-      ${c.distribution?`
-      ${ac('Repeat','g',c.nextAction==='Repeat',[[c.views>bl*1.2,'Above baseline views'],[c.watchTimePct>35,'Watch time >35%'],[c.saves>10||c.saveRate>1,'Saves >10 or save rate >1%'],[c.follows>0,'Follows attributed'],[c.distribution?.includes('Above'),'Distribution = Expanded']])}
-      ${ac('Iterate','o',c.nextAction==='Iterate',[[c.watchTimePct>35&&c.views<bl,'Good watch time + low views'],[c.views>bl&&c.watchTimePct<25,'High views + low watch time'],[c.saves>10&&!c.follows,'Good saves + no follows'],[c.distribution?.includes('Typical')||c.distribution?.includes('baseline'),'Distribution = Typical'],[false,'Strong topic, weak execution']])}
-      ${ac('Drop','r',c.nextAction==='Drop',[[c.views<bl*0.8,'Below baseline views'],[c.watchTimePct<15,'Watch time <15%'],[c.saves===0&&c.shares===0,'Zero saves + zero shares'],[c.distribution?.includes('Limited')||c.distribution?.includes('Weak'),'Distribution = Limited'],[c.outcome==='Underperformed','Outcome = Underperformed']])}
-      `:`
-      ${ac('Repeat','g',c.nextAction==='Repeat',[[c.views>bl*1.2,'Above baseline views (>120%)'],[post.type==='Carousel'?c.revisitRatio>=1.3:c.watchTimePct>=30,post.type==='Carousel'?'Revisit ratio ≥1.3×':'Watch time ≥30%'],[c.saveRate>=1,'Save rate ≥1%'],[c.follows>0||c.linkTaps>0,'Follows or link taps attributed']])}
-      ${ac('Iterate','o',c.nextAction==='Iterate',[[c.outcome==='Learning','Outcome = Learning'],[(post.type==='Carousel'?c.revisitRatio>=1.3:c.watchTimePct>=30)&&c.views<bl,'Good retention + low reach'],[c.views>bl&&c.saveRate<0.5,'Good reach + weak saves'],[false,'Strong topic, weak execution']])}
-      ${ac('Drop','r',c.nextAction==='Drop',[[c.views<bl*0.8,'Below baseline views (<80%)'],[post.type==='Carousel'?c.revisitRatio<1.1:c.watchTimePct<20,post.type==='Carousel'?'Revisit ratio <1.1×':'Watch time <20%'],[c.saves===0&&c.shares===0,'Zero saves + zero shares'],[c.outcome==='Underperformed','Outcome = Underperformed']])}
-      `}
+      ${ac('Repeat','g',c.nextAction==='Repeat',[[c.views>bl*1.2,'Above baseline views (>120%)'],[isVid?c.watchTimePct>=30:c.revisitRatio>=1.3,isVid?'Watch time ≥30%':'Revisit ratio ≥1.3×'],[c.saveRate>=1,'Save rate ≥1%'],[c.follows>0||c.linkTaps>0,'Follows or link taps attributed']])}
+      ${ac('Iterate','o',c.nextAction==='Iterate',[[c.outcome==='Learning','Outcome = Learning'],[(isVid?c.watchTimePct>=30:c.revisitRatio>=1.3)&&c.views<bl,'Good retention + low reach'],[c.views>bl&&c.saveRate<0.5,'Good reach + weak saves'],[false,'Strong topic, weak execution']])}
+      ${ac('Drop','r',c.nextAction==='Drop',[[c.views<bl*0.8,'Below baseline views (<80%)'],[isVid?c.watchTimePct<20:c.revisitRatio<1.1,isVid?'Watch time <20%':'Revisit ratio <1.1×'],[c.saves===0&&c.shares===0,'Zero saves + zero shares'],[c.outcome==='Underperformed','Outcome = Underperformed']])}
     </div>`:''}
     ${is30?`
-    <div class="shd">Long-Tail Performance</div>
+    <div class="shd">Long-tail performance</div>
     <div class="mgrid">
-      ${mc('Long-Tail Views',c.longTailViews?.toLocaleString(),'n',c.longTailPct != null ? c.longTailPct+'% of total' : '','')}
-      ${mc('Long-Tail %',c.longTailPct != null ? c.longTailPct+'%' : null,c.longTailPct>15?'g':'o','views after day 7',c.longTailPct>15?'pos':'')}
-      ${mc('Saves',c.saves?.toLocaleString(),'n','','')  }
+      ${mc('Long-Tail Views',c.longTailViews?.toLocaleString(),'n',c.longTailPct!=null?c.longTailPct+'% of total':'')}
+      ${mc('Long-Tail %',c.longTailPct!=null?c.longTailPct+'%':null,c.longTailPct>15?'g':'o','views after day 7')}
+      ${mc('Saves',c.saves?.toLocaleString(),'n','','')}
       ${mc('Shares',c.shares?.toLocaleString(),'n','','')}
-      ${mc('Follows',c.follows != null ? String(c.follows) : null,c.follows>0?'g':'o','attributed',c.follows>0?'pos':'')}
-    </div>
-    ${c.distributionType?`<div class="shd">Distribution</div><div class="tgrid"><div class="tc"><div class="tc-cat">30d Distribution Type</div><div class="tc-val o">${c.distributionType}</div></div></div>`:''}
-    `:''}
+      ${mc('Follows',c.follows!=null?String(c.follows):null,c.follows>0?'g':'o','attributed')}
+    </div>`:''}
     ${(post.whyItPerformed||post.hookInsight)?`<div class="shd">Notes</div>
-    ${post.whyItPerformed?`<div class="nb"><div class="nb-lbl">Why It Performed</div><div class="nb-text">${post.whyItPerformed}</div></div>`:''}
-    ${post.hookInsight?`<div class="nb"><div class="nb-lbl">Hook Insight</div><div class="nb-text">${post.hookInsight}</div></div>`:''}
-    `:''}
-`;
+    ${post.whyItPerformed?`<div class="nb"><div class="nb-lbl">Why It Performed</div><div class="nb-text">${esc(post.whyItPerformed)}</div></div>`:''}
+    ${post.hookInsight?`<div class="nb"><div class="nb-lbl">Hook Insight</div><div class="nb-text">${esc(post.hookInsight)}</div></div>`:''}
+    `:''}`;
 }
 
-function renderUpcoming() {
-  const allDue = [];
-  POSTS.filter(p=>p.client===S.activeClient).forEach(p => {
-    Object.entries(p.dueChecks||{}).forEach(([check,date]) => allDue.push({post:p,check,date,dateObj:new Date(date)}));
+// ══════════════════════════════════════════════════════
+// UPCOMING
+// ══════════════════════════════════════════════════════
+function renderUpcoming(){
+  const allDue=[];
+  POSTS.filter(p=>p.client===S.activeClient).forEach(p=>{
+    Object.entries(p.dueChecks||{}).forEach(([check,date])=>allDue.push({post:p,check,date,dateObj:new Date(date)}));
   });
   allDue.sort((a,b)=>a.dateObj-b.dateObj);
   const today = new Date(); today.setHours(0,0,0,0);
   const isToday = d => { const dd=new Date(d); dd.setHours(0,0,0,0); return dd<=today; };
-  const row = item => `<div class="dr" onclick="selectPost(${item.post.id});setView('posts')">
-    <div><div class="dr-title">${item.post.title}</div><div class="dr-meta">${item.post.platform==='ig'?'Instagram':'TikTok'} · Posted ${item.post.date}</div></div>
-    <div class="dr-right"><div class="dw ${isToday(item.dateObj)?'today':'soon'}">${isToday(item.dateObj)?'Due now':item.date}</div><div class="dc">${item.check} check</div></div>
-  </div>`;
-  const todayItems = allDue.filter(d=>isToday(d.dateObj));
-  const upcoming = allDue.filter(d=>!isToday(d.dateObj));
+  const row = item => `<div class="dr" onclick="selectPost(${item.post.id})">
+    <div><div class="dr-title">${esc(item.post.title)}</div><div class="dr-meta">${platName(item.post.platform)} · Posted ${item.post.date}</div></div>
+    <div class="dr-right"><div class="dw ${isToday(item.dateObj)?'today':'soon'}">${isToday(item.dateObj)?'Due now':item.date}</div><div class="dc">${item.check} check</div></div></div>`;
+  const dueNow = allDue.filter(d=>isToday(d.dateObj));
+  const later = allDue.filter(d=>!isToday(d.dateObj));
   document.getElementById('mainContent').innerHTML = `
-    <div style="animation:fadeUp 0.25s ease both">
-      <div class="uh">Upcoming <em>checks</em></div>
-      <div class="usub">Posts waiting for their next data pull — run /track-post in Claude Code</div>
-      ${todayItems.length?`<div style="margin-bottom:22px"><div class="dl">Due now</div>${todayItems.map(row).join('')}</div>`:''}
-      ${upcoming.length?`<div><div class="dl">Coming up</div>${upcoming.map(row).join('')}</div>`:''}
-      ${!todayItems.length&&!upcoming.length?`<div class="empty-state"><div class="ei">✅</div><div class="et">All caught up</div></div>`:''}
+    <div class="sec" style="margin-top:0">
+      <div class="sec-hd"><span class="sec-no">⏰</span><span class="sec-title">Due now</span></div>
+      ${dueNow.length?dueNow.map(row).join(''):'<div class="empty-period">nothing due — go make something</div>'}
+    </div>
+    <div class="sec">
+      <div class="sec-hd"><span class="sec-no">→</span><span class="sec-title">Coming up</span></div>
+      ${later.length?later.map(row).join(''):'<div class="empty-period">no scheduled checks</div>'}
     </div>`;
 }
 
-function renderAdminUrls() {
-  const base = window.location.origin + window.location.pathname;
-  const entries = Object.entries(ACCESS_KEYS).filter(([,v])=>v!=='ADMIN');
-  const html = `<div id="urlSection" class="url-section">
-    <div class="url-sec-label">Client Share Links</div>
-    ${entries.map(([key,client])=>`
-      <div class="url-item">
-        <div><div class="url-cname">${client}</div><div class="url-str">${base}?key=${key}</div></div>
-        <button class="url-copy" onclick="copyUrl('${base}?key=${key}',this)">Copy</button>
-      </div>`).join('')}
-  </div>`;
-  document.getElementById('sidebarTop').insertAdjacentHTML('beforeend', html);
-}
-
-function copyUrl(url, btn) {
-  navigator.clipboard.writeText(url).then(()=>{ btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy',2000); });
-}
-
-function setClient(c) {
-  S.activeClient = c;
-  const first = POSTS.find(p=>p.client===c);
-  S.activePost = first?.id||null;
-  S.activeCheck = first?(['7d','24h','30d'].find(k=>first.checks[k])||'7d'):'7d';
-  // land on the account pulse; drop a TT filter the new client doesn't have
-  S.activeView = 'insights';
-  if (CLIENTS[c].baselines.tt == null && S.platFilter === 'tt') S.platFilter = 'all';
-  syncNavButtons();
-  renderAll();
-}
-
-function selectPost(id) {
-  S.activePost = id;
-  S.activeView = 'posts';
-  const post = POSTS.find(p=>p.id===id);
-  S.activeCheck = ['7d','24h','30d'].find(c=>post?.checks[c])||'7d';
-  syncNavButtons();
-  renderPostList(); renderMain();
-}
-
-function setCheck(c) { S.activeCheck = c; renderMain(); }
-
-function setView(v) {
-  S.activeView = v;
-  document.getElementById('btnPosts').classList.toggle('active',v==='posts');
-  document.getElementById('btnUpcoming').classList.toggle('active',v==='upcoming');
-  document.getElementById('btnInsights').classList.toggle('active',v==='insights');
-  renderMain();
-}
-
-
-
-function filterByDateRange(posts) {
-  if (!S.dateFrom && !S.dateTo) return posts;
-  const from = S.dateFrom ? new Date(S.dateFrom) : null;
-  const to   = S.dateTo   ? new Date(S.dateTo)   : null;
-  return posts.filter(p => {
-    const d = new Date(p.date);
-    if (isNaN(d.getTime())) return true;
-    if (from && d < from) return false;
-    if (to   && d > to)   return false;
-    return true;
-  });
-}
-
-function setDateRange(field, val) {
-  if (field === 'from') S.dateFrom = val;
-  else S.dateTo = val;
-  renderInsights();
-}
-
-function renderInsights() {
-  // ── 1. Filter pipeline (all four filters applied in sequence) ──────────────
-  let posts = POSTS.filter(p => p.client === S.activeClient);
-  posts = filterByDateRange(posts);
-  if (S.platFilter !== 'all') posts = posts.filter(p => p.platform === S.platFilter);
-  if (S.postType !== 'all')   posts = posts.filter(p => (p.type||'Video') === S.postType);
-
-  // posts7d = posts that have a 7d check (used for outcome breakdown panel only)
-  const posts7d = posts.filter(p => p.checks && p.checks['7d']);
-
-  // filteredPosts7d = posts7d further narrowed by outcome filter (used for every other section)
-  const filteredPosts7d = S.outcomeFilter === 'all'
-    ? posts7d
-    : posts7d.filter(p => (p.checks['7d'].outcome||'').toLowerCase() === S.outcomeFilter);
-
-  const bls = CLIENTS[S.activeClient].baselines;
-  const baseline = bls[S.platFilter === 'tt' ? 'tt' : 'ig'] ?? bls.ig ?? bls.tt ?? 0;
-
-  // ── 2. Aggregate stats (all based on filteredPosts7d) ─────────────────────
-  const winners      = filteredPosts7d.filter(p => p.checks['7d'].outcome === 'Winner');
-  const learnings    = filteredPosts7d.filter(p => p.checks['7d'].outcome === 'Learning');
-  const underperformed = filteredPosts7d.filter(p => p.checks['7d'].outcome === 'Underperformed');
-  const testing      = filteredPosts7d.filter(p => p.checks['7d'].outcome === 'Testing');
-
-  const winRate     = filteredPosts7d.length ? Math.round((winners.length / filteredPosts7d.length) * 100) : 0;
-  const avgViews    = filteredPosts7d.length ? Math.round(filteredPosts7d.reduce((s,p) => s + (p.checks['7d'].views||0), 0) / filteredPosts7d.length) : 0;
-  const totalFollows = filteredPosts7d.reduce((s,p) => s + (p.checks['7d'].follows||0), 0);
-  const totalSaves   = filteredPosts7d.reduce((s,p) => s + (p.checks['7d'].saves||0), 0);
-
-  const bestPost = [...filteredPosts7d].sort((a,b) => (b.checks['7d'].views||0) - (a.checks['7d'].views||0))[0];
-
-  // ── 3. Format breakdown (based on filteredPosts7d) ────────────────────────
-  const fmtData = ['Video','Carousel','Static'].map(fmt => {
-    const fp = filteredPosts7d.filter(p => (p.type||'Video') === fmt);
-    if (!fp.length) return null;
-    return {
-      fmt, count: fp.length,
-      avgV:  Math.round(fp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/fp.length),
-      avgSR: (fp.reduce((s,p)=>s+(p.checks['7d'].saveRate||0),0)/fp.length).toFixed(2),
-      avgNF: Math.round(fp.reduce((s,p)=>s+(p.checks['7d'].nonFollowerPct||0),0)/fp.length),
-      winR:  Math.round(fp.filter(p=>p.checks['7d'].outcome==='Winner').length/fp.length*100),
-    };
-  }).filter(Boolean);
-  const maxFmtV = Math.max(...fmtData.map(f=>f.avgV), 1);
-
-  // ── 4. Evergreen (based on all date/plat/format filtered posts) ───────────
-  // v1 posts carry a distributionType tag; v2 posts qualify on long-tail % >20
-  const evergreen = posts.filter(p => p.checks?.['30d']?.distributionType === 'Evergreen'
-    || (p.checks?.['30d']?.distributionType == null && (p.checks?.['30d']?.longTailPct||0) > 20));
-
-  // ── 4b. Pillar breakdown (active client's pillar map) ─────────────────────
-  const clientPillars = CLIENTS[S.activeClient].pillars || {};
-  const pillarData = Object.entries(clientPillars).map(([pid, pname]) => {
-    const pp = filteredPosts7d.filter(p => p.pillar === pid);
-    if (!pp.length) return null;
-    return {
-      pid, name: pname, count: pp.length,
-      avgV:  Math.round(pp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/pp.length),
-      avgSR: (pp.reduce((s,p)=>s+(p.checks['7d'].saveRate||0),0)/pp.length).toFixed(2),
-      winR:  Math.round(pp.filter(p=>p.checks['7d'].outcome==='Winner').length/pp.length*100),
-    };
-  }).filter(Boolean);
-  const maxPillarV = Math.max(...pillarData.map(f=>f.avgV), 1);
-
-  // ── 4c. Pillar × Format matrix (date/platform-filtered posts with 7d data) ─
-  const MATRIX_FORMATS = ['Video','Carousel','Static'];
-  const matrixBase = posts.filter(p => p.checks?.['7d'] && p.pillar);
-  const matrixRows = Object.entries(clientPillars).map(([pid, pname]) => {
-    const cells = MATRIX_FORMATS.map(fmt => {
-      const pp = matrixBase.filter(p => p.pillar === pid && (p.type||'Video') === fmt);
-      if (!pp.length) return null;
-      return {
-        count: pp.length,
-        avgV: Math.round(pp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/pp.length),
-        winR: Math.round(pp.filter(p=>p.checks['7d'].outcome==='Winner').length/pp.length*100),
-      };
-    });
-    return { pid, name: pname, cells };
-  }).filter(r => r.cells.some(Boolean));
-  const matrixMaxV = Math.max(...matrixRows.flatMap(r => r.cells.filter(Boolean).map(c => c.avgV)), 1);
-
-  // ── 4d. Due checks (this client, not date-filtered) ───────────────────────
-  const today = new Date(); today.setHours(0,0,0,0);
-  const dueToday = [];
-  POSTS.filter(p => p.client === S.activeClient).forEach(p => {
-    Object.entries(p.dueChecks || {}).forEach(([check, date]) => {
-      const d = new Date(date);
-      if (!isNaN(d.getTime()) && d <= today) dueToday.push({ post: p, check });
-    });
-  });
-
-  // ── 5. Ranked lists ───────────────────────────────────────────────────────
-  const topPosts = [...filteredPosts7d].sort((a,b)=>(b.checks['7d'].views||0)-(a.checks['7d'].views||0)).slice(0,5);
-  const bestSave = [...filteredPosts7d].filter(p=>p.checks['7d'].saveRate).sort((a,b)=>b.checks['7d'].saveRate-a.checks['7d'].saveRate).slice(0,5);
-  const bestNF   = [...filteredPosts7d].filter(p=>p.checks['7d'].nonFollowerPct).sort((a,b)=>b.checks['7d'].nonFollowerPct-a.checks['7d'].nonFollowerPct).slice(0,5);
-  const maxV  = topPosts.length ? topPosts[0].checks['7d'].views : 1;
-  const maxSR = bestSave.length ? bestSave[0].checks['7d'].saveRate : 1;
-  const maxNF = bestNF.length   ? bestNF[0].checks['7d'].nonFollowerPct : 1;
-
-  // ── 6. Account health ─────────────────────────────────────────────────────
-  let healthColor = 'green', healthText = 'Healthy', healthSub = 'Win rate above 40% and avg views at or above baseline.';
-  if (winRate < 20 || avgViews < baseline * 0.7)  { healthColor='red';    healthText='Needs attention';    healthSub='Win rate below 20% or avg views significantly below baseline.'; }
-  else if (winRate < 40 || avgViews < baseline)    { healthColor='orange'; healthText='Building momentum'; healthSub='Some posts are hitting, others still finding their footing.'; }
-
-  // ── 7. Insights text ──────────────────────────────────────────────────────
-  const insights = [];
-  if (winners.length > 0) insights.push(`<strong>${winners.length} winner${winners.length>1?'s':''}</strong> in this period. ${winners.slice(0,2).map(p=>`"${p.title}"`).join(' and ')} beat baseline with strong engagement.`);
-  if (evergreen.length > 0) insights.push(`<strong>${evergreen.length} evergreen post${evergreen.length>1?'s':''}</strong> — still getting views after 30 days. These topics have lasting relevance.`);
-  if (fmtData.length > 1) { const best = [...fmtData].sort((a,b)=>b.avgV-a.avgV)[0]; insights.push(`<strong>${best.fmt} is your best-performing format</strong> with an avg of ${best.avgV.toLocaleString()} views. Win rate: ${best.winR}%.`); }
-  const highSave = filteredPosts7d.filter(p=>(p.checks['7d'].saveRate||0)>1);
-  if (highSave.length > 0) insights.push(`<strong>${highSave.length} post${highSave.length>1?'s':''}</strong> had a save rate above 1% — content people found worth keeping. Repeat these hooks.`);
-  if (totalFollows > 0) insights.push(`Content drove <strong>${totalFollows} follows</strong> this period. That's real audience growth attributed directly to your posts.`);
-
-  // ── 8. Header label ───────────────────────────────────────────────────────
-  const dateLabel = (S.dateFrom || S.dateTo)
-    ? [(S.dateFrom || '…'), (S.dateTo || 'today')].join(' → ')
-    : 'All time';
-
-  document.getElementById('mainContent').innerHTML = `
-    <div style="animation:fadeUp 0.25s ease both">
-      <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;">
-        <div>
-          <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:300;margin-bottom:4px;">Account <em style="font-style:italic;color:var(--orange);">insights</em></div>
-          <div style="font-size:10px;color:var(--muted);">${CLIENTS[S.activeClient].name} · ${dateLabel} · ${filteredPosts7d.length} posts with 7d data</div>
-        </div>
-      </div>
-
-      <!-- DUE TODAY -->
-      ${dueToday.length ? `
-      <div class="due-strip">
-        ${dueToday.map(d => `<button class="due-chip" onclick="selectPost(${d.post.id})">⏰ ${d.check} check due · ${d.post.title.length > 38 ? d.post.title.slice(0,38) + '…' : d.post.title}</button>`).join('')}
-      </div>` : ''}
-
-      <!-- FILTER BAR -->
-      <div class="filter-bar">
-        <div class="filter-group">
-          <span class="filter-group-label">From</span>
-          <input type="date" class="date-input" value="${S.dateFrom}" onchange="setDateRange('from',this.value)">
-          <span class="filter-group-label" style="margin-left:6px;">To</span>
-          <input type="date" class="date-input" value="${S.dateTo}" onchange="setDateRange('to',this.value)">
-          ${(S.dateFrom||S.dateTo) ? `<button class="tf-btn" style="margin-left:4px;" onclick="clearDateRange()">Clear</button>` : ''}
-        </div>
-        <div class="filter-sep"></div>
-        <div class="filter-group">
-          <span class="filter-group-label">Platform</span>
-          <button class="ins-pf-btn ${S.platFilter==='all'?'active':''}" onclick="setInsightPlat('all')">All</button>
-          <button class="ins-pf-btn ${S.platFilter==='ig'?'active ig':''}" onclick="setInsightPlat('ig')">IG</button>
-          ${bls.tt != null ? `<button class="ins-pf-btn ${S.platFilter==='tt'?'active tt':''}" onclick="setInsightPlat('tt')">TT</button>` : ''}
-        </div>
-        <div class="filter-sep"></div>
-        <div class="filter-group">
-          <span class="filter-group-label">Format</span>
-          ${['all','Video','Carousel','Static'].map(t=>`<button class="tf-btn ${S.postType===t?'active':''}" onclick="setPostType('${t}')">${t==='all'?'All':t}</button>`).join('')}
-        </div>
-        <div class="filter-sep"></div>
-        <div class="filter-group">
-          <span class="filter-group-label">Outcome</span>
-          ${['all','winner','learning','underperformed','testing'].map(t=>`<button class="tf-btn ${S.outcomeFilter===t?'active':''}" onclick="setOutcomeFilter('${t}')">${t==='all'?'All':t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}
-        </div>
-      </div>
-
-      <!-- ACCOUNT HEALTH -->
-      <div class="ins-health">
-        <div class="ins-health-dot ${healthColor}"></div>
-        <div>
-          <div class="ins-health-text">${healthText}</div>
-          <div class="ins-health-sub">${healthSub}</div>
-        </div>
-      </div>
-
-      <!-- BEST POST OF PERIOD -->
-      ${bestPost ? `
-      <div class="ins-best-post">
-        <div>
-          <div class="ins-best-label">⭐ Best post this period</div>
-          <div class="ins-best-title">"${bestPost.title}"</div>
-          <div class="ins-best-meta">${bestPost.platform==='ig'?'Instagram':'TikTok'} · Posted ${bestPost.date} · ${bestPost.checks['7d'].outcome||''}</div>
-        </div>
-        <div class="ins-best-stats">
-          <div class="ins-best-stat">
-            <div class="ins-best-stat-val">${(bestPost.checks['7d'].views||0).toLocaleString()}</div>
-            <div class="ins-best-stat-label">Views</div>
-          </div>
-          <div class="ins-best-stat">
-            <div class="ins-best-stat-val">${(bestPost.checks['7d'].saveRate||0).toFixed(1)}%</div>
-            <div class="ins-best-stat-label">Save Rate</div>
-          </div>
-          <div class="ins-best-stat">
-            <div class="ins-best-stat-val">${bestPost.checks['7d'].follows||0}</div>
-            <div class="ins-best-stat-label">Follows</div>
-          </div>
-        </div>
-      </div>` : ''}
-
-      <!-- SUMMARY CARDS -->
-      <div class="ins-grid">
-        <div class="ins-card">
-          <div class="ins-card-label">Win Rate</div>
-          <div class="ins-card-val ${winRate>=50?'green':winRate>=30?'orange':'red'}">${winRate}%</div>
-          <div class="ins-card-sub">${winners.length} of ${posts7d.length} posts beat baseline</div>
-        </div>
-        <div class="ins-card">
-          <div class="ins-card-label">Avg 7d Views</div>
-          <div class="ins-card-val ${avgViews>=baseline?'green':avgViews>=baseline*0.8?'orange':'red'}">${avgViews.toLocaleString()}</div>
-          <div class="ins-card-sub">Baseline: ${baseline.toLocaleString()}</div>
-        </div>
-        <div class="ins-card">
-          <div class="ins-card-label">Total Saves</div>
-          <div class="ins-card-val orange">${totalSaves.toLocaleString()}</div>
-          <div class="ins-card-sub">Content people bookmarked</div>
-        </div>
-        <div class="ins-card">
-          <div class="ins-card-label">Follows from Content</div>
-          <div class="ins-card-val green">${totalFollows}</div>
-          <div class="ins-card-sub">Attributed to tracked posts</div>
-        </div>
-      </div>
-
-      <!-- PILLAR × FORMAT MATRIX -->
-      ${matrixRows.length ? `
-      <div class="ins-section">
-        <div class="ins-section-title">Pillar × Format — avg 7d views</div>
-        <div class="pfm" style="grid-template-columns:150px repeat(${MATRIX_FORMATS.length},1fr);">
-          <div class="pfm-hdr"></div>
-          ${MATRIX_FORMATS.map(f=>`<div class="pfm-hdr">${f}</div>`).join('')}
-          ${matrixRows.map(r => `
-            <div class="pfm-row">${r.name}</div>
-            ${r.cells.map(c => c ? `
-              <div style="background:rgba(235,130,1,${(0.04 + 0.16 * c.avgV / matrixMaxV).toFixed(3)})">
-                <div class="pfm-cell-val">${c.avgV.toLocaleString()}</div>
-                <div class="pfm-cell-sub">${c.count} post${c.count!==1?'s':''} · win ${c.winR}%</div>
-              </div>` : `<div class="pfm-empty">—</div>`).join('')}
-          `).join('')}
-        </div>
-      </div>` : ''}
-
-      <!-- FORMAT BREAKDOWN -->
-      ${fmtData.length > 0 ? `
-      <div class="ins-section">
-        <div class="ins-section-title">Performance by format</div>
-        <div class="ins-format-grid">
-          ${fmtData.map(f=>`
-            <div class="ins-format-card">
-              <div class="ins-format-name">${f.fmt} · ${f.count} post${f.count!==1?'s':''}</div>
-              <div class="ins-format-val">${f.avgV.toLocaleString()}</div>
-              <div class="ins-format-sub">avg 7d views · Win rate ${f.winR}%</div>
-              <div class="ins-format-bar"><div class="ins-format-bar-fill" style="width:${Math.round(f.avgV/maxFmtV*100)}%"></div></div>
-              <div style="margin-top:10px;font-size:10px;color:var(--muted);">Save rate avg: ${f.avgSR}% · Non-follower reach avg: ${f.avgNF}%</div>
-            </div>
-          `).join('')}
-        </div>
-      </div>` : ''}
-
-      <!-- PILLAR BREAKDOWN -->
-      ${pillarData.length > 0 ? `
-      <div class="ins-section">
-        <div class="ins-section-title">Performance by pillar</div>
-        <div class="ins-format-grid">
-          ${pillarData.map(f=>`
-            <div class="ins-format-card">
-              <div class="ins-format-name">${f.name} · ${f.count} post${f.count!==1?'s':''}</div>
-              <div class="ins-format-val">${f.avgV.toLocaleString()}</div>
-              <div class="ins-format-sub">avg 7d views · Win rate ${f.winR}%</div>
-              <div class="ins-format-bar"><div class="ins-format-bar-fill" style="width:${Math.round(f.avgV/maxPillarV*100)}%"></div></div>
-              <div style="margin-top:10px;font-size:10px;color:var(--muted);">Save rate avg: ${f.avgSR}%</div>
-            </div>
-          `).join('')}
-        </div>
-      </div>` : ''}
-
-      <!-- TWO COL: Outcome + Insights -->
-      <div class="ins-two-col">
-        <div class="ins-panel">
-          <div class="ins-panel-title">Outcome breakdown</div>
-          ${[['Winner',winners.length,'#2a8a3e'],['Learning',learnings.length,'#c8a000'],['Testing',testing.length,'#b0a898'],['Underperformed',underperformed.length,'#cc3333']].map(([label,count,color])=>`
-            <div class="ins-donut-row">
-              <div class="ins-donut-swatch" style="background:${color}"></div>
-              <div class="ins-donut-name">${label}</div>
-              <div class="ins-donut-pct">${count} post${count!==1?'s':''} ${filteredPosts7d.length?'('+Math.round(count/filteredPosts7d.length*100)+'%)':''}</div>
-            </div>
-            <div style="height:4px;background:var(--border2);margin-bottom:10px;border-radius:2px;overflow:hidden;"><div style="width:${filteredPosts7d.length?Math.round(count/filteredPosts7d.length*100):0}%;height:100%;background:${color};border-radius:2px;"></div></div>
-          `).join('')}
-        </div>
-        <div class="ins-panel">
-          <div class="ins-panel-title">Key takeaways</div>
-          ${insights.map(i=>`<div class="ins-insight-row">${i}</div>`).join('')}
-          ${insights.length===0?'<div class="ins-insight-row">Add more 7d data to unlock insights.</div>':''}
-        </div>
-      </div>
-
-      <!-- TOP BY VIEWS -->
-      ${topPosts.length ? `
-      <div class="ins-section">
-        <div class="ins-section-title">Top posts by 7d views</div>
-        ${topPosts.map(p=>{
-          const v=p.checks['7d'].views||0;
-          const color=p.checks['7d'].outcome==='Winner'?'green':p.checks['7d'].outcome==='Underperformed'?'red':'orange';
-          return `<div class="ins-bar-row">
-            <div class="ins-bar-label" title="${p.title}">${p.title}</div>
-            <div class="ins-bar-track"><div class="ins-bar-fill ${color}" style="width:${Math.round(v/maxV*100)}%"></div></div>
-            <div class="ins-bar-num">${v.toLocaleString()}</div>
-          </div>`;
-        }).join('')}
-      </div>` : ''}
-
-      <!-- BEST SAVE RATES -->
-      ${bestSave.length ? `
-      <div class="ins-section">
-        <div class="ins-section-title">Most saved content (bookmarkable)</div>
-        ${bestSave.map(p=>{
-          const r=p.checks['7d'].saveRate||0;
-          return `<div class="ins-bar-row">
-            <div class="ins-bar-label" title="${p.title}">${p.title}</div>
-            <div class="ins-bar-track"><div class="ins-bar-fill green" style="width:${Math.round(r/maxSR*100)}%"></div></div>
-            <div class="ins-bar-num">${r.toFixed(2)}%</div>
-          </div>`;
-        }).join('')}
-        <div style="font-size:10px;color:var(--muted);margin-top:8px;">Save rate above 1% = content people found worth keeping. Repeat these hooks and formats.</div>
-      </div>` : ''}
-
-      <!-- BEST NON-FOLLOWER REACH -->
-      ${bestNF.length ? `
-      <div class="ins-section">
-        <div class="ins-section-title">Best new audience reach (non-followers)</div>
-        ${bestNF.map(p=>{
-          const r=p.checks['7d'].nonFollowerPct||0;
-          return `<div class="ins-bar-row">
-            <div class="ins-bar-label" title="${p.title}">${p.title}</div>
-            <div class="ins-bar-track"><div class="ins-bar-fill orange" style="width:${Math.round(r/maxNF*100)}%"></div></div>
-            <div class="ins-bar-num">${r}%</div>
-          </div>`;
-        }).join('')}
-        <div style="font-size:10px;color:var(--muted);margin-top:8px;">These posts found new audiences. The hook or topic had broad enough appeal to travel beyond your existing followers.</div>
-      </div>` : ''}
-
-      <!-- EVERGREEN CONTENT -->
-      ${evergreen.length ? `
-      <div class="ins-section">
-        <div class="ins-section-title">Evergreen content — still earning views at 30d</div>
-        ${evergreen.map(p=>`
-          <div class="ins-evergreen-row">
-            <div class="ins-evergreen-title">${p.title}</div>
-            <div class="ins-evergreen-views">${(p.checks['30d']?.views||0).toLocaleString()} total views</div>
-          </div>
-        `).join('')}
-        <div style="font-size:10px;color:var(--muted);margin-top:8px;">Evergreen posts keep working without new effort. These topics are worth revisiting and updating.</div>
-      </div>` : ''}
-
-      <!-- REPEAT HIGHLIGHTS -->
-      <div class="ins-section">
-        <div class="ins-section-title">Posts to repeat</div>
-        ${winners.length ? winners.map(p=>`
-          <div class="ins-highlight">
-            <div class="ins-highlight-title">✓ ${p.title}</div>
-            <div class="ins-highlight-body">${(p.checks['7d'].views||0).toLocaleString()} views · Save rate ${(p.checks['7d'].saveRate||0).toFixed(2)}% · ${p.checks['7d'].follows||0} follows · ${p.platform==='ig'?'Instagram':'TikTok'}</div>
-          </div>
-        `).join('') : '<div style="font-size:11px;color:var(--muted);">No winners yet in this filter — try expanding the timeframe.</div>'}
-      </div>
-
-    </div>`;
-}
-
-function setPostType(t) { S.postType = t; renderInsights(); }
-function setOutcomeFilter(t) { S.outcomeFilter = t; renderInsights(); }
-function setInsightPlat(plat) { S.platFilter = plat; renderInsights(); }
-function clearDateRange() { S.dateFrom = ''; S.dateTo = ''; renderInsights(); }
-
-function filterPlat(plat, btn) {
-  S.platFilter = plat;
-  document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderPostList();
-}
-
-if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+init();
 </script>
 </body>
 </html>
