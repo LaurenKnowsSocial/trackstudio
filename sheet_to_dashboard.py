@@ -234,8 +234,11 @@ def row_to_post_v2(row, client, platform, post_id):
         "_sort_date": post_date,
     }
 
+    # Pillar cells hold human labels like "P1 - Demystify" (2026-07-14 dropdown);
+    # the dashboard keys on the bare P# id.
     if pillar := g2("pillar"):
-        post["pillar"] = pillar
+        m = re.match(r"(P\d+)", pillar.strip())
+        post["pillar"] = m.group(1) if m else pillar
     if link := g2("link"):
         post["link"] = link
     if why := g2("notes_why"):
