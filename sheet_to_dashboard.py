@@ -32,7 +32,7 @@ INDEX_HTML  = Path.home() / "trackstudio/index.html"
 CLIENTS_JSON      = Path.home() / ".claude/social-clients.json"
 BASELINE_WINDOW   = 10
 BASELINE_MIN_POSTS = 5
-PLATFORM_KEY      = {"ig": "instagram", "tt": "tiktok"}
+PLATFORM_KEY      = {"ig": "instagram", "tt": "tiktok", "fb": "facebook"}
 
 # Tabs to read: (tab name, client, platform, layout). All tabs use the lean
 # v2+ layout since 2026-07-10 (RDC/LKS removed from the tracker; the v1 parser
@@ -41,6 +41,7 @@ TABS = [
     ("CEA Instagram", "CEA", "ig", "v2"),
     ("CEA TikTok",    "CEA", "tt", "v2"),
     ("BTC Instagram", "BTC", "ig", "v2"),
+    ("BTC Facebook",  "BTC", "fb", "v2"),
 ]
 
 # v3.2 layout (lean, 30 cols A-AD) — row-4 headers. 2026-07-13: Format and
@@ -305,7 +306,7 @@ def patch_clients_const(content, cfg):
     """Regenerate the whole CLIENTS const in index.html from
     social-clients.json — names, per-platform baselines, and pillar maps.
     The json is the only hand-edited copy."""
-    js_plat = {"instagram": "ig", "tiktok": "tt"}
+    js_plat = {v: k for k, v in PLATFORM_KEY.items()}
     entries = []
     for key, cdata in cfg["clients"].items():
         bl = ", ".join(f"{js_plat[p]}:{d['baseline_views']}"
