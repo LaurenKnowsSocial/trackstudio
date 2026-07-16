@@ -282,7 +282,7 @@ const ACCESS_KEYS = {
 // names, per-platform baselines, and pillar maps. Edit the json, not this.
 const CLIENTS = {
   CEA: { name:'CEA', baselines:{ ig:1200, tt:264 }, pillars:{ P1:'Demystify', P2:'Kill the Myth', P3:'Validate and Move', P4:'Ethical AI' } },
-  BTC: { name:'Brooklyn Teacup', baselines:{ ig:11163, fb:2000 }, pillars:{ P1:'↔ Process', P2:'🍽️ Use', P3:'🛟 Preservation', P4:'🧠 Education' } }
+  BTC: { name:'Brooklyn Teacup', baselines:{ ig:7241, fb:4329 }, pillars:{ P1:'↔ Process', P2:'🍽️ Use', P3:'🛟 Preservation', P4:'🧠 Education' } }
 };
 
 // ══════════════════════════════════════════════════════
@@ -322,6 +322,21 @@ const POSTS = [
   },
   {
     id: 3,
+    client: 'BTC',
+    platform: 'ig',
+    title: 'Hostess Gift Candle',
+    type: 'Carousel',
+    date: '2026-07-16',
+    checks: {
+
+    },
+    dueChecks: {
+      '7d': '2026-07-23'
+    },
+    pillar: 'P2'
+  },
+  {
+    id: 4,
     client: 'CEA',
     platform: 'ig',
     title: 'Essay tip 3 of 30',
@@ -336,7 +351,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 4,
+    id: 5,
     client: 'CEA',
     platform: 'ig',
     title: 'Essay topic carousel',
@@ -351,24 +366,9 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 5,
-    client: 'BTC',
-    platform: 'ig',
-    title: 'Red Card',
-    type: 'Carousel',
-    date: '2026-07-12',
-    checks: {
-
-    },
-    dueChecks: {
-      '7d': '2026-07-19'
-    },
-    pillar: 'P3'
-  },
-  {
     id: 6,
     client: 'BTC',
-    platform: 'fb',
+    platform: 'ig',
     title: 'Red Card',
     type: 'Carousel',
     date: '2026-07-12',
@@ -382,6 +382,36 @@ const POSTS = [
   },
   {
     id: 7,
+    client: 'BTC',
+    platform: 'ig',
+    title: 'what “custom” means to me',
+    type: 'Static',
+    date: '2026-07-12',
+    checks: {
+
+    },
+    dueChecks: {
+      '7d': '2026-07-19'
+    },
+    pillar: 'P2'
+  },
+  {
+    id: 8,
+    client: 'BTC',
+    platform: 'fb',
+    title: 'Red Card',
+    type: 'Carousel',
+    date: '2026-07-12',
+    checks: {
+
+    },
+    dueChecks: {
+      '7d': '2026-07-19'
+    },
+    pillar: 'P3'
+  },
+  {
+    id: 9,
     client: 'CEA',
     platform: 'tt',
     title: 'Stacey rates opening sentences',
@@ -395,34 +425,24 @@ const POSTS = [
     }
   },
   {
-    id: 8,
+    id: 10,
     client: 'BTC',
     platform: 'ig',
     title: 'wtf is... trending post',
     type: 'Carousel',
     date: '2026-07-09',
     checks: {
-
-    },
-    dueChecks: {
-      '7d': '2026-07-16'
-    },
-    pillar: 'P2',
-    hookInsight: 'wtf is...'
-  },
-  {
-    id: 9,
-    client: 'BTC',
-    platform: 'fb',
-    title: 'wtf is... trending post',
-    type: 'Carousel',
-    date: '2026-07-09',
-    checks: {
       '7d': {
-        views: 2221,
-        uniqueViewers: 1446,
-        nonFollowerPct: 10.0,
-        revisitRatio: 1.54,
+        views: 8236,
+        uniqueViewers: 3300,
+        nonFollowerPct: 5.6,
+        revisitRatio: 2.5,
+        saves: 3,
+        saveRate: 0.0,
+        shares: 3,
+        shareRate: 0.0,
+        comments: 6,
+        follows: 0,
         outcome: 'Learning',
         nextAction: 'Iterate'
       }
@@ -434,7 +454,37 @@ const POSTS = [
     hookInsight: 'wtf is...'
   },
   {
-    id: 10,
+    id: 11,
+    client: 'BTC',
+    platform: 'fb',
+    title: 'wtf is... trending post',
+    type: 'Carousel',
+    date: '2026-07-09',
+    checks: {
+      '7d': {
+        views: 2221,
+        uniqueViewers: 1446,
+        nonFollowerPct: 10.0,
+        revisitRatio: 1.54,
+        saves: 4,
+        saveRate: 0.2,
+        shares: 2,
+        shareRate: 0.1,
+        comments: 0,
+        follows: 0,
+        linkTaps: 9,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
+      }
+    },
+    dueChecks: {
+      '30d': '2026-08-08'
+    },
+    pillar: 'P2',
+    hookInsight: 'wtf is...'
+  },
+  {
+    id: 12,
     client: 'CEA',
     platform: 'ig',
     title: 'Stacey Rates Opening Sentences',
@@ -464,7 +514,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 11,
+    id: 13,
     client: 'CEA',
     platform: 'tt',
     title: 'Essay tip 2 of 30',
@@ -491,7 +541,7 @@ const POSTS = [
     }
   },
   {
-    id: 12,
+    id: 14,
     client: 'CEA',
     platform: 'ig',
     title: 'Essay tip 2 of 30',
@@ -521,7 +571,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 13,
+    id: 15,
     client: 'BTC',
     platform: 'ig',
     title: 'History of America\'s Most Patriotic China Patterns',
@@ -530,13 +580,16 @@ const POSTS = [
     checks: {
       '7d': {
         views: 6300,
+        uniqueViewers: 2400,
+        nonFollowerPct: 1.7,
+        revisitRatio: 2.63,
         saves: 16,
         saveRate: 0.3,
         shares: 18,
         shareRate: 0.3,
         comments: 4,
         follows: 0,
-        outcome: 'Underperformed',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       }
     },
@@ -548,7 +601,7 @@ const POSTS = [
     hookInsight: 'America\'s most patriotic china? Made in England'
   },
   {
-    id: 14,
+    id: 16,
     client: 'BTC',
     platform: 'fb',
     title: 'History of America\'s Most Patriotic China Patterns',
@@ -557,6 +610,9 @@ const POSTS = [
     checks: {
       '7d': {
         views: 2400,
+        uniqueViewers: 1600,
+        nonFollowerPct: 11.9,
+        revisitRatio: 1.5,
         saves: 1,
         saveRate: 0.0,
         shares: 3,
@@ -575,7 +631,7 @@ const POSTS = [
     hookInsight: 'America\'s most patriotic china? Made in England'
   },
   {
-    id: 15,
+    id: 17,
     client: 'CEA',
     platform: 'ig',
     title: 'The "meh" Checklist',
@@ -603,7 +659,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 16,
+    id: 18,
     client: 'CEA',
     platform: 'ig',
     title: 'Rising seniors have an advantage',
@@ -631,7 +687,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 17,
+    id: 19,
     client: 'BTC',
     platform: 'ig',
     title: 'Transform your china',
@@ -640,13 +696,16 @@ const POSTS = [
     checks: {
       '7d': {
         views: 8183,
-        nonFollowerPct: 1.0,
+        uniqueViewers: 5400,
+        nonFollowerPct: 1.2,
+        revisitRatio: 1.52,
         saves: 21,
         saveRate: 0.3,
         shares: 5,
         shareRate: 0.1,
+        comments: 35,
         follows: 0,
-        outcome: 'Underperformed',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       }
     },
@@ -658,7 +717,7 @@ const POSTS = [
     hookInsight: 'You have a box of your grandmother\'s china you can\'t use but won\'t throw away'
   },
   {
-    id: 18,
+    id: 20,
     client: 'CEA',
     platform: 'ig',
     title: 'How to brainstorm essay topic',
@@ -686,7 +745,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 19,
+    id: 21,
     client: 'BTC',
     platform: 'ig',
     title: 'The story behind Brooklyn Teacup',
@@ -713,7 +772,7 @@ const POSTS = [
     hookInsight: 'For my grandmother\'s 100th birthday I drilled holes into her wedding china'
   },
   {
-    id: 20,
+    id: 22,
     client: 'CEA',
     platform: 'ig',
     title: 'How to brainstorm a topic',
@@ -741,7 +800,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 21,
+    id: 23,
     client: 'CEA',
     platform: 'ig',
     title: 'Do\'s + Don\'ts Opening line',
@@ -777,7 +836,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 22,
+    id: 24,
     client: 'CEA',
     platform: 'tt',
     title: 'Do\'s + Don\'ts Opening line',
@@ -813,51 +872,83 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 23,
+    id: 25,
     client: 'BTC',
     platform: 'ig',
     title: 'Behind the scenes pivot',
     type: 'Video',
     date: '2026-06-16',
     checks: {
+      '7d': {
+        views: 3398,
+        nonFollowerPct: 58.2,
+        watchTimeSec: 9,
+        watchTimePct: 42.9,
+        saves: 7,
+        saveRate: 0.2,
+        shares: 10,
+        shareRate: 0.3,
+        comments: 3,
+        follows: 0,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
+      },
       '30d': {
         views: 3982,
+        longTailViews: 584,
+        longTailPct: 14.7,
         saves: 9,
         shares: 14,
         follows: 0
       }
     },
     dueChecks: {
-      '7d': '2026-06-23'
+
     },
     pillar: 'P1',
     link: 'https://www.instagram.com/reel/DZp_IhcFOOZ/?igsh=NDR4NGYyaWx6ZGUz',
     hookInsight: 'This was the last weekend for the Brooklyn Teacup studio'
   },
   {
-    id: 24,
+    id: 26,
     client: 'BTC',
     platform: 'fb',
     title: 'Behind the scenes pivot',
     type: 'Video',
     date: '2026-06-16',
     checks: {
+      '7d': {
+        views: 5235,
+        nonFollowerPct: 69.7,
+        watchTimeSec: 13,
+        watchTimePct: 61.9,
+        saves: 15,
+        saveRate: 0.3,
+        shares: 3,
+        shareRate: 0.1,
+        comments: 8,
+        follows: 28,
+        outcome: 'Winner',
+        nextAction: 'Repeat'
+      },
       '30d': {
         views: 12647,
+        longTailViews: 7412,
+        longTailPct: 58.6,
         saves: 20,
         shares: 4,
         follows: 33
       }
     },
     dueChecks: {
-      '7d': '2026-06-23'
+
     },
     pillar: 'P1',
     link: 'https://www.instagram.com/reel/DZp_IhcFOOZ/?igsh=NDR4NGYyaWx6ZGUz',
     hookInsight: 'This was the last weekend for the Brooklyn Teacup studio'
   },
   {
-    id: 25,
+    id: 27,
     client: 'CEA',
     platform: 'ig',
     title: 'Life of an Admissions Officer',
@@ -893,51 +984,97 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 26,
+    id: 28,
+    client: 'BTC',
+    platform: 'fb',
+    title: 'Hostess Gift Candle',
+    type: 'Carousel',
+    date: '2026-06-14',
+    checks: {
+
+    },
+    dueChecks: {
+      '7d': '2026-06-21'
+    }
+  },
+  {
+    id: 29,
     client: 'BTC',
     platform: 'ig',
     title: 'Making of Knicks tray',
     type: 'Video',
     date: '2026-06-13',
     checks: {
+      '7d': {
+        views: 5913,
+        nonFollowerPct: 71.0,
+        watchTimeSec: 6,
+        watchTimePct: 46.2,
+        saves: 4,
+        saveRate: 0.1,
+        shares: 5,
+        shareRate: 0.1,
+        comments: 4,
+        follows: 0,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
+      },
       '30d': {
         views: 6307,
+        longTailViews: 394,
+        longTailPct: 6.3,
         saves: 5,
         shares: 6,
         follows: 0
       }
     },
     dueChecks: {
-      '7d': '2026-06-20'
+
     },
     pillar: 'P2',
     link: 'https://www.instagram.com/reel/DZi2YHDFT6N/?igsh=MXNuZ3g5enp0c2Vnbw==',
     hookInsight: 'Let\'s make something for the soon to be champions'
   },
   {
-    id: 27,
+    id: 30,
     client: 'BTC',
     platform: 'fb',
     title: 'Making of Knicks tray',
     type: 'Video',
     date: '2026-06-13',
     checks: {
+      '7d': {
+        views: 4272,
+        nonFollowerPct: 68.9,
+        watchTimeSec: 8,
+        watchTimePct: 61.5,
+        saves: 7,
+        saveRate: 0.2,
+        shares: 2,
+        shareRate: 0.1,
+        comments: 6,
+        follows: 7,
+        outcome: 'Winner',
+        nextAction: 'Repeat'
+      },
       '30d': {
         views: 6338,
+        longTailViews: 2066,
+        longTailPct: 32.6,
         saves: 10,
         shares: 2,
         follows: 10
       }
     },
     dueChecks: {
-      '7d': '2026-06-20'
+
     },
     pillar: 'P2',
     link: 'https://www.instagram.com/reel/DZi2YHDFT6N/?igsh=MXNuZ3g5enp0c2Vnbw==',
     hookInsight: 'Let\'s make something for the soon to be champions'
   },
   {
-    id: 28,
+    id: 31,
     client: 'CEA',
     platform: 'tt',
     title: 'Essay tip 1 of 30',
@@ -973,51 +1110,83 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 29,
+    id: 32,
     client: 'BTC',
     platform: 'ig',
     title: 'Showing before and after',
     type: 'Video',
     date: '2026-06-12',
     checks: {
+      '7d': {
+        views: 4313,
+        nonFollowerPct: 74.2,
+        watchTimeSec: 10,
+        watchTimePct: 35.7,
+        saves: 9,
+        saveRate: 0.2,
+        shares: 8,
+        shareRate: 0.2,
+        comments: 1,
+        follows: 6,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
+      },
       '30d': {
         views: 4906,
+        longTailViews: 593,
+        longTailPct: 12.1,
         saves: 10,
         shares: 9,
         follows: 6
       }
     },
     dueChecks: {
-      '7d': '2026-06-19'
+
     },
     pillar: 'P1',
     link: 'https://www.instagram.com/reel/DZfhDetD7em/?igsh=MXNwbTMxMmVjNjhrZw==',
     hookInsight: 'Everybody gasps when they see a drill going into china'
   },
   {
-    id: 30,
+    id: 33,
     client: 'BTC',
     platform: 'fb',
     title: 'Showing before and after',
     type: 'Video',
     date: '2026-06-12',
     checks: {
+      '7d': {
+        views: 18108,
+        nonFollowerPct: 60.0,
+        watchTimeSec: 14,
+        watchTimePct: 50.0,
+        saves: 72,
+        saveRate: 0.4,
+        shares: 14,
+        shareRate: 0.1,
+        comments: 10,
+        follows: 80,
+        outcome: 'Winner',
+        nextAction: 'Repeat'
+      },
       '30d': {
         views: 29183,
+        longTailViews: 11075,
+        longTailPct: 38.0,
         saves: 81,
         shares: 20,
         follows: 95
       }
     },
     dueChecks: {
-      '7d': '2026-06-19'
+
     },
     pillar: 'P1',
     link: 'https://www.instagram.com/reel/DZfhDetD7em/?igsh=MXNwbTMxMmVjNjhrZw==',
     hookInsight: 'Everybody gasps when they see a drill going into china'
   },
   {
-    id: 31,
+    id: 34,
     client: 'CEA',
     platform: 'ig',
     title: 'Essay tip 1 of 30',
@@ -1053,51 +1222,83 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 32,
+    id: 35,
     client: 'BTC',
     platform: 'ig',
     title: 'The pivot',
     type: 'Video',
     date: '2026-06-09',
     checks: {
+      '7d': {
+        views: 29752,
+        nonFollowerPct: 70.0,
+        watchTimeSec: 44,
+        watchTimePct: 37.3,
+        saves: 169,
+        saveRate: 0.6,
+        shares: 200,
+        shareRate: 0.7,
+        comments: 100,
+        follows: 250,
+        outcome: 'Winner',
+        nextAction: 'Repeat'
+      },
       '30d': {
         views: 35354,
+        longTailViews: 5602,
+        longTailPct: 15.9,
         saves: 181,
         shares: 225,
         follows: 340
       }
     },
     dueChecks: {
-      '7d': '2026-06-16'
+
     },
     pillar: 'P1',
     link: 'https://www.instagram.com/reel/DZY00N6iIcG/?igsh=cjl0aWFoeTZzdWkz',
     hookInsight: 'In five days I\'m closing the Brooklyn Teacup Studio'
   },
   {
-    id: 33,
+    id: 36,
     client: 'BTC',
     platform: 'fb',
     title: 'The pivot',
     type: 'Video',
     date: '2026-06-09',
     checks: {
+      '7d': {
+        views: 4386,
+        nonFollowerPct: 48.0,
+        watchTimeSec: 36,
+        watchTimePct: 30.5,
+        saves: 21,
+        saveRate: 0.5,
+        shares: 3,
+        shareRate: 0.1,
+        comments: 8,
+        follows: 25,
+        outcome: 'Winner',
+        nextAction: 'Repeat'
+      },
       '30d': {
         views: 5758,
+        longTailViews: 1372,
+        longTailPct: 23.8,
         saves: 28,
         shares: 3,
         follows: 30
       }
     },
     dueChecks: {
-      '7d': '2026-06-16'
+
     },
     pillar: 'P1',
     link: 'https://www.instagram.com/reel/DZY00N6iIcG/?igsh=cjl0aWFoeTZzdWkz',
     hookInsight: 'In five days I\'m closing the Brooklyn Teacup Studio'
   },
   {
-    id: 34,
+    id: 37,
     client: 'CEA',
     platform: 'ig',
     title: 'Three things not to put in your essay, ep 2',
@@ -1133,7 +1334,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 35,
+    id: 38,
     client: 'CEA',
     platform: 'tt',
     title: 'Three things not to put in your essay, ep 2',
@@ -1169,7 +1370,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 36,
+    id: 39,
     client: 'CEA',
     platform: 'ig',
     title: 'Webinar promo - you\'re not boring',
@@ -1205,7 +1406,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 37,
+    id: 40,
     client: 'CEA',
     platform: 'tt',
     title: 'I encourage students to use AI',
@@ -1241,7 +1442,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 38,
+    id: 41,
     client: 'CEA',
     platform: 'ig',
     title: 'Backwards brainstorm carousel',
@@ -1277,7 +1478,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 39,
+    id: 42,
     client: 'CEA',
     platform: 'ig',
     title: 'Smart students use AI',
@@ -1313,7 +1514,7 @@ const POSTS = [
     pillar: 'P5'
   },
   {
-    id: 40,
+    id: 43,
     client: 'CEA',
     platform: 'ig',
     title: 'Dos and Don\'ts of writing about challenges',
@@ -1349,7 +1550,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 41,
+    id: 44,
     client: 'CEA',
     platform: 'tt',
     title: 'Dos and Don\'ts of writing about challenges',
@@ -1385,7 +1586,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 42,
+    id: 45,
     client: 'CEA',
     platform: 'ig',
     title: 'Show the turds',
@@ -1421,7 +1622,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 43,
+    id: 46,
     client: 'CEA',
     platform: 'ig',
     title: 'AI is a scam',
@@ -1457,7 +1658,7 @@ const POSTS = [
     pillar: 'P5'
   },
   {
-    id: 44,
+    id: 47,
     client: 'CEA',
     platform: 'tt',
     title: 'Using AI to write essays is a scam',
@@ -1493,7 +1694,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 45,
+    id: 48,
     client: 'CEA',
     platform: 'ig',
     title: 'I encourage my students to use AI',
@@ -1529,7 +1730,7 @@ const POSTS = [
     pillar: 'P5'
   },
   {
-    id: 46,
+    id: 49,
     client: 'CEA',
     platform: 'ig',
     title: 'Quick tips to find your college essay voice',
@@ -1565,7 +1766,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 47,
+    id: 50,
     client: 'CEA',
     platform: 'tt',
     title: 'Show the turds',
@@ -1601,7 +1802,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 48,
+    id: 51,
     client: 'CEA',
     platform: 'ig',
     title: 'Junior year tip no one is giving you',
@@ -1637,7 +1838,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 49,
+    id: 52,
     client: 'CEA',
     platform: 'ig',
     title: 'Do\'s + Don\'ts Choosing an Essay Topic',
@@ -1673,7 +1874,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 50,
+    id: 53,
     client: 'CEA',
     platform: 'tt',
     title: 'Junior year tip nobody\'s giving you',
@@ -1709,7 +1910,7 @@ const POSTS = [
     pillar: 'P3'
   },
   {
-    id: 51,
+    id: 54,
     client: 'CEA',
     platform: 'ig',
     title: 'Stop writing analytical essays',
@@ -1745,7 +1946,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 52,
+    id: 55,
     client: 'CEA',
     platform: 'tt',
     title: 'Stop writing analytical essays',
@@ -1781,7 +1982,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 53,
+    id: 56,
     client: 'CEA',
     platform: 'tt',
     title: 'Dos and Don\'ts: choosing an essay topic',
@@ -1817,7 +2018,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 54,
+    id: 57,
     client: 'CEA',
     platform: 'ig',
     title: 'Why banning AI tools for students is futile',
@@ -1853,7 +2054,7 @@ const POSTS = [
     pillar: 'P5'
   },
   {
-    id: 55,
+    id: 58,
     client: 'CEA',
     platform: 'ig',
     title: '3 things we dont want to see in your essay',
@@ -1891,7 +2092,7 @@ const POSTS = [
     hookInsight: 'The negative hook ("DON\'T") created urgency that carried through to profile visits and follow decisions.'
   },
   {
-    id: 56,
+    id: 59,
     client: 'CEA',
     platform: 'ig',
     title: 'College essays that got it right: Nature painter',
@@ -1929,7 +2130,7 @@ const POSTS = [
     hookInsight: 'Every engagement rate except skip rate is above average. Translation: the ~24% of people who didn\'t skip found it genuinely valuable. The content itself has merit but it\'s failing at the moment of first impression.'
   },
   {
-    id: 57,
+    id: 60,
     client: 'CEA',
     platform: 'ig',
     title: 'Dos + Donts Common App Prompt 5',
@@ -1967,7 +2168,7 @@ const POSTS = [
     hookInsight: '"Do\'s & Don\'ts" is a durable framework audience responds to. What\'s missing is a creator-identity layer... something that makes the viewer associate this expert knowledge with this specific person, not just the topic. Consider opening with a POV line before the list, or closing with a specific reason to follow rather than just delivering the information cleanly.'
   },
   {
-    id: 58,
+    id: 61,
     client: 'CEA',
     platform: 'ig',
     title: 'Parent Webinar Segment - Common app prompt doesnt matter',
@@ -2003,7 +2204,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 59,
+    id: 62,
     client: 'CEA',
     platform: 'tt',
     title: 'Parent Webinar Clip: Common App Prompt Doesn\'t Matter',
@@ -2039,7 +2240,7 @@ const POSTS = [
     pillar: 'P2'
   },
   {
-    id: 60,
+    id: 63,
     client: 'CEA',
     platform: 'ig',
     title: 'Stacey + Becca Prompt 4 Podcast',
@@ -2077,7 +2278,7 @@ const POSTS = [
     hookInsight: 'On-screen text hook: \'Stacey gives a Common App Essay Prompt 4 example\' — this is doing ALL the scroll-stop work. The specificity (Prompt 4 + example + Stacey\'s name as credibility signal) is what drove the best skip rate in the batch. Spoken video hook: \'I was working with a student who he worked remotely with a group of Cambodian students and forged a special friendship with a 10-year-old.\' Two problems: (1) grammar slip (\'who he worked\') erodes credibility immediately; (2) dives straight into story narration without framing the value — the viewer doesn\'t know why this example matters to them before they hear it. Steep retention drop in the first 5-7 seconds reflects people who stopped for the text hook and left when the spoken content didn\'t match its promise. Fix: frame before you story. Open with: \'Prompt 4 asks you to reflect on something someone did that made you happy or thankful. Here\'s how one student nailed it.\' Then go into the Cambodian student example. That one sentence of framing would extend retention past the initial cliff.'
   },
   {
-    id: 61,
+    id: 64,
     client: 'CEA',
     platform: 'ig',
     title: 'How much is too much to reveal',
@@ -2115,7 +2316,7 @@ const POSTS = [
     hookInsight: 'Video hook: \'I want to address something that comes up very often. How much is too much to reveal in your college application essay?\' The opener is a throat-clearer — \'I want to address something that comes up very often\' adds zero value and delays the actual hook by a full sentence. Viewers who stopped for the thumbnail (strong graphic + topic) hit this soft opener and left: explains the steep 50%+ drop in the first 10-15 seconds and 8.9s average watch time. The question itself (\'How much is too much to reveal?\') is solid — specific, relatable, and searchable — but it arrives too late. Fix: lead with the question. Cut the preamble entirely. \'How much is too much to reveal in your college essay?\' as the first words would have earned the watch time the thumbnail already stopped for. Note: the caption hook (\'This isn\'t a dear diary entry...\') is far stronger than the video hook — that gap is the core creative problem.'
   },
   {
-    id: 62,
+    id: 65,
     client: 'CEA',
     platform: 'ig',
     title: 'Parent Webinar Promo',
@@ -2151,7 +2352,7 @@ const POSTS = [
     pillar: 'P4'
   },
   {
-    id: 63,
+    id: 66,
     client: 'CEA',
     platform: 'tt',
     title: 'Stacey + Becca Prompt 3 Podcast',
@@ -2187,7 +2388,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 64,
+    id: 67,
     client: 'CEA',
     platform: 'ig',
     title: 'Why common app essay prompts don\'t matter',
@@ -2221,7 +2422,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 65,
+    id: 68,
     client: 'CEA',
     platform: 'ig',
     title: 'Quick tips to brainstorm topics',
@@ -2259,7 +2460,7 @@ const POSTS = [
     hookInsight: 'Opens with the title "Quick tips to brainstorm essay topics" in bold white text over b-roll of someone writing. Bold claim hook: names the problem and promises a quick fix. Skip rate of 74% beats the account average of 77.4%, so the hook is actually stopping people at an above-average rate. The retention problem kicks in after the stop: people average 3 seconds on a 10-second video and don\'t make it through all 5 tips. The colorful tip boxes are visible enough to trigger a save without watching through, which is why saves are strong while watch time is low.'
   },
   {
-    id: 66,
+    id: 69,
     client: 'CEA',
     platform: 'ig',
     title: 'Stacey + Becca Prompt 3 Podcast',
@@ -2297,7 +2498,7 @@ const POSTS = [
     hookInsight: 'Opens mid-reaction before any setup or title card. Leads with the viewer\'s own confusion about Prompt 3, which earns trust before any advice lands. Works as a curiosity hook even for people who haven\'t seen the prompt yet.'
   },
   {
-    id: 67,
+    id: 70,
     client: 'CEA',
     platform: 'ig',
     title: 'How to write a better essay than your friends 2',
@@ -2329,7 +2530,7 @@ const POSTS = [
     hookInsight: 'Skip rate was 77.4% vs an 81.1% account average, so the hook actually stopped people better than usual. Stacey\'s face and energy in the first frame is doing the work before any text registers. But the retention curve drops steeply to under 10% within the first few seconds and keeps declining through the full 71 seconds. People stopped and then left: at 71 seconds with no clear upfront promise of a payoff, most don\'t commit. The interesting claim, "YOU\'RE NOT PROVING A POINT," lands mid-video, too late for someone who hasn\'t already decided to watch.'
   },
   {
-    id: 68,
+    id: 71,
     client: 'CEA',
     platform: 'tt',
     title: 'How to write a better essay than your friends 2',
@@ -2356,7 +2557,7 @@ const POSTS = [
     pillar: 'P1'
   },
   {
-    id: 69,
+    id: 72,
     client: 'CEA',
     platform: 'ig',
     title: 'How to write common app prompt 2',
@@ -2392,7 +2593,7 @@ const POSTS = [
     hookInsight: 'Slide 1 opens with a notebook cover naming the exact prompt in bold teal. Direct address, specific topic. Slide 3 (the actual prompt text plus "What They\'re Really Asking") got the most likes after the cover, which means people found the reframe valuable. The "What works..." transition slide (slide 4) got zero likes and likely caused some drop-off before the 20/80 Rule. The hook logic is right, but it\'s reaching parents in their feed, not students discovering it through Reels.'
   },
   {
-    id: 70,
+    id: 73,
     client: 'CEA',
     platform: 'ig',
     title: 'College essays that got it right: Burglar',
@@ -2430,7 +2631,7 @@ const POSTS = [
     hookInsight: 'The skip rate was 81.3%, nearly identical to the account average of 80.7%, so the first frame wasn\'t losing people faster than usual. But the retention curve drops steeply in the first 2 seconds before flattening out. People stopped scrolling and then left immediately. The format asks too much too fast: stop, read small text, parse annotations, with no audio, no face, and no motion to reward the pause. The hook stops people at a normal rate but the content doesn\'t give them a reason to stay.'
   },
   {
-    id: 71,
+    id: 74,
     client: 'CEA',
     platform: 'ig',
     title: 'What juniors need to think about now',
@@ -2468,7 +2669,7 @@ const POSTS = [
     hookInsight: 'Stacey opens with "IF YOU\'RE A JUNIOR" on screen with the word JUNIOR highlighted in teal, a targeting hook that filters in the right audience from the first frame. The below-average skip rate (73.6% vs 80.8% typical) confirms it landed. A secondary "HERE IS THE SECRET" text overlay mid-video gave people a reason to keep watching past the initial drop, which shows in the flattened retention curve after second 5.'
   },
   {
-    id: 72,
+    id: 75,
     client: 'CEA',
     platform: 'tt',
     title: 'What juniors need to think about now',
@@ -2497,7 +2698,7 @@ const POSTS = [
     pillar: 'P3'
   },
   {
-    id: 73,
+    id: 76,
     client: 'CEA',
     platform: 'ig',
     title: 'It\'s too soon',
