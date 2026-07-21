@@ -164,9 +164,52 @@ def has_any(*vals):
     """True if at least one value is non-empty and not '—'."""
     return any(v.strip() and v.strip() != '—' for v in vals)
 
+# ── Pillars ───────────────────────────────────────────────────────────────────
+# Sheet cells read like "P4 - Authority". The NUMBER is not trustworthy: the two
+# CEA tabs number the same pillars differently (Proof is P3 on Instagram but P2
+# on TikTok, so a number-keyed lookup mislabels 24 posts and silently drops the
+# Instagram-only P5). The NAME is consistent across tabs, so resolve on the name
+# and treat social-clients.json as the canonical id ↔ name map.
+
+def norm_pillar(s):
+    """Fold a pillar label for matching: case, punctuation, and the emoji
+    prefixes on the BTC names ('🍽️ Use' ↔ 'Use') all become irrelevant."""
+    return re.sub(r"[^a-z0-9]", "", s.lower())
+
+def build_pillar_lut(cfg):
+    """{client: {normalized name: canonical id}} from social-clients.json."""
+    lut = {}
+    for key, cdata in cfg["clients"].items():
+        names = {}
+        for p in cdata.get("pillars", []):
+            for label in [p["name"], *p.get("aliases", [])]:
+                names[norm_pillar(label)] = p["id"]
+        lut[key] = names
+    return lut
+
+def resolve_pillar(cell, client, pillar_lut, unmatched):
+    """'P4 - Authority' → canonical id. Falls back to the literal P# when the
+    name is unknown, and records it so main() can report it rather than
+    silently mislabelling the post."""
+    cell = cell.strip()
+    m = re.match(r"(P\d+)\s*[-–—]\s*(.+)$", cell)
+    if not m:
+        m2 = re.match(r"(P\d+)$", cell)
+        if m2:
+            unmatched.append((client, cell, "no name in cell"))
+            return m2.group(1)
+        unmatched.append((client, cell, "unparseable"))
+        return cell
+    literal_id, name = m.group(1), m.group(2)
+    canonical = pillar_lut.get(client, {}).get(norm_pillar(name))
+    if canonical:
+        return canonical
+    unmatched.append((client, cell, f"name not in social-clients.json"))
+    return literal_id
+
 # ── Row → post object (v2 lean layout) ────────────────────────────────────────
 
-def row_to_post_v2(row, client, platform, post_id):
+def row_to_post_v2(row, client, platform, post_id, pillar_lut, unmatched):
     g2 = lambda key: g(row, key, C2)
 
     title     = g2("title")
@@ -236,10 +279,9 @@ def row_to_post_v2(row, client, platform, post_id):
     }
 
     # Pillar cells hold human labels like "P1 - Demystify" (2026-07-14 dropdown);
-    # the dashboard keys on the bare P# id.
+    # the dashboard keys on the canonical P# id — resolved by NAME, see above.
     if pillar := g2("pillar"):
-        m = re.match(r"(P\d+)", pillar.strip())
-        post["pillar"] = m.group(1) if m else pillar
+        post["pillar"] = resolve_pillar(pillar, client, pillar_lut, unmatched)
     if link := g2("link"):
         post["link"] = link
     if why := g2("notes_why"):
@@ -333,6 +375,10 @@ def main():
     sh = gc.open_by_key(SHEET_ID)
     print(f"Connected ✓  ({sh.title})\n")
 
+    # Canonical pillar names, used to resolve the Sheet's per-tab numbering
+    pillar_lut = build_pillar_lut(json.loads(CLIENTS_JSON.read_text()))
+    unmatched_pillars = []
+
     # Read all tabs
     all_posts = []
     v2_tabs = []          # (tab_name, client, platform) for baseline recompute
@@ -356,7 +402,9 @@ def main():
 
         tab_posts = []
         for row in data_rows:
-            post = row_to_post_v2(row, client, platform, post_id=0)
+            post = row_to_post_v2(row, client, platform, post_id=0,
+                                  pillar_lut=pillar_lut,
+                                  unmatched=unmatched_pillars)
             if post:
                 tab_posts.append(post)
 
@@ -381,6 +429,25 @@ def main():
         by_client[key] = by_client.get(key, 0) + 1
     for k, v in sorted(by_client.items()):
         print(f"  {k}: {v}")
+
+    # Pillar resolution: show what the labels became, and flag anything the
+    # name lookup could not place (a new dropdown option, a typo, a rename).
+    by_pillar = {}
+    for p in all_posts:
+        if p.get("pillar"):
+            key = f"{p['client']} {p['pillar']}"
+            by_pillar[key] = by_pillar.get(key, 0) + 1
+    if by_pillar:
+        print("\nPillars:")
+        for k, v in sorted(by_pillar.items()):
+            print(f"  {k}: {v}")
+    if unmatched_pillars:
+        seen = sorted({(c, cell, why) for c, cell, why in unmatched_pillars})
+        print(f"\n⚠  {len(unmatched_pillars)} pillar cell(s) not resolved by name "
+              f"— falling back to the literal number:")
+        for c, cell, why in seen:
+            print(f"     {c}: {cell!r} ({why})")
+        print("   Add the name (or an alias) to social-clients.json to fix.")
 
     # Rolling baselines (migrated tabs only)
     cfg, bl_changes = recompute_baselines(all_posts, v2_tabs)
