@@ -115,6 +115,16 @@ svg{display:block;width:100%;height:auto;}
 .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:10px;color:var(--ink2);}
 .legend span{display:flex;align-items:center;gap:6px;}
 
+/* ── follows/1K additions ─────────────────── */
+.mx-fpk{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:1px}
+.ytoggle{display:inline-flex;gap:2px;margin-left:auto}
+.ytoggle button{font:inherit;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;border-radius:3px}
+.ytoggle button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.fchip{display:inline-block;width:22px;height:11px;border-radius:2px;vertical-align:middle;margin-right:6px}
+th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+th.sortable:hover{color:var(--accent)}
+th.sortable .arrow{opacity:.35;font-size:9px;margin-left:2px}
+th.sortable.active{color:var(--accent)} th.sortable.active .arrow{opacity:1}
 /* ── ledger ───────────────────────────────── */
 .ledger{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;min-width:780px;}
@@ -3353,20 +3363,21 @@ function renderStatement(){
 
     <section class="sec">
       <div class="sec-hd"><span class="sec-no">§1</span><span class="sec-title">Pillar × Format</span>
-        <span class="sec-why">avg 7d views · the "what should we make more of" table</span></div>
+        <span class="sec-why">avg 7d views &amp; follows per 1,000 views · the "what should we make more of" table</span></div>
       <div id="matrix"></div>
     </section>
 
     <section class="sec">
       <div class="sec-hd"><span class="sec-no">§2</span><span class="sec-title">The period, on one line</span>
-        <span class="sec-why">every post as a dot · height = 7d views · color = pillar · click a dot to open the post</span></div>
+        <span class="sec-why">every post as a dot · color = pillar · click a dot to open the post</span>
+        <span class="ytoggle"><button class="${S.chartY!=='fpk'?'on':''}" onclick="setChartY('views')">7d views</button><button class="${S.chartY==='fpk'?'on':''}" onclick="setChartY('fpk')">follows /1K</button></span></div>
       <div class="chart-wrap"><div id="chart"></div></div>
       <div class="legend" id="legend"></div>
     </section>
 
     <section class="sec">
       <div class="sec-hd"><span class="sec-no">§3</span><span class="sec-title">The ledger</span>
-        <span class="sec-why">every post in the period, newest first · click a row for the full breakdown</span></div>
+        <span class="sec-why">click any column heading to sort · click a row for the full breakdown</span></div>
       <div class="ledger" id="ledger"></div>
     </section>
 
@@ -3388,6 +3399,11 @@ function renderStatement(){
   renderAdminLinks();
 }
 
+const FPK_RAMP=["#E99C3D","#D87C15","#BC6200","#954C00","#6B3600"];
+function fpkOf(p){ const c=(p.checks&&p.checks['7d'])||{}; return (c.views&&c.follows!=null)? c.follows/c.views*1000 : null; }
+function fpkColor(v,max){ if(v==null||max<=0) return 'var(--line)'; const f=v/max; return FPK_RAMP[f<=.2?0:f<=.4?1:f<=.6?2:f<=.8?3:4]; }
+function setSort(k){ if(S.sortKey===k){ S.sortDir = S.sortDir==='asc'?'desc':'asc'; } else { S.sortKey=k; S.sortDir = k==='title'?'asc':'desc'; } renderMain(); }
+function setChartY(m){ S.chartY=m; renderMain(); }
 function renderMatrix(c, live){
   const pillars = Object.entries(c.pillars||{});
   const withPillar = live.filter(p=>p.pillar);
@@ -3398,9 +3414,12 @@ function renderMatrix(c, live){
     const cells = FORMATS.map(f=>{
       const pp = withPillar.filter(p=>p.pillar===pid && (p.type||'Video')===f);
       if (!pp.length) return null;
-      const avg = Math.round(pp.reduce((s,p)=>s+(p.checks['7d'].views||0),0)/pp.length);
+      const totV = pp.reduce((s,p)=>s+(p.checks['7d'].views||0),0);
+      const totF = pp.reduce((s,p)=>s+(p.checks['7d'].follows||0),0);
+      const avg = Math.round(totV/pp.length);
       maxV = Math.max(maxV, avg);
-      return {avg, n:pp.length, win:Math.round(pp.filter(p=>p.checks['7d'].outcome==='Winner').length/pp.length*100)};
+      const fpk = totV>0 ? totF/totV*1000 : null;
+      return {avg, fpk, n:pp.length, win:Math.round(pp.filter(p=>p.checks['7d'].outcome==='Winner').length/pp.length*100)};
     });
     if (cells.some(Boolean)) rows.push({pid,name,cells});
   }
@@ -3408,7 +3427,7 @@ function renderMatrix(c, live){
     <div class="mx mx-hdr"></div>${FORMATS.map(f=>`<div class="mx mx-hdr">${f}</div>`).join('')}
     ${rows.map(r=>`<div class="mx mx-pillar"><span class="pdot" style="background:${PCOLORS[r.pid]}"></span>${esc(r.name)}</div>
       ${r.cells.map(cell=>cell?`<div class="mx" style="background:color-mix(in srgb,var(--accent-bright) ${(4+14*cell.avg/maxV).toFixed(1)}%,var(--card))">
-        <div class="mx-val">${fmtN(cell.avg)}</div><div class="mx-sub">${cell.n} post${cell.n!==1?'s':''} · ${cell.win>0?`<span class="mx-win">win ${cell.win}%</span>`:'win 0%'}</div>
+        <div class="mx-val">${fmtN(cell.avg)}</div><div class="mx-fpk">${cell.fpk!=null?cell.fpk.toFixed(2):'—'} follows /1K</div><div class="mx-sub">${cell.n} post${cell.n!==1?'s':''} · ${cell.win>0?`<span class="mx-win">win ${cell.win}%</span>`:'win 0%'}</div>
       </div>`:'<div class="mx mx-empty">—</div>').join('')}`).join('')}
   </div>`;
 }
@@ -3420,27 +3439,31 @@ function renderChart(ps, live, pending, bl){
   const ds = ps.map(p=>new Date(p.date).getTime());
   let t0=Math.min(...ds), t1=Math.max(...ds);
   if (t0===t1){ t0-=86400e3; t1+=86400e3; }
-  const maxRaw = Math.max(...live.map(p=>p.checks['7d'].views||0), bl, 1);
+  const FPK = S.chartY==='fpk';
+  const val = p => FPK ? (fpkOf(p)||0) : (p.checks['7d'].views||0);
+  const fmtY = v => FPK ? (Math.round(v*100)/100) : (v>=1000?(v/1000)+'k':v);
+  const maxRaw = FPK ? Math.max(...live.map(p=>fpkOf(p)||0), 0.5) : Math.max(...live.map(p=>p.checks['7d'].views||0), bl, 1);
   const step = Math.pow(10, Math.floor(Math.log10(maxRaw)));
-  const yMax = Math.ceil(maxRaw*1.05/step)*step;
+  const yMax = Math.max(Math.ceil(maxRaw*1.05/step)*step, maxRaw*1.05);
   const X = t => L + (t-t0)/(t1-t0)*(R-L);
   const Y = v => B - v/yMax*(B-T);
   const gl=[]; for(let i=0;i<=4;i++){const y=T+(B-T)*i/4, v=yMax*(4-i)/4;
-    gl.push(`<line x1="${L}" y1="${y}" x2="${R}" y2="${y}" stroke="var(--line)"/><text x="${L-8}" y="${y+3}" fill="var(--muted)" font-size="10" text-anchor="end">${v>=1000?(v/1000)+'k':v}</text>`);}
-  const dots = live.map(p=>{const c7=p.checks['7d'];
-    return `<circle class="dot" onclick="selectPost(${p.id})" cx="${X(new Date(p.date).getTime()).toFixed(1)}" cy="${Y(c7.views||0).toFixed(1)}" r="7" fill="${PCOLORS[p.pillar]||'var(--muted)'}" stroke="var(--card)" stroke-width="2"><title>${esc(p.title)} · ${p.date} · ${p.type||''} · ${fmtN(c7.views||0)} views · ${c7.outcome||''}</title></circle>`;}).join('');
+    gl.push(`<line x1="${L}" y1="${y}" x2="${R}" y2="${y}" stroke="var(--line)"/><text x="${L-8}" y="${y+3}" fill="var(--muted)" font-size="10" text-anchor="end">${fmtY(v)}</text>`);}
+  const dots = live.map(p=>{const c7=p.checks['7d']; const f=fpkOf(p);
+    return `<circle class="dot" onclick="selectPost(${p.id})" cx="${X(new Date(p.date).getTime()).toFixed(1)}" cy="${Y(val(p)).toFixed(1)}" r="7" fill="${PCOLORS[p.pillar]||'var(--muted)'}" stroke="var(--card)" stroke-width="2"><title>${esc(p.title)} · ${p.date} · ${p.type||''} · ${fmtN(c7.views||0)} views · ${f!=null?f.toFixed(2)+' follows/1K':'follows not logged'}</title></circle>`;}).join('');
   const pend = pending.map(p=>`<circle class="dot" onclick="selectPost(${p.id})" cx="${X(new Date(p.date).getTime()).toFixed(1)}" cy="${B}" r="6" fill="var(--paper)" stroke="var(--muted)" stroke-dasharray="2 2" stroke-width="1.5"><title>${esc(p.title)} · ${p.date} · awaiting 7d check</title></circle>`).join('');
-  const top2 = [...live].sort((a,b)=>(b.checks['7d'].views||0)-(a.checks['7d'].views||0)).slice(0,2);
-  const labels = top2.map(p=>{const x=X(new Date(p.date).getTime()), y=Y(p.checks['7d'].views||0);
+  const top2 = [...live].sort((a,b)=>val(b)-val(a)).slice(0,2);
+  const labels = top2.map(p=>{const x=X(new Date(p.date).getTime()), y=Y(val(p));
     const short = p.title.length>22 ? p.title.slice(0,22)+'…' : p.title;
     const anchor = x>R-220 ? 'end' : 'start'; const dx = anchor==='end' ? -12 : 12;
-    return `<text x="${(x+dx).toFixed(1)}" y="${(y-4).toFixed(1)}" fill="var(--ink2)" font-size="10.5">${anchor==='end'?`<tspan text-anchor="end">${esc(short)} · ${((p.checks['7d'].views||0)/1000).toFixed(1)}k</tspan>`:`${esc(short)} · ${((p.checks['7d'].views||0)/1000).toFixed(1)}k`}</text>`;}).join('');
+    const lv = FPK ? (fpkOf(p)||0).toFixed(2) : ((p.checks['7d'].views||0)/1000).toFixed(1)+'k';
+    return `<text x="${(x+dx).toFixed(1)}" y="${(y-4).toFixed(1)}" fill="var(--ink2)" font-size="10.5">${anchor==='end'?`<tspan text-anchor="end">${esc(short)} · ${lv}</tspan>`:`${esc(short)} · ${lv}`}</text>`;}).join('');
   const midT=(t0+t1)/2;
   const dt = t => new Date(t).toLocaleDateString('en-US',{month:'short',day:'numeric'});
   el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="7-day views per post over time, colored by pillar">
     <g font-family="'DM Mono',monospace">${gl.join('')}
-    <line x1="${L}" y1="${Y(bl).toFixed(1)}" x2="${R}" y2="${Y(bl).toFixed(1)}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 5"/>
-    <text x="${R}" y="${(Y(bl)-6).toFixed(1)}" fill="var(--accent)" font-size="10" text-anchor="end">baseline ${fmtN(bl)}</text>
+    ${FPK?'':`<line x1="${L}" y1="${Y(bl).toFixed(1)}" x2="${R}" y2="${Y(bl).toFixed(1)}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 5"/>
+    <text x="${R}" y="${(Y(bl)-6).toFixed(1)}" fill="var(--accent)" font-size="10" text-anchor="end">baseline ${fmtN(bl)}</text>`}
     ${dots}${pend}${labels}
     <g fill="var(--muted)" font-size="10">
       <text x="${L}" y="282" text-anchor="middle">${dt(t0)}</text>
@@ -3453,11 +3476,25 @@ function renderChart(ps, live, pending, bl){
     (pending.length?`<span><span class="pdot" style="background:var(--paper);border:1.5px dashed var(--muted)"></span>awaiting 7d check</span>`:'');
 }
 
+function TH(k,label,cls){ const on = (S.sortKey||'date')===k; const dir=(S.sortDir||'desc')==='asc'?'\u2191':'\u2193';
+  return `<th class="sortable ${cls||''} ${on?'active':''}" onclick="setSort('${k}')">${label}<span class="arrow">${on?dir:'\u21c5'}</span></th>`; }
 function renderLedger(ps, plats){
   const el = document.getElementById('ledger');
   if (!ps.length){ el.innerHTML = '<div class="empty-period">no posts in this period</div>'; return; }
   const platCol = plats.length>1 && S.plat==='all';
   const c = CLIENTS[S.activeClient];
+  const key = S.sortKey||'date', dir = (S.sortDir||'desc')==='asc'?1:-1;
+  const kv = p => { const c7=(p.checks&&p.checks['7d'])||{};
+    switch(key){
+      case 'views': return c7.views!=null?c7.views:-1;
+      case 'saveRate': return c7.saveRate!=null?c7.saveRate:-1;
+      case 'fpk': { const f=fpkOf(p); return f!=null?f:-1; }
+      case 'title': return (p.title||'').toLowerCase();
+      case 'type': return (p.type||'').toLowerCase();
+      default: return p.date;
+    }};
+  ps = [...ps].sort((a,b)=>{ const A=kv(a),B=kv(b); return A<B?-dir:A>B?dir:0; });
+  const fpkMax = Math.max(...ps.map(p=>fpkOf(p)||0), 0.0001);
   const rows = ps.map(p=>{
     const c7=p.checks['7d']||{};
     const d = p.date.slice(5).replace('-','·');
@@ -3470,15 +3507,17 @@ function renderLedger(ps, plats){
     const act = c7.nextAction==='Repeat' ? '<span class="action repeat">Repeat ↻</span>'
       : c7.nextAction==='Drop' ? '<span class="action drop">Drop ✕</span>'
       : c7.nextAction ? '<span class="action">'+esc(c7.nextAction)+'</span>' : '<span class="action">—</span>';
+    const f = fpkOf(p);
     return `<tr class="rowlink" onclick="selectPost(${p.id})"><td>${d}</td>${platCol?`<td class="plat-mini">${p.platform.toUpperCase()}</td>`:''}
       <td class="title">${esc(p.title)}</td><td>${pillar}</td><td>${p.type||'—'}</td>
       <td class="num">${c7.views!=null?fmtN(c7.views):'—'}</td>
+      <td class="num"><span class="fchip" style="background:${fpkColor(f,fpkMax)}" title="${f!=null?(c7.follows||0)+' new followers from '+fmtN(c7.views||0)+' views':'not logged'}"></span>${f!=null?f.toFixed(2):'—'}</td>
       <td class="num">${c7.saveRate!=null?c7.saveRate+'%':'—'}</td>
       <td class="num">${ret}</td><td>${out}</td><td>${act}</td></tr>`;
   }).join('');
   el.innerHTML = `<table>
-    <thead><tr><th>Date</th>${platCol?'<th>Plat</th>':''}<th>Post</th><th>Pillar</th><th>Type</th>
-    <th class="num">7d views</th><th class="num">Save rate</th><th class="num">Retention</th><th>Outcome</th><th>Action</th></tr></thead>
+    <thead><tr>${TH('date','Date')}${platCol?'<th>Plat</th>':''}${TH('title','Post')}<th>Pillar</th>${TH('type','Type')}
+    ${TH('views','7d views','num')}${TH('fpk','Follows /1K','num')}${TH('saveRate','Save rate','num')}<th class="num">Retention</th><th>Outcome</th><th>Action</th></tr></thead>
     <tbody>${rows}</tbody></table>`;
 }
 
