@@ -292,7 +292,7 @@ const ACCESS_KEYS = {
 // names, per-platform baselines, and pillar maps. Edit the json, not this.
 const CLIENTS = {
   CEA: { name:'CEA', baselines:{ ig:1559, tt:264 }, pillars:{ P1:'Tips/Demystify', P2:'Proof', P3:'Authority', P4:'AI' } },
-  BTC: { name:'Brooklyn Teacup', baselines:{ ig:5163, fb:4329 }, pillars:{ P1:'↔ Process', P2:'🍽️ Use', P3:'🛟 Preservation', P4:'🧠 Education' } }
+  BTC: { name:'Brooklyn Teacup', baselines:{ ig:5163, fb:3336 }, pillars:{ P1:'↔ Process', P2:'🍽️ Use', P3:'🛟 Preservation', P4:'🧠 Education' } }
 };
 
 // ══════════════════════════════════════════════════════
@@ -413,10 +413,23 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-07-27',
     checks: {
-
+      '7d': {
+        views: 11667,
+        uniqueViewers: 6377,
+        nonFollowerPct: 0.9,
+        revisitRatio: 1.83,
+        saves: 19,
+        saveRate: 0.2,
+        shares: 8,
+        shareRate: 0.1,
+        comments: 11,
+        follows: 0,
+        outcome: 'Winner',
+        nextAction: 'Iterate'
+      }
     },
     dueChecks: {
-      '7d': '2026-08-03'
+      '30d': '2026-08-26'
     },
     pillar: 'P4'
   },
@@ -428,10 +441,23 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-07-27',
     checks: {
-
+      '7d': {
+        views: 585,
+        uniqueViewers: 1799,
+        nonFollowerPct: 12.0,
+        revisitRatio: 0.33,
+        saves: 0,
+        saveRate: 0.0,
+        shares: 1,
+        shareRate: 0.2,
+        comments: 0,
+        follows: 0,
+        outcome: 'Underperformed',
+        nextAction: 'Iterate'
+      }
     },
     dueChecks: {
-      '7d': '2026-08-03'
+      '30d': '2026-08-26'
     },
     pillar: 'P4'
   },
@@ -1187,12 +1213,20 @@ const POSTS = [
         shareRate: 0.3,
         comments: 4,
         follows: 0,
-        outcome: 'Learning',
+        outcome: 'Winner',
         nextAction: 'Iterate'
+      },
+      '30d': {
+        views: 6711,
+        longTailViews: 411,
+        longTailPct: 6.1,
+        saves: 16,
+        shares: 18,
+        follows: 0
       }
     },
     dueChecks: {
-      '30d': '2026-08-01'
+
     },
     pillar: 'P4',
     link: 'https://www.instagram.com/p/DaTw75ij0Hu/?igsh=YzU0NzlxMzFtODN3',
@@ -1219,10 +1253,18 @@ const POSTS = [
         follows: 0,
         outcome: 'Learning',
         nextAction: 'Iterate'
+      },
+      '30d': {
+        views: 2502,
+        longTailViews: 102,
+        longTailPct: 4.1,
+        saves: 1,
+        shares: 3,
+        follows: 0
       }
     },
     dueChecks: {
-      '30d': '2026-08-01'
+
     },
     pillar: 'P4',
     link: 'https://www.instagram.com/p/DaTw75ij0Hu/?igsh=YzU0NzlxMzFtODN3',
