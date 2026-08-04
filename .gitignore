@@ -1,0 +1,6 @@
+
+# Internal review copy must never enter this repo — it is PUBLIC.
+reviews/*-internal.md
+reviews/internal.js
+__pycache__/
+.claude/
