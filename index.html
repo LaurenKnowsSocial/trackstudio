@@ -353,7 +353,7 @@ const REVIEWS = [
 // names, per-platform baselines, and pillar maps. Edit the json, not this.
 const CLIENTS = {
   CEA: { name:'CEA', baselines:{ ig:1256, tt:264 }, pillars:{ P1:'Tips/Demystify', P2:'Proof', P3:'Authority', P4:'AI' } },
-  BTC: { name:'Brooklyn Teacup', baselines:{ ig:5163, fb:3336 }, pillars:{ P1:'↔ Process', P2:'🍽️ Use', P3:'🛟 Preservation', P4:'🧠 Education' } }
+  BTC: { name:'Brooklyn Teacup', baselines:{ ig:5119, fb:2310 }, pillars:{ P1:'↔ Process', P2:'🍽️ Use', P3:'🛟 Preservation', P4:'🧠 Education' } }
 };
 
 // ══════════════════════════════════════════════════════
@@ -459,10 +459,25 @@ const POSTS = [
     type: 'Carousel',
     date: '2026-08-01',
     checks: {
-
+      '7d': {
+        views: 8539,
+        uniqueViewers: 4443,
+        nonFollowerPct: 3.1,
+        revisitRatio: 1.92,
+        saves: 21,
+        saveRate: 0.3,
+        shares: 10,
+        shareRate: 0.1,
+        comments: 10,
+        follows: 0,
+        profileVisits: 22,
+        linkTaps: 1,
+        outcome: 'Winner',
+        nextAction: 'Repeat'
+      }
     },
     dueChecks: {
-      '7d': '2026-08-08'
+      '30d': '2026-08-31'
     },
     pillar: 'P4'
   },
@@ -534,10 +549,26 @@ const POSTS = [
     type: 'Video',
     date: '2026-07-29',
     checks: {
-
+      '7d': {
+        views: 5945,
+        uniqueViewers: 4885,
+        nonFollowerPct: 73.9,
+        watchTimeSec: 11,
+        watchTimePct: 35.5,
+        saves: 6,
+        saveRate: 0.1,
+        shares: 6,
+        shareRate: 0.1,
+        comments: 3,
+        follows: 7,
+        profileVisits: 26,
+        linkTaps: 1,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
+      }
     },
     dueChecks: {
-      '7d': '2026-08-05'
+      '30d': '2026-08-28'
     },
     pillar: 'P1'
   },
@@ -549,10 +580,25 @@ const POSTS = [
     type: 'Video',
     date: '2026-07-29',
     checks: {
-
+      '7d': {
+        views: 1808,
+        uniqueViewers: 1518,
+        nonFollowerPct: 0.0,
+        watchTimeSec: 13,
+        watchTimePct: 50.0,
+        saves: 4,
+        saveRate: 0.2,
+        shares: 0,
+        shareRate: 0.0,
+        comments: 0,
+        follows: 3,
+        linkTaps: 0,
+        outcome: 'Learning',
+        nextAction: 'Iterate'
+      }
     },
     dueChecks: {
-      '7d': '2026-08-05'
+      '30d': '2026-08-28'
     },
     pillar: 'P1'
   },
@@ -604,8 +650,10 @@ const POSTS = [
         shareRate: 0.1,
         comments: 11,
         follows: 0,
+        profileVisits: 28,
+        linkTaps: 8,
         outcome: 'Winner',
-        nextAction: 'Iterate'
+        nextAction: 'Repeat'
       }
     },
     dueChecks: {
@@ -661,6 +709,8 @@ const POSTS = [
         shareRate: 0.1,
         comments: 1,
         follows: 0,
+        profileVisits: 20,
+        linkTaps: 12,
         outcome: 'Learning',
         nextAction: 'Iterate'
       }
@@ -749,6 +799,8 @@ const POSTS = [
         shareRate: 0.1,
         comments: 4,
         follows: 4,
+        profileVisits: 33,
+        linkTaps: 7,
         outcome: 'Learning',
         nextAction: 'Iterate'
       }
@@ -1255,10 +1307,18 @@ const POSTS = [
         follows: 0,
         outcome: 'Winner',
         nextAction: 'Iterate'
+      },
+      '30d': {
+        views: 8879,
+        longTailViews: 643,
+        longTailPct: 7.2,
+        saves: 3,
+        shares: 3,
+        follows: 0
       }
     },
     dueChecks: {
-      '30d': '2026-08-08'
+
     },
     pillar: 'P2',
     link: 'https://www.instagram.com/p/Dal9fVNje4R/?igsh=MTdndG9xeGg3bGtwMQ==',
@@ -1286,10 +1346,18 @@ const POSTS = [
         linkTaps: 9,
         outcome: 'Learning',
         nextAction: 'Iterate'
+      },
+      '30d': {
+        views: 2366,
+        longTailViews: 145,
+        longTailPct: 6.1,
+        saves: 4,
+        shares: 2,
+        follows: 0
       }
     },
     dueChecks: {
-      '30d': '2026-08-08'
+
     },
     pillar: 'P2',
     hookInsight: 'wtf is...'
@@ -1685,7 +1753,7 @@ const POSTS = [
         shareRate: 0.1,
         comments: 12,
         follows: 0,
-        outcome: 'Underperformed',
+        outcome: 'Learning',
         nextAction: 'Iterate'
       },
       '30d': {
@@ -2386,8 +2454,8 @@ const POSTS = [
         shareRate: 1.5,
         comments: 4,
         follows: 1,
-        outcome: 'Learning',
-        nextAction: 'Iterate'
+        outcome: 'Winner',
+        nextAction: 'Repeat'
       },
       '30d': {
         views: 1930,
@@ -2710,7 +2778,7 @@ const POSTS = [
         shareRate: 0.8,
         comments: 0,
         follows: 0,
-        outcome: 'Learning',
+        outcome: 'Winner',
         nextAction: 'Iterate'
       },
       '30d': {
@@ -3038,8 +3106,8 @@ const POSTS = [
         shareRate: 0.5,
         comments: 0,
         follows: 1,
-        outcome: 'Learning',
-        nextAction: 'Iterate'
+        outcome: 'Winner',
+        nextAction: 'Repeat'
       },
       '30d': {
         views: 1724,
@@ -3330,7 +3398,7 @@ const POSTS = [
         shareRate: 0.8,
         comments: 0,
         follows: 0,
-        outcome: 'Learning',
+        outcome: 'Winner',
         nextAction: 'Iterate'
       },
       '30d': {
