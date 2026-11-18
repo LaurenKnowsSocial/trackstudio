@@ -40,8 +40,6 @@ PLATFORM_KEY      = {"ig": "instagram", "tt": "tiktok", "fb": "facebook"}
 TABS = [
     ("CEA Instagram", "CEA", "ig", "v2"),
     ("CEA TikTok",    "CEA", "tt", "v2"),
-    ("BTC Instagram", "BTC", "ig", "v2"),
-    ("BTC Facebook",  "BTC", "fb", "v2"),
 ]
 
 # v3.2 layout (lean, 30 cols A-AD) — row-4 headers. 2026-07-13: Format and
